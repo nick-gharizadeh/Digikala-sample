@@ -1,6 +1,6 @@
 package com.example.digikalasample.di
 
-import com.example.digikalasample.data.DigiKalaApiService
+import com.example.digikalasample.network.DigiKalaApiService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
