@@ -5,8 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import com.example.digikalasample.databinding.FragmentMainBinding
+import com.example.digikalasample.ui.adapter.CategoryAdapter
 import com.example.digikalasample.ui.adapter.ProductAdapter
 import com.example.digikalasample.viewmodel.ProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -14,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainFragment : Fragment() {
     lateinit var binding: FragmentMainBinding
-    val viewModel: ProductViewModel by viewModels()
+    val productViewModel: ProductViewModel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -33,22 +34,27 @@ class MainFragment : Fragment() {
         val adapterPopular = ProductAdapter()
         val adapterRating = ProductAdapter()
         val adapterNewest = ProductAdapter()
+        val adapterCategories = CategoryAdapter()
         binding.mostViewRecyclerView.adapter = adapterPopular
         binding.newestRecyclerView.adapter = adapterNewest
         binding.bestSellRecyclerView.adapter = adapterRating
-        viewModel.popularProductList.observe(viewLifecycleOwner) {
+        binding.categoryRecyclerView.adapter = adapterCategories
+        productViewModel.popularProductList.observe(viewLifecycleOwner) {
             if (it != null)
                 adapterPopular.submitList(it)
         }
 
-        viewModel.newestProductList.observe(viewLifecycleOwner) {
+        productViewModel.newestProductList.observe(viewLifecycleOwner) {
             if (it != null)
                 adapterNewest.submitList(it)
         }
-        viewModel.ratingProductList.observe(viewLifecycleOwner) {
+        productViewModel.ratingProductList.observe(viewLifecycleOwner) {
             if (it != null)
                 adapterRating.submitList(it)
         }
-
+        productViewModel.categoriesList.observe(viewLifecycleOwner) {
+            if (it != null)
+                adapterCategories.submitList(it)
+        }
     }
 }
