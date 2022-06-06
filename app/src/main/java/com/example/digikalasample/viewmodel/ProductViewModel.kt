@@ -13,15 +13,19 @@ import javax.inject.Inject
 class ProductViewModel @Inject constructor(val productRepository: ProductsRepository) :
     ViewModel() {
     val popularProductList = MutableLiveData<List<Product?>>()
+    val ratingProductList = MutableLiveData<List<Product?>>()
+    val newestProductList = MutableLiveData<List<Product?>>()
 
     init {
-        getProducts("popularity")
+        getProducts("popularity", popularProductList)
+        getProducts("rating", ratingProductList)
+        getProducts("date", newestProductList)
     }
 
-    fun getProducts(orderBy: String) {
+    fun getProducts(orderBy: String, relatedLiveData: MutableLiveData<List<Product?>>) {
         viewModelScope.launch {
             val list = productRepository.getProducts(orderBy = orderBy)
-            popularProductList.value = list
+            relatedLiveData.value = list
         }
     }
 }
