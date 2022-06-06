@@ -1,5 +1,6 @@
 package com.example.digikalasample.ui.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.example.digikalasample.R
 import com.example.digikalasample.data.model.Product
@@ -52,12 +52,11 @@ class ProductAdapter :
         return ViewHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val product = getItem(position)
         holder.bind(product)
         holder.textViewTitle.text = product.name
-        holder.textViewPrice.text = product.price
+        holder.textViewPrice.text =   product.price + " تومان"
     }
-
-
 }
