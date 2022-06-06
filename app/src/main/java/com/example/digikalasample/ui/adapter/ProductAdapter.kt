@@ -1,4 +1,4 @@
-package com.example.digikalasample.adapter
+package com.example.digikalasample.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
