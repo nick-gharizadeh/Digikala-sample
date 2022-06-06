@@ -1,5 +1,6 @@
 package com.example.digikalasample.network
 
+import com.example.digikalasample.data.model.Category
 import com.example.digikalasample.data.model.Product
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -15,11 +16,15 @@ interface DigiKalaApiService {
     @GET("products$WOOCOMMERCE_REST_AUTHENTICATION_KEY")
     suspend fun getProduct(
         @Query("per_page")
-        perPage:Int = 10,
+        perPage: Int = 10,
         @Query("page")
-        numberOfPage:Int = 1,
+        numberOfPage: Int = 1,
         @Query("orderby")
-        orderBy:String
+        orderBy: String
     ): List<Product>
+
+    @GET("products/categories${WOOCOMMERCE_REST_AUTHENTICATION_KEY}&per_page=30")
+    suspend fun getCategories(
+    ): List<Category>
 
 }
