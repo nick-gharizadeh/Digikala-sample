@@ -21,4 +21,5 @@
     <color name="digikala_dark_white">#eeeeee</color>
     <color name="digikala_white">#fafafa</color>
     <color name="digikala_raw_white">#ffffff</color>
+    <color name="nothing">#00FFFFFF</color>
 </resources>
