@@ -8,13 +8,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.digikalasample.R
 import com.example.digikalasample.data.model.Category
-import com.example.digikalasample.data.model.Product
 import com.example.digikalasample.databinding.CategoryItemBinding
 
 typealias ClickHandlerCategory = (Category) -> Unit
 
 class CategoryAdapter(private var clickHandler: ClickHandlerCategory) :
-    ListAdapter<Category, CategoryAdapter.ItemHolder>(MovieDiffCallback) {
+    ListAdapter<Category, CategoryAdapter.ItemHolder>(CategoryDiffCallback) {
     class ItemHolder(val binding: CategoryItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
     }
@@ -40,7 +39,7 @@ class CategoryAdapter(private var clickHandler: ClickHandlerCategory) :
 }
 
 
-object MovieDiffCallback : DiffUtil.ItemCallback<Category>() {
+object CategoryDiffCallback : DiffUtil.ItemCallback<Category>() {
 
     override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean {
         return oldItem == newItem

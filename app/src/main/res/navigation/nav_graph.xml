@@ -25,5 +25,9 @@
         android:id="@+id/productsWithCategoryFragment"
         android:name="com.example.digikalasample.ui.ProductsWithCategoryFragment"
         android:label="fragment_products_with_category"
-        tools:layout="@layout/fragment_products_with_category" />
+        tools:layout="@layout/fragment_products_with_category" >
+        <action
+            android:id="@+id/action_productsWithCategoryFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
 </navigation>

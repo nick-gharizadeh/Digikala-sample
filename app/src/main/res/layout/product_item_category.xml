@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <data>
+        <variable
+            name="product"
+            type="com.example.digikalasample.data.model.Product" />
+    </data>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/item_layout_product_category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="center"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/product_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:gravity="right"
+                    android:text="@{product.name}"
+                    android:textColor="@android:color/black"
+                    android:textSize="13dp" />
+
+
+                <View
+
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:background="?android:attr/listDivider" />
+
+                <TextView
+                    android:id="@+id/regular_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="left"
+                    android:text="@{product.price+`تومان`}"
+                    android:textColor="@color/digikala_green"
+                    android:textSize="12dp" />
+
+
+            </LinearLayout>
+
+
+            <ImageView
+                android:id="@+id/product_image_category"
+                android:layout_width="300dp"
+                android:layout_height="150dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="0.5"
+                android:scaleType="fitCenter"
+                android:src="@drawable/place_holder" />
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

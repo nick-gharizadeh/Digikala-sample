@@ -17,9 +17,9 @@ import com.example.digikalasample.data.model.Product
 
 typealias ClickHandler = (Product)-> Unit
 class ProductAdapter(private var clickHandler: ClickHandler) :
-    ListAdapter<Product, ProductAdapter.ViewHolder>(CityDiffCallback) {
+    ListAdapter<Product, ProductAdapter.ViewHolder>(ProductDiffCallback) {
 
-    object CityDiffCallback : DiffUtil.ItemCallback<Product>() {
+    object ProductDiffCallback : DiffUtil.ItemCallback<Product>() {
 
         override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {
             return oldItem == newItem
