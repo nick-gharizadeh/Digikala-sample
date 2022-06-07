@@ -35,7 +35,7 @@ class ProductsWithCategoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val adapter = ProductAdapter { }
-        val numberOfColumns = 2
+        val numberOfColumns = 3
         binding.recyclerviewProductGrid.layoutManager = GridLayoutManager(
             context,
             numberOfColumns

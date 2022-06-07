@@ -40,7 +40,7 @@ class ProductAdapter(private var clickHandler: ClickHandler) :
                 Glide.with(itemView)
                     .load(product.images[0].src)
                     .transform(CenterCrop())
-//                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                    .centerCrop()
                     .placeholder(R.drawable.place_holder)
                     .into(imageViewCover)
             }
@@ -50,7 +50,7 @@ class ProductAdapter(private var clickHandler: ClickHandler) :
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.product_item, viewGroup, false)
+            .inflate(R.layout.product_item_main, viewGroup, false)
         return ViewHolder(view)
     }
 
