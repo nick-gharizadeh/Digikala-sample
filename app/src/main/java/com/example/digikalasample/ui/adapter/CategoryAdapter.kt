@@ -8,10 +8,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.digikalasample.R
 import com.example.digikalasample.data.model.Category
+import com.example.digikalasample.data.model.Product
 import com.example.digikalasample.databinding.CategoryItemBinding
 
+typealias ClickHandlerCategory = (Category) -> Unit
 
-class CategoryAdapter() :
+class CategoryAdapter(private var clickHandler: ClickHandlerCategory) :
     ListAdapter<Category, CategoryAdapter.ItemHolder>(MovieDiffCallback) {
     class ItemHolder(val binding: CategoryItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -19,10 +21,10 @@ class CategoryAdapter() :
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
-        val binding:CategoryItemBinding = DataBindingUtil.inflate(
+        val binding: CategoryItemBinding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
             R.layout.category_item,
-            parent,false
+            parent, false
         )
         return ItemHolder(binding)
 
@@ -31,8 +33,9 @@ class CategoryAdapter() :
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         val category = getItem(position)
         holder.binding.category = category
-
-
+        holder.binding.itemCategoryTitle.setOnClickListener {
+            clickHandler.invoke(category)
+        }
     }
 }
 
