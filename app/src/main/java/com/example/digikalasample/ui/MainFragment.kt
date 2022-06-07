@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import com.example.digikalasample.R
+import com.example.digikalasample.data.model.Product
 import com.example.digikalasample.databinding.FragmentMainBinding
 import com.example.digikalasample.ui.adapter.CategoryAdapter
 import com.example.digikalasample.ui.adapter.ProductAdapter
@@ -31,30 +34,37 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapterPopular = ProductAdapter()
-        val adapterRating = ProductAdapter()
-        val adapterNewest = ProductAdapter()
+        val adapterPopular = ProductAdapter {
+            goToDetailFragment(it)
+        }
+//        val adapterRating = ProductAdapter()
+//        val adapterNewest = ProductAdapter()
         val adapterCategories = CategoryAdapter()
         binding.mostViewRecyclerView.adapter = adapterPopular
-        binding.newestRecyclerView.adapter = adapterNewest
-        binding.bestSellRecyclerView.adapter = adapterRating
+//        binding.newestRecyclerView.adapter = adapterNewest
+//        binding.bestSellRecyclerView.adapter = adapterRating
         binding.categoryRecyclerView.adapter = adapterCategories
         productViewModel.popularProductList.observe(viewLifecycleOwner) {
             if (it != null)
                 adapterPopular.submitList(it)
         }
 
-        productViewModel.newestProductList.observe(viewLifecycleOwner) {
-            if (it != null)
-                adapterNewest.submitList(it)
-        }
-        productViewModel.ratingProductList.observe(viewLifecycleOwner) {
-            if (it != null)
-                adapterRating.submitList(it)
-        }
+//        productViewModel.newestProductList.observe(viewLifecycleOwner) {
+//            if (it != null)
+//                adapterNewest.submitList(it)
+//        }
+//        productViewModel.ratingProductList.observe(viewLifecycleOwner) {
+//            if (it != null)
+//                adapterRating.submitList(it)
+//        }
         productViewModel.categoriesList.observe(viewLifecycleOwner) {
             if (it != null)
                 adapterCategories.submitList(it)
         }
+    }
+
+    fun goToDetailFragment(product:Product) {
+        productViewModel.product = product
+        findNavController().navigate(R.id.action_mainFragment_to_productDetailFragment)
     }
 }

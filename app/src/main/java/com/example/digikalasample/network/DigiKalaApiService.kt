@@ -3,6 +3,7 @@ package com.example.digikalasample.network
 import com.example.digikalasample.data.model.Category
 import com.example.digikalasample.data.model.Product
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 
@@ -26,5 +27,10 @@ interface DigiKalaApiService {
     @GET("products/categories${WOOCOMMERCE_REST_AUTHENTICATION_KEY}&per_page=30")
     suspend fun getCategories(
     ): List<Category>
+
+    @GET("products/{id}$WOOCOMMERCE_REST_AUTHENTICATION_KEY")
+    suspend fun getProductById(
+        @Path("id") id:String
+    ): Product
 
 }

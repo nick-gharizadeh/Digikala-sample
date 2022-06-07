@@ -16,4 +16,9 @@ class ProductsRepository @Inject constructor(
     return productRemoteDataSource.getCategories()
     }
 
+    suspend fun getProductById(id: String): Product
+    {
+        return productRemoteDataSource.getProductById(id)
+    }
+
 }

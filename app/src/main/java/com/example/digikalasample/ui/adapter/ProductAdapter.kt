@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -14,8 +15,8 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.example.digikalasample.R
 import com.example.digikalasample.data.model.Product
 
-
-class ProductAdapter :
+typealias ClickHandler = (Product)-> Unit
+class ProductAdapter(private var clickHandler: ClickHandler) :
     ListAdapter<Product, ProductAdapter.ViewHolder>(CityDiffCallback) {
 
     object CityDiffCallback : DiffUtil.ItemCallback<Product>() {
@@ -33,6 +34,7 @@ class ProductAdapter :
         val textViewTitle: TextView = view.findViewById(R.id.product_title)
         val textViewPrice: TextView = view.findViewById(R.id.product_price)
         val imageViewCover: ImageView = itemView.findViewById(R.id.product_cover)
+        val layout: LinearLayout = itemView.findViewById(R.id.product_item_layout)
         fun bind(product: Product) {
             if (product.images.isNotEmpty()) {
                 Glide.with(itemView)
@@ -55,6 +57,9 @@ class ProductAdapter :
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val product = getItem(position)
+        holder.layout.setOnClickListener {
+            clickHandler.invoke(getItem(position))
+        }
         holder.bind(product)
         holder.textViewTitle.text = product.name
         holder.textViewPrice.text =   product.price + " تومان"
