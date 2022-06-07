@@ -12,7 +12,7 @@ class ProductsRepository @Inject constructor(
         return productRemoteDataSource.getProducts(orderBy = orderBy)
     }
 
-    suspend fun getProductsByCategory(category: String): List<Product> {
+    suspend fun getProductsByCategory(category: Int): List<Product> {
         return productRemoteDataSource.getProductsByCategory(category = category)
     }
 

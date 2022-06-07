@@ -74,7 +74,7 @@ class MainFragment : Fragment() {
     }
 
     fun goToProductsWithCategoryFragment(category: Category) {
-        productViewModel.getProductsByCategory(category.name)
+        productViewModel.getProductsByCategory(category.id)
         findNavController().navigate(R.id.action_mainFragment_to_productsWithCategoryFragment)
     }
 }

@@ -34,7 +34,7 @@ class ProductViewModel @Inject constructor(val productRepository: ProductsReposi
         }
     }
 
-    fun getProductsByCategory(category: String) {
+    fun getProductsByCategory(category: Int) {
         viewModelScope.launch {
             val list = productRepository.getProductsByCategory(category = category)
             productByCategoriesList.value = list
