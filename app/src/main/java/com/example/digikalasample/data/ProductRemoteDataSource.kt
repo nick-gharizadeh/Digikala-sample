@@ -12,6 +12,11 @@ class ProductRemoteDataSource @Inject constructor(val productApiService: DigiKal
         return productApiService.getProduct(orderBy = orderBy)
     }
 
+    suspend fun getProductsByCategory(category: String): List<Product> {
+        return productApiService.getProduct(category = category)
+    }
+
+
     suspend fun getCategories(): List<Category> {
         return productApiService.getCategories()
     }

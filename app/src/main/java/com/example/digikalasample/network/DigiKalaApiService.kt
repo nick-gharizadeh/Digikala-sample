@@ -24,6 +24,16 @@ interface DigiKalaApiService {
         orderBy: String
     ): List<Product>
 
+    @GET("products$WOOCOMMERCE_REST_AUTHENTICATION_KEY")
+    suspend fun getProduct(
+        @Query("category")
+        category: String,
+        @Query("per_page")
+        perPage: Int = 10,
+        @Query("page")
+        numberOfPage: Int = 1,
+    ): List<Product>
+
     @GET("products/categories${WOOCOMMERCE_REST_AUTHENTICATION_KEY}&per_page=30")
     suspend fun getCategories(
     ): List<Category>
@@ -32,5 +42,7 @@ interface DigiKalaApiService {
     suspend fun getProductById(
         @Path("id") id:String
     ): Product
+
+
 
 }

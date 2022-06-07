@@ -13,11 +13,12 @@ import javax.inject.Inject
 @HiltViewModel
 class ProductViewModel @Inject constructor(val productRepository: ProductsRepository) :
     ViewModel() {
-    var product :Product? = null
+    var product: Product? = null
     val popularProductList = MutableLiveData<List<Product?>>()
     val ratingProductList = MutableLiveData<List<Product?>>()
     val newestProductList = MutableLiveData<List<Product?>>()
     val categoriesList = MutableLiveData<List<Category?>>()
+    val productByCategoriesList = MutableLiveData<List<Product?>>()
 
     init {
         getAllCategories()
@@ -33,6 +34,13 @@ class ProductViewModel @Inject constructor(val productRepository: ProductsReposi
         }
     }
 
+    fun getProductsByCategory(category: String) {
+        viewModelScope.launch {
+            val list = productRepository.getProductsByCategory(category = category)
+            productByCategoriesList.value = list
+        }
+    }
+
     fun getAllCategories() {
         viewModelScope.launch {
             val list = productRepository.getCategories()
@@ -40,9 +48,9 @@ class ProductViewModel @Inject constructor(val productRepository: ProductsReposi
         }
     }
 
-    fun getProductById(id: String)
-    { viewModelScope.launch {
-         product=productRepository.getProductById(id)
+    fun getProductById(id: String) {
+        viewModelScope.launch {
+            product = productRepository.getProductById(id)
         }
     }
 
