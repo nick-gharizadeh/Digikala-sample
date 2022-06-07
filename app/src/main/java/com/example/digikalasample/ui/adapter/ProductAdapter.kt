@@ -40,7 +40,6 @@ class ProductAdapter(private var clickHandler: ClickHandler) :
                 Glide.with(itemView)
                     .load(product.images[0].src)
                     .transform(CenterCrop())
-                    .centerCrop()
                     .placeholder(R.drawable.place_holder)
                     .into(imageViewCover)
             }
