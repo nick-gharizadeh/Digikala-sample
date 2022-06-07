@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.digikalasample.R
+import com.example.digikalasample.data.model.Category
 import com.example.digikalasample.data.model.Product
 import com.example.digikalasample.databinding.FragmentMainBinding
 import com.example.digikalasample.ui.adapter.CategoryAdapter
@@ -37,34 +38,43 @@ class MainFragment : Fragment() {
         val adapterPopular = ProductAdapter {
             goToDetailFragment(it)
         }
-//        val adapterRating = ProductAdapter()
-//        val adapterNewest = ProductAdapter()
-        val adapterCategories = CategoryAdapter()
+        val adapterRating = ProductAdapter {
+            goToDetailFragment(it)
+        }
+        val adapterNewest = ProductAdapter {
+            goToDetailFragment(it)
+        }
+        val adapterCategories = CategoryAdapter { goToProductsWithCategoryFragment(it) }
         binding.mostViewRecyclerView.adapter = adapterPopular
-//        binding.newestRecyclerView.adapter = adapterNewest
-//        binding.bestSellRecyclerView.adapter = adapterRating
+        binding.newestRecyclerView.adapter = adapterNewest
+        binding.bestSellRecyclerView.adapter = adapterRating
         binding.categoryRecyclerView.adapter = adapterCategories
         productViewModel.popularProductList.observe(viewLifecycleOwner) {
             if (it != null)
                 adapterPopular.submitList(it)
         }
 
-//        productViewModel.newestProductList.observe(viewLifecycleOwner) {
-//            if (it != null)
-//                adapterNewest.submitList(it)
-//        }
-//        productViewModel.ratingProductList.observe(viewLifecycleOwner) {
-//            if (it != null)
-//                adapterRating.submitList(it)
-//        }
+        productViewModel.newestProductList.observe(viewLifecycleOwner) {
+            if (it != null)
+                adapterNewest.submitList(it)
+        }
+        productViewModel.ratingProductList.observe(viewLifecycleOwner) {
+            if (it != null)
+                adapterRating.submitList(it)
+        }
         productViewModel.categoriesList.observe(viewLifecycleOwner) {
             if (it != null)
                 adapterCategories.submitList(it)
         }
     }
 
-    fun goToDetailFragment(product:Product) {
+    fun goToDetailFragment(product: Product) {
         productViewModel.product = product
         findNavController().navigate(R.id.action_mainFragment_to_productDetailFragment)
+    }
+
+    fun goToProductsWithCategoryFragment(category: Category) {
+        productViewModel.getProductsByCategory(category.name)
+        findNavController().navigate(R.id.action_mainFragment_to_productsWithCategoryFragment)
     }
 }

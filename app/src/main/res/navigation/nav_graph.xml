@@ -13,9 +13,17 @@
         <action
             android:id="@+id/action_mainFragment_to_productDetailFragment"
             app:destination="@id/productDetailFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_productsWithCategoryFragment"
+            app:destination="@id/productsWithCategoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/productDetailFragment"
         android:name="com.example.digikalasample.ui.ProductDetailFragment"
         android:label="ProductDetailFragment" />
+    <fragment
+        android:id="@+id/productsWithCategoryFragment"
+        android:name="com.example.digikalasample.ui.ProductsWithCategoryFragment"
+        android:label="fragment_products_with_category"
+        tools:layout="@layout/fragment_products_with_category" />
 </navigation>
