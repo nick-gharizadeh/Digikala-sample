@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         binding.imageView.alpha=0f
         binding.imageView.animate().setDuration(2000).alpha(1f).withEndAction{
             binding.imageView.visibility= View.GONE
+            binding.animationView.visibility= View.GONE
             supportActionBar?.show()
             binding.constraint.setBackgroundColor(Color.TRANSPARENT)
             binding.fragmentContainerView.visibility= View.VISIBLE
