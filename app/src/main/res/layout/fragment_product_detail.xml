@@ -86,7 +86,7 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/product_detail_fragment__product_name"
+                    android:id="@+id/product_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
@@ -173,7 +173,7 @@
                     android:orientation="horizontal">
 
                     <Spinner
-                        android:id="@+id/product_detail_fragment__color_spinner"
+                        android:id="@+id/product_color_spinner"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginRight="20dp"
@@ -202,7 +202,7 @@
                     android:orientation="horizontal">
 
                     <Spinner
-                        android:id="@+id/product_detail_fragment__size_spinner"
+                        android:id="@+id/product_size_spinner"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="20dp" />
@@ -229,7 +229,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/product_detail_activity__product_name8"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|right"
@@ -261,7 +260,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/product_detail_activity__product_name5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|right"
@@ -272,7 +270,6 @@
                         android:textSize="10dp" />
 
                     <TextView
-                        android:id="@+id/product_detail_activity__product_name7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|right"
@@ -297,7 +294,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/product_detail_activity__product_name4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|right"
@@ -310,7 +306,6 @@
                 </LinearLayout>
 
                 <View
-                    android:id="@+id/navigation_layout__devider02"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="4dp"
@@ -325,7 +320,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/product_detail_fragment__product_sale_price"
+                        android:id="@+id/product_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="4dp"
@@ -359,7 +354,7 @@
 
 
                 <TextView
-                    android:id="@+id/product_detail_fragment__product_long_description"
+                    android:id="@+id/product_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="2dp"
@@ -377,14 +372,13 @@
                     android:textSize="10dp" />
 
                 <View
-                    android:id="@+id/navigation_layout__devider03"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="4dp"
                     android:background="?android:attr/listDivider" />
 
                 <TextView
-                    android:id="@+id/product_detail_activity__product_name6"
+                    android:id="@+id/product_detail_nextDesc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"

@@ -20,7 +20,7 @@ data class Product(
     val date_on_sale_to: Any?,
     val date_on_sale_to_gmt: Any?,
     val default_attributes: List<Any>,
-    val description: String,
+    var description: String,
     val dimensions: Dimensions,
     val download_expiry: Int,
     val download_limit: Int,

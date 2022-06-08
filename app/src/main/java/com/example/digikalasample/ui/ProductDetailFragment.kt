@@ -39,7 +39,7 @@ class ProductDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var images = productViewModel.product?.images
+        val images = productViewModel.product?.images
         var mViewPagerAdapter: DetailViewPagerAdapter? = null
 
         mViewPagerAdapter = images?.let { DetailViewPagerAdapter(requireContext(), it) }

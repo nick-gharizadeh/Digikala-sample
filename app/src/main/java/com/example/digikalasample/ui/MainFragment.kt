@@ -1,10 +1,10 @@
 package com.example.digikalasample.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.digikalasample.R
@@ -69,6 +69,7 @@ class MainFragment : Fragment() {
     }
 
     fun goToDetailFragment(product: Product) {
+       product.description= RemoveHTMLTags.removeHTMLTagsFromString(product.description)
         productViewModel.product = product
         findNavController().navigate(R.id.action_mainFragment_to_productDetailFragment)
     }

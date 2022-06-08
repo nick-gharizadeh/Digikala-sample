@@ -48,6 +48,7 @@ class ProductsWithCategoryFragment : Fragment() {
     }
 
     fun goToDetailFragment(product: Product) {
+        product.description= RemoveHTMLTags.removeHTMLTagsFromString(product.description)
         productViewModel.product = product
         findNavController().navigate(R.id.action_productsWithCategoryFragment_to_productDetailFragment)
     }
