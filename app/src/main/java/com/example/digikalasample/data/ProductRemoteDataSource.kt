@@ -4,21 +4,40 @@ import com.example.digikalasample.data.model.Category
 import com.example.digikalasample.data.model.Product
 import com.example.digikalasample.network.DigiKalaApiService
 import retrofit2.http.Path
+import java.net.UnknownHostException
+import java.util.concurrent.TimeoutException
 import javax.inject.Inject
 
 class ProductRemoteDataSource @Inject constructor(val productApiService: DigiKalaApiService) {
 
     suspend fun getProducts(orderBy: String): List<Product> {
-        return productApiService.getProduct(orderBy = orderBy)
+        try {
+            return productApiService.getProduct(orderBy = orderBy)
+        }
+        catch (e:UnknownHostException){
+            return listOf()
+        }
     }
 
     suspend fun getProductsByCategory(category: Int): List<Product> {
-        return productApiService.getProduct(category = category)
+        try {
+            return productApiService.getProduct(category = category)
+        }
+        catch (e:UnknownHostException) {
+            return listOf()
+
+        }
     }
 
 
     suspend fun getCategories(): List<Category> {
-        return productApiService.getCategories()
+        try {
+            return productApiService.getCategories()
+        }
+        catch (e:UnknownHostException) {
+            return listOf()
+        }
+
     }
 
     suspend fun getProductById(id: String): Product

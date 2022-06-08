@@ -21,6 +21,10 @@ class ProductViewModel @Inject constructor(val productRepository: ProductsReposi
     val productByCategoriesList = MutableLiveData<List<Product?>>()
 
     init {
+        callServices()
+    }
+
+    fun callServices() {
         getAllCategories()
         getProducts("popularity", popularProductList)
         getProducts("rating", ratingProductList)
