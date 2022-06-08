@@ -14,9 +14,7 @@ typealias ClickHandlerCategory = (Category) -> Unit
 
 class CategoryAdapter(private var clickHandler: ClickHandlerCategory) :
     ListAdapter<Category, CategoryAdapter.ItemHolder>(CategoryDiffCallback) {
-    class ItemHolder(val binding: CategoryItemBinding) : RecyclerView.ViewHolder(binding.root) {
-
-    }
+    class ItemHolder(val binding: CategoryItemBinding) : RecyclerView.ViewHolder(binding.root)
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {

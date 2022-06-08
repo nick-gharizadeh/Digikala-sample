@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ProductViewModel @Inject constructor(val productRepository: ProductsRepository) :
+class ProductViewModel @Inject constructor(private val productRepository: ProductsRepository) :
     ViewModel() {
     var product: Product? = null
     val popularProductList = MutableLiveData<List<Product?>>()
@@ -31,7 +31,7 @@ class ProductViewModel @Inject constructor(val productRepository: ProductsReposi
         getProducts("date", newestProductList)
     }
 
-    fun getProducts(orderBy: String, relatedLiveData: MutableLiveData<List<Product?>>) {
+    private fun getProducts(orderBy: String, relatedLiveData: MutableLiveData<List<Product?>>) {
         viewModelScope.launch {
             val list = productRepository.getProducts(orderBy = orderBy)
             relatedLiveData.value = list
@@ -45,18 +45,13 @@ class ProductViewModel @Inject constructor(val productRepository: ProductsReposi
         }
     }
 
-    fun getAllCategories() {
+    private fun getAllCategories() {
         viewModelScope.launch {
             val list = productRepository.getCategories()
             categoriesList.value = list
         }
     }
 
-    fun getProductById(id: String) {
-        viewModelScope.launch {
-            product = productRepository.getProductById(id)
-        }
-    }
 
 
 }

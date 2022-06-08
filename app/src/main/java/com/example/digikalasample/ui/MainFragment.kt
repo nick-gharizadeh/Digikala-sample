@@ -18,12 +18,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
-    lateinit var binding: FragmentMainBinding
+    private lateinit var binding: FragmentMainBinding
     val productViewModel: ProductViewModel by activityViewModels()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,13 +65,13 @@ class MainFragment : Fragment() {
         }
     }
 
-    fun goToDetailFragment(product: Product) {
+    private fun goToDetailFragment(product: Product) {
        product.description= RemoveHTMLTags.removeHTMLTagsFromString(product.description)
         productViewModel.product = product
         findNavController().navigate(R.id.action_mainFragment_to_productDetailFragment)
     }
 
-    fun goToProductsWithCategoryFragment(category: Category) {
+    private fun goToProductsWithCategoryFragment(category: Category) {
         productViewModel.getProductsByCategory(category.id)
         findNavController().navigate(R.id.action_mainFragment_to_productsWithCategoryFragment)
     }

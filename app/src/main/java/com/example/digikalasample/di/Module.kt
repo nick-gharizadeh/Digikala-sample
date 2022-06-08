@@ -19,20 +19,18 @@ object Module {
     @Singleton
     @Provides
     fun getMoshi(): Moshi {
-        val moshi = Moshi.Builder()
+        return Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
             .build()
-        return moshi
     }
 
     @Singleton
     @Provides
     fun getRetrofit(moshi: Moshi): Retrofit {
-        val retrofit = Retrofit.Builder()
+        return Retrofit.Builder()
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .baseUrl("https://woocommerce.maktabsharif.ir/wp-json/wc/v3/")
             .build()
-        return retrofit
     }
 
 

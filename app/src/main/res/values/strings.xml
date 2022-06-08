@@ -19,4 +19,16 @@
     <string name="add_to_cart">اضافه کردن به سبد خرید</string>
     <string name="color">رنگ</string>
 
+
+    <string-array name="colors">
+        <item>مشکی</item>
+        <item>قرمز</item>
+        <item>سفید</item>
+        <item>بنفش</item>
+        <item>آبی</item>
+        <item>سبز</item>
+        <item>زرد</item>
+        <item>نارنجی</item>
+    </string-array>
+
 </resources>

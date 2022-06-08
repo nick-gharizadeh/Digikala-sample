@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun fadeSplashScreenComponents() {
+    private fun fadeSplashScreenComponents() {
         binding.imageView.visibility = View.GONE
         binding.group.visibility = View.GONE
         binding.animationView.visibility = View.GONE
@@ -52,14 +52,14 @@ class MainActivity : AppCompatActivity() {
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 
-    fun checkConnectivity(context: Context): Boolean {
+    private fun checkConnectivity(context: Context): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork: NetworkInfo? = connectivityManager.activeNetworkInfo
-        if (activeNetwork?.isConnected != null) {
-            return activeNetwork.isConnected
+        return if (activeNetwork?.isConnected != null) {
+            activeNetwork.isConnected
         } else {
-            return false
+            false
         }
     }
 

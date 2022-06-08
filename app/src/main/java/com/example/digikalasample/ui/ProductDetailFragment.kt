@@ -5,23 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
-import androidx.viewpager.widget.ViewPager
 import com.example.digikalasample.R
-import com.example.digikalasample.databinding.FragmentMainBinding
 import com.example.digikalasample.databinding.FragmentProductDetailBinding
 import com.example.digikalasample.ui.adapter.DetailViewPagerAdapter
 import com.example.digikalasample.viewmodel.ProductViewModel
-import me.relex.circleindicator.CircleIndicator
 
 class ProductDetailFragment : Fragment() {
-    lateinit var binding: FragmentProductDetailBinding
+    private lateinit var binding: FragmentProductDetailBinding
     val productViewModel: ProductViewModel by activityViewModels()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,12 +32,17 @@ class ProductDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val colors = resources.getStringArray(R.array.colors)
         val images = productViewModel.product?.images
-        var mViewPagerAdapter: DetailViewPagerAdapter? = null
-
-        mViewPagerAdapter = images?.let { DetailViewPagerAdapter(requireContext(), it) }
+        val mViewPagerAdapter: DetailViewPagerAdapter? =
+            images?.let { DetailViewPagerAdapter(requireContext(), it) }
         binding.productDetailViewPager.adapter = mViewPagerAdapter
         binding.indicator.setViewPager(binding.productDetailViewPager)
+        val adapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_item, colors
+        )
+        binding.productColorSpinner.adapter = adapter
+
     }
 }

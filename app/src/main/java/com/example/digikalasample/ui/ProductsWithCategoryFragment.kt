@@ -5,26 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import com.example.digikalasample.R
 import com.example.digikalasample.data.model.Product
-import com.example.digikalasample.databinding.FragmentMainBinding
 import com.example.digikalasample.databinding.FragmentProductsWithCategoryBinding
-import com.example.digikalasample.ui.adapter.ProductAdapter
 import com.example.digikalasample.ui.adapter.ProductWithCategoryAdaptor
 import com.example.digikalasample.viewmodel.ProductViewModel
 
 
 class ProductsWithCategoryFragment : Fragment() {
-    lateinit var binding: FragmentProductsWithCategoryBinding
+    private lateinit var binding: FragmentProductsWithCategoryBinding
     val productViewModel: ProductViewModel by activityViewModels()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,7 +40,7 @@ class ProductsWithCategoryFragment : Fragment() {
 
     }
 
-    fun goToDetailFragment(product: Product) {
+    private fun goToDetailFragment(product: Product) {
         product.description= RemoveHTMLTags.removeHTMLTagsFromString(product.description)
         productViewModel.product = product
         findNavController().navigate(R.id.action_productsWithCategoryFragment_to_productDetailFragment)

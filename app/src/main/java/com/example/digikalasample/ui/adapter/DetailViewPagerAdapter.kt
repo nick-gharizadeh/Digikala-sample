@@ -8,16 +8,13 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.viewpager.widget.PagerAdapter
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.example.digikalasample.R
 import com.example.digikalasample.data.model.Image
 import java.util.*
 
-class DetailViewPagerAdapter(context: Context, images: List<Image>) :
+class DetailViewPagerAdapter(var context: Context, private var images: List<Image>) :
     PagerAdapter() {
-    var context: Context
-    var images: List<Image>
-    var mLayoutInflater: LayoutInflater
+    private var mLayoutInflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     override fun getCount(): Int {
         return images.size
     }
@@ -39,10 +36,5 @@ class DetailViewPagerAdapter(context: Context, images: List<Image>) :
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
         container.removeView(`object` as LinearLayout)
-    }
-    init {
-        this.context = context
-        this.images = images
-        mLayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     }
 }

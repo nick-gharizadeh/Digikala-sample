@@ -33,7 +33,7 @@ class ProductAdapter(private var clickHandler: ClickHandler) :
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val textViewTitle: TextView = view.findViewById(R.id.product_title)
         val textViewPrice: TextView = view.findViewById(R.id.product_price)
-        val imageViewCover: ImageView = itemView.findViewById(R.id.product_cover)
+        private val imageViewCover: ImageView = itemView.findViewById(R.id.product_cover)
         val layout: LinearLayout = itemView.findViewById(R.id.product_item_layout)
         fun bind(product: Product) {
             if (product.images.isNotEmpty()) {

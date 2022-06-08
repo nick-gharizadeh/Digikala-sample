@@ -6,7 +6,7 @@ import com.example.digikalasample.data.model.Product
 import javax.inject.Inject
 
 class ProductsRepository @Inject constructor(
-    val productRemoteDataSource: ProductRemoteDataSource,
+    private val productRemoteDataSource: ProductRemoteDataSource,
 ) {
     suspend fun getProducts(orderBy:String ):List<Product>{
         return productRemoteDataSource.getProducts(orderBy = orderBy)
@@ -18,11 +18,6 @@ class ProductsRepository @Inject constructor(
 
     suspend fun getCategories(): List<Category> {
     return productRemoteDataSource.getCategories()
-    }
-
-    suspend fun getProductById(id: String): Product
-    {
-        return productRemoteDataSource.getProductById(id)
     }
 
 }
