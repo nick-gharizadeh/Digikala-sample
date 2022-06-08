@@ -13,6 +13,7 @@ import com.example.digikalasample.databinding.FragmentMainBinding
 import com.example.digikalasample.databinding.FragmentProductDetailBinding
 import com.example.digikalasample.ui.adapter.DetailViewPagerAdapter
 import com.example.digikalasample.viewmodel.ProductViewModel
+import me.relex.circleindicator.CircleIndicator
 
 class ProductDetailFragment : Fragment() {
     lateinit var binding: FragmentProductDetailBinding
@@ -43,5 +44,7 @@ class ProductDetailFragment : Fragment() {
 
         mViewPagerAdapter = images?.let { DetailViewPagerAdapter(requireContext(), it) }
         binding.productDetailViewPager.adapter = mViewPagerAdapter
+        binding.indicator.setViewPager(binding.productDetailViewPager)
+
     }
 }
