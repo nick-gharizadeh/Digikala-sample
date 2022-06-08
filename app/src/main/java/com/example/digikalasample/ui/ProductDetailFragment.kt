@@ -45,6 +45,5 @@ class ProductDetailFragment : Fragment() {
         mViewPagerAdapter = images?.let { DetailViewPagerAdapter(requireContext(), it) }
         binding.productDetailViewPager.adapter = mViewPagerAdapter
         binding.indicator.setViewPager(binding.productDetailViewPager)
-
     }
 }
