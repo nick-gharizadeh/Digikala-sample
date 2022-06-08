@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import androidx.viewpager.widget.ViewPager
 import com.example.digikalasample.R
 import com.example.digikalasample.databinding.FragmentMainBinding
 import com.example.digikalasample.databinding.FragmentProductDetailBinding
+import com.example.digikalasample.ui.adapter.DetailViewPagerAdapter
 import com.example.digikalasample.viewmodel.ProductViewModel
 
 class ProductDetailFragment : Fragment() {
@@ -36,5 +38,10 @@ class ProductDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        var images = productViewModel.product?.images
+        var mViewPagerAdapter: DetailViewPagerAdapter? = null
+
+        mViewPagerAdapter = images?.let { DetailViewPagerAdapter(requireContext(), it) }
+        binding.productDetailViewPager.adapter = mViewPagerAdapter
     }
 }

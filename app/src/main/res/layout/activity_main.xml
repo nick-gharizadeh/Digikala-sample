@@ -70,7 +70,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/textView"
         app:layout_constraintEnd_toStartOf="@+id/textView"
         app:layout_constraintTop_toTopOf="@+id/textView"
-        app:srcCompat="@mipmap/img" />
+        app:srcCompat="@mipmap/try_again" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group"

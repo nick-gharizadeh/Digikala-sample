@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun fadeSplashScreenComponents(){
+    fun fadeSplashScreenComponents() {
         binding.imageView.visibility = View.GONE
         binding.group.visibility = View.GONE
         binding.animationView.visibility = View.GONE
