@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView android:layout_width="match_parent"
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
 <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.MainFragment" >
@@ -18,29 +18,43 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginRight="16dp"
+            android:orientation="horizontal">
 
-        <!--        <com.smarteist.autoimageslider.SliderView-->
-        <!--            android:id="@+id/digikala_main_activity__main_image_slider"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="160dp"-->
-        <!--            app:sliderAnimationDuration="600"-->
-        <!--            app:sliderAutoCycleDirection="right"-->
-        <!--            app:sliderAutoCycleEnabled="true"-->
-        <!--            app:sliderCircularHandlerEnabled="true"-->
-        <!--            app:sliderIndicatorAnimationDuration="600"-->
-        <!--            app:sliderIndicatorGravity="center_horizontal|bottom"-->
-        <!--            app:sliderIndicatorMargin="10dp"-->
-        <!--            app:sliderIndicatorOrientation="horizontal"-->
-        <!--            app:sliderIndicatorSelectedColor="@color/digikala_red"-->
-        <!--            app:sliderIndicatorUnselectedColor="@color/digikala_raw_white"-->
-        <!--            app:sliderScrollTimeInSec="3"-->
-        <!--            app:sliderStartAutoCycle="true" />-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="left"
+                android:padding="4dp"
+                app:fontFamily="@font/far_roya_bd"
+                android:text="@string/whole_list"
+                android:textColor="@color/digikala_blue"
+                android:textSize="12dp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:gravity="right"
+                android:text="@string/categories"
+                app:fontFamily="@font/far_trafc_bd" />
+
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/category_recycler_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layoutDirection="rtl"
             android:orientation="horizontal"
             android:paddingTop="8dp"
