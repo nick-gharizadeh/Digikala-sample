@@ -16,7 +16,7 @@ interface DigiKalaApiService {
     @GET("products$WOOCOMMERCE_REST_AUTHENTICATION_KEY")
     suspend fun getProduct(
         @Query("per_page")
-        perPage: Int = 10,
+        perPage: Int = 15,
         @Query("page")
         numberOfPage: Int = 1,
         @Query("orderby")
