@@ -8,13 +8,16 @@ import retrofit2.http.Query
 
 const val CONSUMER_KEY = "ck_0e61e4a29d9130ed954bb8c11e7f827a7e8c2dfb"
 const val CONSUMER_SECRET = "cs_46699340821cdba8425c23e67c0af8672e7dac88"
-const val AUTHENTICATION_KEY =
-    "?consumer_key=$CONSUMER_KEY&consumer_secret=$CONSUMER_SECRET"
+
 
 interface DigiKalaApiService {
 
-    @GET("products$AUTHENTICATION_KEY")
+    @GET("products")
     suspend fun getProduct(
+        @Query("consumer_key")
+        consumerKey: String = CONSUMER_KEY,
+        @Query("consumer_secret")
+        consumerSecret: String = CONSUMER_SECRET,
         @Query("per_page")
         perPage: Int = 15,
         @Query("page")
@@ -23,8 +26,12 @@ interface DigiKalaApiService {
         orderBy: String
     ): List<Product>
 
-    @GET("products$AUTHENTICATION_KEY")
+    @GET("products")
     suspend fun getProduct(
+        @Query("consumer_key")
+        consumerKey: String = CONSUMER_KEY,
+        @Query("consumer_secret")
+        consumerSecret: String = CONSUMER_SECRET,
         @Query("category")
         category: Int ,
         @Query("per_page")
@@ -33,8 +40,14 @@ interface DigiKalaApiService {
         numberOfPage: Int = 1,
     ): List<Product>
 
-    @GET("products/categories${AUTHENTICATION_KEY}&per_page=30")
+    @GET("products/categories")
     suspend fun getCategories(
+        @Query("consumer_key")
+        consumerKey: String = CONSUMER_KEY,
+        @Query("consumer_secret")
+        consumerSecret: String = CONSUMER_SECRET,
+        @Query("per_page")
+        perPage: Int = 30
     ): List<Category>
 
 }
