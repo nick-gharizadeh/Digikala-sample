@@ -19,6 +19,8 @@
     <string name="add_to_cart">اضافه کردن به سبد خرید</string>
     <string name="color">رنگ</string>
     <string name="categories">دسته بندی ها</string>
+    <string name="shopping_cart">سبد خرید</string>
+    <string name="search">جستجو</string>
 
 
     <string-array name="colors">

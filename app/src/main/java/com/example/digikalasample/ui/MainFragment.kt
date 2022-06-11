@@ -1,9 +1,9 @@
 package com.example.digikalasample.ui
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -33,6 +33,7 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
         if (!flagAnimationOnceShowed) {
             binding.animationView.alpha = 0f
             binding.animationView.animate().setDuration(1500).alpha(1f).withEndAction {
@@ -89,4 +90,23 @@ class MainFragment : Fragment() {
         findNavController().navigate(R.id.action_mainFragment_to_productsWithCategoryFragment)
     }
 
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.item_menu_search-> {
+
+                return false
+            }
+            R.id.item_menu_shopping_cart-> {
+
+                return false
+            }
+        }
+        return false
+    }
 }
