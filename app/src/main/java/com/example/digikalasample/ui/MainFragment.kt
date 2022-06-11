@@ -16,11 +16,12 @@ import com.example.digikalasample.ui.adapter.ProductAdapter
 import com.example.digikalasample.viewmodel.ProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
+var flagAnimationOnceShowed = false
+
 @AndroidEntryPoint
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
     val productViewModel: ProductViewModel by activityViewModels()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,12 +32,18 @@ class MainFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.animationView.alpha = 0f
-        binding.animationView.animate().setDuration(300).alpha(1f).withEndAction {
+        super.onViewCreated(view, savedInstanceState)
+        if (!flagAnimationOnceShowed) {
+            binding.animationView.alpha = 0f
+            binding.animationView.animate().setDuration(1500).alpha(1f).withEndAction {
+                flagAnimationOnceShowed = true
+                binding.animationView.visibility = View.GONE
+                binding.mainLayout.visibility = View.VISIBLE
+            }
+        } else {
             binding.animationView.visibility = View.GONE
             binding.mainLayout.visibility = View.VISIBLE
         }
-        super.onViewCreated(view, savedInstanceState)
         val adapterPopular = ProductAdapter {
             goToDetailFragment(it)
         }
