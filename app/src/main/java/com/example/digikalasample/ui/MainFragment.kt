@@ -32,6 +32,11 @@ class MainFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.animationView.alpha = 0f
+        binding.animationView.animate().setDuration(1500).alpha(1f).withEndAction {
+            binding.animationView.visibility = View.GONE
+            binding.mainLayout.visibility = View.VISIBLE
+        }
         super.onViewCreated(view, savedInstanceState)
         val adapterPopular = ProductAdapter {
             goToDetailFragment(it)

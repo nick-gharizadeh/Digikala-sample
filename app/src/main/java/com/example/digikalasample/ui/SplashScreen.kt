@@ -7,9 +7,7 @@ import android.net.NetworkInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.activity.viewModels
 import com.example.digikalasample.databinding.ActivitySplashScreenBinding
-import com.example.digikalasample.viewmodel.ProductViewModel
 import android.content.Intent
 
 
