@@ -1,10 +1,10 @@
 package com.example.digikalasample.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.digikalasample.R
@@ -18,7 +18,6 @@ class ProductsWithCategoryFragment : Fragment() {
     private lateinit var binding: FragmentProductsWithCategoryBinding
     val productViewModel: ProductViewModel by activityViewModels()
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,8 +29,13 @@ class ProductsWithCategoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = ProductWithCategoryAdaptor{goToDetailFragment(it)}
-        binding.recyclerviewProductGrid.adapter = adapter
+        binding.animationView.alpha = 0f
+        binding.animationView.animate().setDuration(900).alpha(1f).withEndAction {
+            binding.animationView.visibility = View.GONE
+            binding.recyclerviewProductWithCategory.visibility = View.VISIBLE
+        }
+        val adapter = ProductWithCategoryAdaptor { goToDetailFragment(it) }
+        binding.recyclerviewProductWithCategory.adapter = adapter
         productViewModel.productByCategoriesList.observe(viewLifecycleOwner)
         {
             adapter.submitList(it)
@@ -41,7 +45,7 @@ class ProductsWithCategoryFragment : Fragment() {
     }
 
     private fun goToDetailFragment(product: Product) {
-        product.description= RemoveHTMLTags.removeHTMLTagsFromString(product.description)
+        product.description = RemoveHTMLTags.removeHTMLTagsFromString(product.description)
         productViewModel.product = product
         findNavController().navigate(R.id.action_productsWithCategoryFragment_to_productDetailFragment)
     }

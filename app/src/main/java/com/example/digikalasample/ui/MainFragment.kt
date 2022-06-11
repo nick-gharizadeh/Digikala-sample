@@ -1,7 +1,6 @@
 package com.example.digikalasample.ui
 
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,7 +32,7 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.animationView.alpha = 0f
-        binding.animationView.animate().setDuration(1500).alpha(1f).withEndAction {
+        binding.animationView.animate().setDuration(300).alpha(1f).withEndAction {
             binding.animationView.visibility = View.GONE
             binding.mainLayout.visibility = View.VISIBLE
         }
@@ -72,7 +71,7 @@ class MainFragment : Fragment() {
     }
 
     private fun goToDetailFragment(product: Product) {
-       product.description= RemoveHTMLTags.removeHTMLTagsFromString(product.description)
+        product.description = RemoveHTMLTags.removeHTMLTagsFromString(product.description)
         productViewModel.product = product
         findNavController().navigate(R.id.action_mainFragment_to_productDetailFragment)
     }
