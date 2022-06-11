@@ -1,6 +1,7 @@
 package com.example.digikalasample.ui
 
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -76,4 +77,5 @@ class MainFragment : Fragment() {
         productViewModel.getProductsByCategory(category.id)
         findNavController().navigate(R.id.action_mainFragment_to_productsWithCategoryFragment)
     }
+
 }
