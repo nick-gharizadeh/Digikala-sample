@@ -11,7 +11,7 @@ class ProductRemoteDataSource @Inject constructor(private val productApiService:
     suspend fun getProducts(orderBy: String): List<Product> {
         return try {
             productApiService.getProduct(orderBy = orderBy)
-        } catch (e:UnknownHostException){
+        } catch (e: UnknownHostException) {
             listOf()
         }
     }
@@ -19,7 +19,7 @@ class ProductRemoteDataSource @Inject constructor(private val productApiService:
     suspend fun getProductsByCategory(category: Int): List<Product> {
         return try {
             productApiService.getProduct(category = category)
-        } catch (e:UnknownHostException) {
+        } catch (e: UnknownHostException) {
             listOf()
 
         }
@@ -29,10 +29,18 @@ class ProductRemoteDataSource @Inject constructor(private val productApiService:
     suspend fun getCategories(): List<Category> {
         return try {
             productApiService.getCategories()
-        } catch (e:UnknownHostException) {
+        } catch (e: UnknownHostException) {
             listOf()
         }
+    }
 
+    suspend fun getProductById(id: Int): Product? {
+        return try {
+            productApiService.getProductById(id = id)
+        } catch (e: UnknownHostException) {
+         val product = null
+            return product
+        }
     }
 
 }

@@ -1,20 +1,21 @@
 package com.example.digikalasample.ui
 
-import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.example.digikalasample.R
 import com.example.digikalasample.data.model.Category
 import com.example.digikalasample.data.model.Product
 import com.example.digikalasample.databinding.FragmentMainBinding
 import com.example.digikalasample.ui.adapter.CategoryAdapter
+import com.example.digikalasample.ui.adapter.DetailViewPagerAdapter
 import com.example.digikalasample.ui.adapter.ProductAdapter
 import com.example.digikalasample.viewmodel.ProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
+
 
 var flagAnimationOnceShowed = false
 
@@ -76,6 +77,16 @@ class MainFragment : Fragment() {
             if (it != null)
                 adapterCategories.submitList(it)
         }
+
+        productViewModel.relatedProductById.observe(viewLifecycleOwner){
+            val images = it?.images
+            val mViewPagerAdapter: DetailViewPagerAdapter? =
+                images?.let { DetailViewPagerAdapter(requireContext(), it) }
+            binding.mainViewPager.adapter = mViewPagerAdapter
+            binding.indicator.setViewPager(binding.mainViewPager)
+
+        }
+
     }
 
     private fun goToDetailFragment(product: Product) {

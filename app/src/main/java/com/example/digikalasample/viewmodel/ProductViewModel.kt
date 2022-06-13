@@ -19,6 +19,7 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
     val newestProductList = MutableLiveData<List<Product?>>()
     val categoriesList = MutableLiveData<List<Category?>>()
     val productByCategoriesList = MutableLiveData<List<Product?>>()
+    var relatedProductById = MutableLiveData<Product?>()
 
     init {
         callServices()
@@ -29,6 +30,7 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
         getProducts("popularity", popularProductList)
         getProducts("rating", ratingProductList)
         getProducts("date", newestProductList)
+        getProductById(608)
     }
 
     private fun getProducts(orderBy: String, relatedLiveData: MutableLiveData<List<Product?>>) {
@@ -49,6 +51,13 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
         viewModelScope.launch {
             val list = productRepository.getCategories()
             categoriesList.value = list
+        }
+    }
+
+    private fun getProductById(id:Int) {
+        viewModelScope.launch {
+            val list = productRepository.getProductById(id)
+            relatedProductById.value=list
         }
     }
 

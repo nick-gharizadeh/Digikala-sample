@@ -3,6 +3,7 @@ package com.example.digikalasample.data.repository
 import com.example.digikalasample.data.ProductRemoteDataSource
 import com.example.digikalasample.data.model.Category
 import com.example.digikalasample.data.model.Product
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 class ProductsRepository @Inject constructor(
@@ -18,6 +19,11 @@ class ProductsRepository @Inject constructor(
 
     suspend fun getCategories(): List<Category> {
     return productRemoteDataSource.getCategories()
+    }
+
+
+    suspend fun getProductById(id: Int): Product? {
+        return productRemoteDataSource.getProductById(id)
     }
 
 }
