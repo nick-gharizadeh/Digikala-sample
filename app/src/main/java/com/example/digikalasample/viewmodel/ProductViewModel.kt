@@ -20,6 +20,7 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
     val categoriesList = MutableLiveData<List<Category?>>()
     val productByCategoriesList = MutableLiveData<List<Product?>>()
     var relatedProductById = MutableLiveData<Product?>()
+    val searchedProductsList = MutableLiveData<List<Product?>>()
 
     init {
         callServices()
@@ -39,6 +40,14 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
             relatedLiveData.value = list
         }
     }
+
+    fun getProductsBySearch(searchQuery: String) {
+        viewModelScope.launch {
+            val list = productRepository.getProductsBySearch(searchQuery)
+            searchedProductsList.value = list
+        }
+    }
+
 
     fun getProductsByCategory(category: Int) {
         viewModelScope.launch {

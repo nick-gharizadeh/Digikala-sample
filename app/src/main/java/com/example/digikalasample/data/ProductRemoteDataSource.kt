@@ -16,6 +16,15 @@ class ProductRemoteDataSource @Inject constructor(private val productApiService:
         }
     }
 
+
+    suspend fun getProductsBySearch(searchQuery: String): List<Product> {
+        return try {
+            productApiService.getProduct(searchQuery = searchQuery)
+        } catch (e: UnknownHostException) {
+            listOf()
+        }
+    }
+
     suspend fun getProductsByCategory(category: Int): List<Product> {
         return try {
             productApiService.getProduct(category = category)

@@ -59,4 +59,19 @@ interface DigiKalaApiService {
         perPage: Int = 30
     ): List<Category>
 
+    //search
+
+    @GET("products")
+    suspend fun getProduct(
+        @Query("consumer_key")
+        consumerKey: String = CONSUMER_KEY,
+        @Query("consumer_secret")
+        consumerSecret: String = CONSUMER_SECRET,
+        @Query("search") searchQuery: String,
+        @Query("per_page")
+        perPage: Int = 20,
+        @Query("page")
+        numberOfPage: Int = 1
+    ): List<Product>
+
 }

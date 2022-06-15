@@ -9,14 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.digikalasample.R
 import com.example.digikalasample.data.model.Product
-import com.example.digikalasample.databinding.ProductItemCategoryBinding
+import com.example.digikalasample.databinding.ProductItemHorizantalBinding
 
 
 typealias ClickHandlerProduct = (Product) -> Unit
 
 class ProductWithCategoryAdaptor(private var clickHandler: ClickHandlerProduct) :
     ListAdapter<Product, ProductWithCategoryAdaptor.ItemHolder>(ProductAdapter.ProductDiffCallback) {
-    class ItemHolder(val binding: ProductItemCategoryBinding) :
+    class ItemHolder(val binding: ProductItemHorizantalBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val imageViewCover: ImageView = itemView.findViewById(R.id.product_image_category)
         fun bind(product:Product){
@@ -31,9 +31,9 @@ class ProductWithCategoryAdaptor(private var clickHandler: ClickHandlerProduct) 
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
-        val binding: ProductItemCategoryBinding = DataBindingUtil.inflate(
+        val binding: ProductItemHorizantalBinding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
-            R.layout.product_item_category,
+            R.layout.product_item_horizantal,
             parent, false
         )
         return ItemHolder(binding)
