@@ -5,7 +5,6 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.example.digikalasample.R
 import com.example.digikalasample.data.model.Category
 import com.example.digikalasample.data.model.Product
@@ -78,7 +77,7 @@ class MainFragment : Fragment() {
                 adapterCategories.submitList(it)
         }
 
-        productViewModel.relatedProductById.observe(viewLifecycleOwner){
+        productViewModel.relatedProductById.observe(viewLifecycleOwner) {
             val images = it?.images
             val mViewPagerAdapter: DetailViewPagerAdapter? =
                 images?.let { DetailViewPagerAdapter(requireContext(), it) }
@@ -109,11 +108,11 @@ class MainFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.item_menu_search-> {
-
+            R.id.item_menu_search -> {
+                findNavController().navigate(R.id.action_mainFragment_to_searchFragment)
                 return false
             }
-            R.id.item_menu_shopping_cart-> {
+            R.id.item_menu_shopping_cart -> {
 
                 return false
             }
