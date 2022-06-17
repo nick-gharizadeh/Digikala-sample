@@ -56,5 +56,6 @@ open class BaseFragment : Fragment() {
             .setPositiveButton(getString(R.string.okay_dialog_button)) { dialog, which ->
             }
             .show()
+        errorThatOccur.value = null
     }
 }
