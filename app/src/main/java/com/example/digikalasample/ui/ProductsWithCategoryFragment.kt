@@ -14,7 +14,7 @@ import com.example.digikalasample.ui.adapter.ProductWithCategoryAdaptor
 import com.example.digikalasample.viewmodel.ProductViewModel
 
 
-class ProductsWithCategoryFragment : Fragment() {
+class ProductsWithCategoryFragment : BaseFragment() {
     private lateinit var binding: FragmentProductsWithCategoryBinding
     val productViewModel: ProductViewModel by activityViewModels()
 

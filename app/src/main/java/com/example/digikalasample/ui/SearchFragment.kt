@@ -13,7 +13,7 @@ import com.example.digikalasample.ui.adapter.ProductWithCategoryAdaptor
 import com.example.digikalasample.viewmodel.ProductViewModel
 
 
-class SearchFragment : Fragment() {
+class SearchFragment : BaseFragment() {
     private lateinit var binding: FragmentSearchBinding
     val productViewModel: ProductViewModel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +55,7 @@ class SearchFragment : Fragment() {
     private fun goToDetailFragment(product: Product) {
         product.description = RemoveHTMLTags.removeHTMLTagsFromString(product.description)
         productViewModel.product = product
-        findNavController().navigate(R.id.action_productsWithCategoryFragment_to_productDetailFragment)
+        findNavController().navigate(R.id.action_searchFragment_to_productDetailFragment)
     }
 
 }

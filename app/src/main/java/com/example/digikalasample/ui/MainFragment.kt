@@ -16,10 +16,11 @@ import com.example.digikalasample.viewmodel.ProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
+
 var flagAnimationOnceShowed = false
 
 @AndroidEntryPoint
-class MainFragment : Fragment() {
+class MainFragment : BaseFragment() {
     private lateinit var binding: FragmentMainBinding
     val productViewModel: ProductViewModel by activityViewModels()
 

@@ -21,6 +21,11 @@
     <string name="categories">دسته بندی ها</string>
     <string name="shopping_cart">سبد خرید</string>
     <string name="search">جستجو</string>
+    <string name="okay_dialog_button">OK</string>
+    <string name="error_String">خطا</string>
+    <string name="error_server">سرور در دسترس نیست </string>
+    <string name="error_404"> نتيجه اي يافت نشد !😟</string>
+    <string name="error_not_connected">عدم اتصال به اینترنت </string>
 
 
     <string-array name="colors">

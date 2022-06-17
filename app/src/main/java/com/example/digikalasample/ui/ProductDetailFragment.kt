@@ -13,7 +13,7 @@ import com.example.digikalasample.databinding.FragmentProductDetailBinding
 import com.example.digikalasample.ui.adapter.DetailViewPagerAdapter
 import com.example.digikalasample.viewmodel.ProductViewModel
 
-class ProductDetailFragment : Fragment() {
+class ProductDetailFragment : BaseFragment() {
     private lateinit var binding: FragmentProductDetailBinding
     val productViewModel: ProductViewModel by activityViewModels()
 
