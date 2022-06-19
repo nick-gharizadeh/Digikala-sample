@@ -2,9 +2,9 @@ package com.example.digikalasample.data
 
 import androidx.lifecycle.MutableLiveData
 import com.example.digikalasample.data.model.Category
+import com.example.digikalasample.data.model.Comment
 import com.example.digikalasample.data.model.Product
 import com.example.digikalasample.network.DigiKalaApiService
-import java.net.UnknownHostException
 import javax.inject.Inject
 
 val errorThatOccur = MutableLiveData<Exception?>(null)
@@ -68,6 +68,10 @@ class ProductRemoteDataSource @Inject constructor(private val productApiService:
             val product = null
             return product
         }
+    }
+
+    suspend fun getReviews(productId: String):List<Comment> {
+       return productApiService.getReviews(productId = productId)
     }
 
 }
