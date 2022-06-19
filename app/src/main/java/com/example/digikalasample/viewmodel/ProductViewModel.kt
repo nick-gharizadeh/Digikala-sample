@@ -23,6 +23,7 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
     val relatedProductById = MutableLiveData<Product?>()
     var reviewsList = MutableLiveData<List<Review?>>()
     val searchedProductsList = MutableLiveData<List<Product?>>()
+    var orderCriterion : String? = null
 
     init {
         callServices()
@@ -43,9 +44,9 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
         }
     }
 
-    fun getProductsBySearch(searchQuery: String) {
+    fun getProductsBySearch(searchQuery: String,orderBy: String = "popularity",order :String="asc") {
         viewModelScope.launch {
-            val list = productRepository.getProductsBySearch(searchQuery)
+            val list = productRepository.getProductsBySearch(searchQuery,orderBy,order)
             searchedProductsList.value = list
         }
     }

@@ -23,10 +23,10 @@ class ProductRemoteDataSource @Inject constructor(private val productApiService:
     }
 
 
-    suspend fun getProductsBySearch(searchQuery: String): List<Product> {
+    suspend fun getProductsBySearch(searchQuery: String,orderBy: String = "popularity",order :String="asc"): List<Product> {
         return try {
             errorThatOccur.value = null
-            productApiService.getProduct(searchQuery = searchQuery)
+            productApiService.getProduct(searchQuery = searchQuery, orderBy = orderBy, order = order)
         } catch (e: Exception) {
             if (errorThatOccur.value == null)
                 errorThatOccur.value = e

@@ -70,9 +70,13 @@ interface DigiKalaApiService {
         consumerSecret: String = CONSUMER_SECRET,
         @Query("search") searchQuery: String,
         @Query("per_page")
-        perPage: Int = 20,
+        perPage: Int = 40,
         @Query("page")
-        numberOfPage: Int = 1
+        numberOfPage: Int = 1,
+        @Query("orderby")
+        orderBy: String = "popularity",
+        @Query("order")
+        order: String ="asc"
     ): List<Product>
 
     @GET("products/reviews")
