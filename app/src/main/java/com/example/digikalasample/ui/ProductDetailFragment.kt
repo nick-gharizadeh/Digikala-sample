@@ -9,8 +9,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import com.example.digikalasample.R
 import com.example.digikalasample.databinding.FragmentProductDetailBinding
-import com.example.digikalasample.ui.adapter.ReviewAdapter
 import com.example.digikalasample.ui.adapter.DetailViewPagerAdapter
+import com.example.digikalasample.ui.adapter.ReviewAdapter
 import com.example.digikalasample.viewmodel.ProductViewModel
 
 class ProductDetailFragment : BaseFragment() {
@@ -32,6 +32,7 @@ class ProductDetailFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        productViewModel.reviewsList.value = null
         val colors = resources.getStringArray(R.array.colors)
         val images = productViewModel.product?.images
         val mViewPagerAdapter: DetailViewPagerAdapter? =
@@ -47,13 +48,14 @@ class ProductDetailFragment : BaseFragment() {
         binding.recyclerViewComments.adapter = reviewAdapter
 
         productViewModel.reviewsList.observe(viewLifecycleOwner) {
-            for (review in it) {
-                review?.review = review?.review?.let { it1 ->
-                    RemoveHTMLTags.removeHTMLTagsFromString(
-                        it1
-                    )
-                }.toString()
-            }
+            if (it != null)
+                for (review in it) {
+                    review?.review = review?.review?.let { it1 ->
+                        RemoveHTMLTags.removeHTMLTagsFromString(
+                            it1
+                        )
+                    }.toString()
+                }
             reviewAdapter.submitList(it)
         }
 
