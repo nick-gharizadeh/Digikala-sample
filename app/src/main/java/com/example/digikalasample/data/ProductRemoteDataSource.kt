@@ -2,7 +2,7 @@ package com.example.digikalasample.data
 
 import androidx.lifecycle.MutableLiveData
 import com.example.digikalasample.data.model.Category
-import com.example.digikalasample.data.model.Comment
+import com.example.digikalasample.data.model.Review
 import com.example.digikalasample.data.model.Product
 import com.example.digikalasample.network.DigiKalaApiService
 import javax.inject.Inject
@@ -70,7 +70,7 @@ class ProductRemoteDataSource @Inject constructor(private val productApiService:
         }
     }
 
-    suspend fun getReviews(productId: String):List<Comment> {
+    suspend fun getReviews(productId: String):List<Review> {
        return productApiService.getReviews(productId = productId)
     }
 

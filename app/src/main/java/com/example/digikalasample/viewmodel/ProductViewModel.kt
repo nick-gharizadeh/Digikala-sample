@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.digikalasample.data.model.Category
-import com.example.digikalasample.data.model.Comment
+import com.example.digikalasample.data.model.Review
 import com.example.digikalasample.data.model.Product
 import com.example.digikalasample.data.repository.ProductsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,7 +21,7 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
     val categoriesList = MutableLiveData<List<Category?>>()
     val productByCategoriesList = MutableLiveData<List<Product?>>()
     val relatedProductById = MutableLiveData<Product?>()
-    var reviewsList = MutableLiveData<List<Comment?>>()
+    var reviewsList = MutableLiveData<List<Review?>>()
     val searchedProductsList = MutableLiveData<List<Product?>>()
 
     init {

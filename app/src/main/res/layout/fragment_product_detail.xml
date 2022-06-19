@@ -112,7 +112,7 @@
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/commentsButton"
+                android:id="@+id/reviewsButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
@@ -389,7 +389,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="8dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/comment_item" />
+                tools:listitem="@layout/review_item" />
         </LinearLayout>
 
 

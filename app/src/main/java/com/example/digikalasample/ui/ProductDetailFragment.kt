@@ -9,7 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import com.example.digikalasample.R
 import com.example.digikalasample.databinding.FragmentProductDetailBinding
-import com.example.digikalasample.ui.adapter.CommentAdapter
+import com.example.digikalasample.ui.adapter.ReviewAdapter
 import com.example.digikalasample.ui.adapter.DetailViewPagerAdapter
 import com.example.digikalasample.viewmodel.ProductViewModel
 
@@ -42,7 +42,7 @@ class ProductDetailFragment : BaseFragment() {
             requireContext(),
             android.R.layout.simple_spinner_item, colors
         )
-        val reviewAdapter = CommentAdapter()
+        val reviewAdapter = ReviewAdapter()
         binding.productColorSpinner.adapter = adapter
         binding.recyclerViewComments.adapter = reviewAdapter
 
@@ -59,18 +59,18 @@ class ProductDetailFragment : BaseFragment() {
 
 
         binding.detailButton.setOnClickListener {
-            changeVisibilities(showComments = false)
+            changeVisibilities(showReviews = false)
         }
 
-        binding.commentsButton.setOnClickListener {
+        binding.reviewsButton.setOnClickListener {
             productViewModel.getReviews(productViewModel.product?.id.toString())
-            changeVisibilities(showComments = true)
+            changeVisibilities(showReviews = true)
 
         }
     }
 
-    fun changeVisibilities(showComments: Boolean) {
-        if (showComments) {
+    fun changeVisibilities(showReviews: Boolean) {
+        if (showReviews) {
             binding.linearLayoutRecyclerView.visibility = View.VISIBLE
             binding.CardView1.visibility = View.GONE
             binding.CardView2.visibility = View.GONE
@@ -80,4 +80,6 @@ class ProductDetailFragment : BaseFragment() {
             binding.CardView2.visibility = View.VISIBLE
         }
     }
+
+
 }

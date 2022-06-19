@@ -9,28 +9,28 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.digikalasample.R
-import com.example.digikalasample.data.model.Comment
-import com.example.digikalasample.databinding.CommentItemBinding
+import com.example.digikalasample.data.model.Review
+import com.example.digikalasample.databinding.ReviewItemBinding
 
 
-class CommentAdapter :
-    ListAdapter<Comment, CommentAdapter.ItemHolder>(CommentDiffCallback) {
+class ReviewAdapter :
+    ListAdapter<Review, ReviewAdapter.ItemHolder>(ReviewDiffCallback) {
 
-    object CommentDiffCallback : DiffUtil.ItemCallback<Comment>() {
+    object ReviewDiffCallback : DiffUtil.ItemCallback<Review>() {
 
-        override fun areItemsTheSame(oldItem: Comment, newItem: Comment): Boolean {
+        override fun areItemsTheSame(oldItem: Review, newItem: Review): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: Comment, newItem: Comment): Boolean {
+        override fun areContentsTheSame(oldItem: Review, newItem: Review): Boolean {
             return oldItem.id == newItem.id
         }
     }
 
-    class ItemHolder(val binding: CommentItemBinding) :
+    class ItemHolder(val binding: ReviewItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val imageViewAvatar: ImageView = itemView.findViewById(R.id.imageViewAvatar)
-        fun bind(review: Comment) {
+        fun bind(review: Review) {
             Glide.with(itemView)
                 .load(review.reviewer_avatar_urls.`96`)
                 .placeholder(R.drawable.place_holder)
@@ -42,9 +42,9 @@ class CommentAdapter :
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
-        val binding: CommentItemBinding = DataBindingUtil.inflate(
+        val binding: ReviewItemBinding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
-            R.layout.comment_item,
+            R.layout.review_item,
             parent, false
         )
         return ItemHolder(binding)

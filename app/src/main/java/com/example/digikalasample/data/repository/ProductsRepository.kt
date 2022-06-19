@@ -2,9 +2,8 @@ package com.example.digikalasample.data.repository
 
 import com.example.digikalasample.data.ProductRemoteDataSource
 import com.example.digikalasample.data.model.Category
-import com.example.digikalasample.data.model.Comment
+import com.example.digikalasample.data.model.Review
 import com.example.digikalasample.data.model.Product
-import java.net.UnknownHostException
 import javax.inject.Inject
 
 class ProductsRepository @Inject constructor(
@@ -31,7 +30,7 @@ class ProductsRepository @Inject constructor(
         return productRemoteDataSource.getProductById(id)
     }
 
-    suspend fun getReviews(productId: String):List<Comment> {
+    suspend fun getReviews(productId: String):List<Review> {
        return productRemoteDataSource.getReviews(productId = productId)
     }
 

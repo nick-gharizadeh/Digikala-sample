@@ -1,7 +1,7 @@
 package com.example.digikalasample.network
 
 import com.example.digikalasample.data.model.Category
-import com.example.digikalasample.data.model.Comment
+import com.example.digikalasample.data.model.Review
 import com.example.digikalasample.data.model.Product
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -80,6 +80,6 @@ interface DigiKalaApiService {
         @Query("consumer_key") consumerKey:String = CONSUMER_KEY,
         @Query("consumer_secret") consumerSecret:String = CONSUMER_SECRET,
         @Query("product") productId: String
-    ):List<Comment>
+    ):List<Review>
 
 }
