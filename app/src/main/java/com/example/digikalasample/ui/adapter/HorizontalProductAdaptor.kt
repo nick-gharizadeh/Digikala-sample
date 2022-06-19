@@ -14,8 +14,8 @@ import com.example.digikalasample.databinding.ProductItemHorizantalBinding
 
 typealias ClickHandlerProduct = (Product) -> Unit
 
-class ProductWithCategoryAdaptor(private var clickHandler: ClickHandlerProduct) :
-    ListAdapter<Product, ProductWithCategoryAdaptor.ItemHolder>(ProductAdapter.ProductDiffCallback) {
+class HorizontalProductAdaptor(private var clickHandler: ClickHandlerProduct) :
+    ListAdapter<Product, HorizontalProductAdaptor.ItemHolder>(ProductAdapter.ProductDiffCallback) {
     class ItemHolder(val binding: ProductItemHorizantalBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val imageViewCover: ImageView = itemView.findViewById(R.id.product_image_category)
