@@ -10,9 +10,10 @@
     <Button
         android:id="@+id/button_filter"
         android:layout_width="0dp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
         android:layout_height="70dp"
         android:layout_gravity="fill|top"
-        android:layout_weight="1"
         android:backgroundTint="@color/digikala_dark_white"
         android:fontFamily="@font/iran_yekan"
         android:foregroundGravity="top"
@@ -23,7 +24,6 @@
         app:iconSize="40dp"
         app:iconTint="#000000"
         app:layout_constraintEnd_toStartOf="@+id/button_sort"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,8 +31,9 @@
         android:id="@+id/button_sort"
         android:layout_width="0dp"
         android:layout_height="70dp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
         android:layout_gravity="fill|top"
-        android:layout_weight="1"
         android:backgroundTint="@color/digikala_dark_white"
         android:fontFamily="@font/iran_yekan"
         android:text="مرتب سازی"
@@ -42,7 +43,6 @@
         app:iconSize="27dp"
         app:iconTint="#000000"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/button_filter"
         app:layout_constraintTop_toTopOf="parent" />
 
