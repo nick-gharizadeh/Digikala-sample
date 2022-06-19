@@ -3,13 +3,12 @@ package com.example.digikalasample.ui
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.SearchView
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.digikalasample.R
 import com.example.digikalasample.data.model.Product
 import com.example.digikalasample.databinding.FragmentSearchBinding
-import com.example.digikalasample.ui.adapter.ProductWithCategoryAdaptor
+import com.example.digikalasample.ui.adapter.HorizontalProductAdaptor
 import com.example.digikalasample.viewmodel.ProductViewModel
 
 
@@ -32,7 +31,7 @@ class SearchFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = ProductWithCategoryAdaptor { goToDetailFragment(it) }
+        val adapter = HorizontalProductAdaptor { goToDetailFragment(it) }
         binding.recyclerViewSearch.adapter = adapter
         productViewModel.searchedProductsList.observe(viewLifecycleOwner)
         {
