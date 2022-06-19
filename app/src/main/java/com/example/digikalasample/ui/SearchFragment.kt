@@ -15,6 +15,8 @@ import com.example.digikalasample.viewmodel.ProductViewModel
 class SearchFragment : BaseFragment() {
     private lateinit var binding: FragmentSearchBinding
     val productViewModel: ProductViewModel by activityViewModels()
+    var alert: android.app.AlertDialog? = null
+    var lastSearach:String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -37,6 +39,10 @@ class SearchFragment : BaseFragment() {
         {
             adapter.submitList(it)
         }
+        binding.buttonSort.setOnClickListener {
+
+            showAlertDialog()
+        }
 
 
     }
@@ -46,6 +52,7 @@ class SearchFragment : BaseFragment() {
         val searchItem = menu.findItem(R.id.item_menu_search_fragment)
         val searchView = searchItem.actionView as SearchView
         searchView.onQueryTextChanged {
+            lastSearach = it
             productViewModel.getProductsBySearch(it)
         }
         super.onCreateOptionsMenu(menu, inflater)
@@ -55,6 +62,36 @@ class SearchFragment : BaseFragment() {
         product.description = RemoveHTMLTags.removeHTMLTagsFromString(product.description)
         productViewModel.product = product
         findNavController().navigate(R.id.action_searchFragment_to_productDetailFragment)
+    }
+
+    private fun showAlertDialog() {
+        val alertDialog: android.app.AlertDialog.Builder =
+            android.app.AlertDialog.Builder(requireContext())
+        alertDialog.setTitle("مرتب سازی بر اساس: ")
+        val items = arrayOf("پیشنهاد خریداران", "محبوب ترین", "کمترین قیمت", "بیشترین قیمت", "جدیدترین")
+        val checkedItem = 1
+        alertDialog.setSingleChoiceItems(
+            items, checkedItem
+        ) { dialog, which ->
+            when (which) {
+                0 -> setVariableToSort("rating")
+                1 -> setVariableToSort("popularity")
+                2 -> setVariableToSort("price")
+                3 -> setVariableToSort("price","desc")
+                4 -> setVariableToSort("date",)
+            }
+        }
+        alert = alertDialog.create()
+        alert?.setCanceledOnTouchOutside(false)
+        alert?.show()
+
+
+    }
+
+    fun setVariableToSort(orderCriterion: String,order:String="asc") {
+        productViewModel.orderCriterion = orderCriterion
+        productViewModel.getProductsBySearch(lastSearach, productViewModel.orderCriterion!!,order)
+        alert?.dismiss()
     }
 
 }
