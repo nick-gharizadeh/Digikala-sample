@@ -22,7 +22,7 @@
             android:layout_marginBottom="8dp"
             android:backgroundTint="@color/digikala_raw_white"
             app:cardCornerRadius="30dp"
-            app:cardElevation="20dp"
+            app:cardElevation="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

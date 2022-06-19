@@ -1,7 +1,6 @@
 package com.example.digikalasample.data.model
 
 data class Product(
-    val _links: Links?,
     val attributes: List<Any>,
     val average_rating: String,
     val backordered: Boolean,

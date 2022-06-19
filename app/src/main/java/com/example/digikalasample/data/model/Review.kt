@@ -1,7 +1,6 @@
 package com.example.digikalasample.data.model
 
 data class Review(
-    val _links: LinksX,
     val date_created: String,
     val date_created_gmt: String,
     val id: Int,
