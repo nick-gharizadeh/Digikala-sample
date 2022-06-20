@@ -8,6 +8,7 @@ import com.example.digikalasample.data.model.Review
 import com.example.digikalasample.data.model.Product
 import com.example.digikalasample.data.repository.ProductsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,7 +19,7 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
     val popularProductList = MutableLiveData<List<Product?>>()
     val ratingProductList = MutableLiveData<List<Product?>>()
     val newestProductList = MutableLiveData<List<Product?>>()
-    val categoriesList = MutableLiveData<List<Category?>>()
+    val categoriesList = MutableStateFlow<List<Category?>>(emptyList())
     val productByCategoriesList = MutableLiveData<List<Product?>>()
     val relatedProductById = MutableLiveData<Product?>()
     var reviewsList = MutableLiveData<List<Review?>>()
@@ -61,8 +62,7 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
 
     private fun getAllCategories() {
         viewModelScope.launch {
-            val list = productRepository.getCategories()
-            categoriesList.value = list
+            categoriesList.emit(productRepository.getCategories())
         }
     }
 

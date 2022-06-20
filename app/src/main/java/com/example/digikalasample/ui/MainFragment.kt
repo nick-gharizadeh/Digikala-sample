@@ -3,6 +3,7 @@ package com.example.digikalasample.ui
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.digikalasample.R
 import com.example.digikalasample.data.model.Category
@@ -13,6 +14,8 @@ import com.example.digikalasample.ui.adapter.DetailViewPagerAdapter
 import com.example.digikalasample.ui.adapter.ProductAdapter
 import com.example.digikalasample.viewmodel.ProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 
 var flagAnimationOnceShowed = false
@@ -73,9 +76,11 @@ class MainFragment : BaseFragment() {
             if (it != null)
                 adapterRating.submitList(it)
         }
-        productViewModel.categoriesList.observe(viewLifecycleOwner) {
-            if (it != null)
-                adapterCategories.submitList(it)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+         productViewModel.categoriesList.collect{
+             adapterCategories.submitList(it)
+         }
         }
 
         productViewModel.relatedProductById.observe(viewLifecycleOwner) {
