@@ -159,7 +159,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:visibility="visible"
-            tools:visibility="gone">
+            tools:visibility="visible">
 
 
             <LinearLayout
@@ -309,7 +309,21 @@
 
                 </LinearLayout>
 
-
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_add_to_shopping_cart"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="4dp"
+                    android:fontFamily="@font/iran_yekan"
+                    android:text="@string/add_to_cart"
+                    app:backgroundTint="@color/digikala_red_origin"
+                    app:cornerRadius="0dp"
+                    app:icon="@drawable/ic_shopping_cart"
+                    app:iconGravity="textStart"
+                    app:iconSize="22dp" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
@@ -323,7 +337,7 @@
             android:layout_marginRight="16dp"
             android:layout_marginBottom="4dp"
             android:visibility="visible"
-            tools:visibility="gone">
+            tools:visibility="visible">
 
             <LinearLayout
                 android:layout_width="match_parent"
