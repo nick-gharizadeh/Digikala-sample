@@ -61,26 +61,30 @@ class MainFragment : BaseFragment() {
         binding.newestRecyclerView.adapter = adapterNewest
         binding.bestSellRecyclerView.adapter = adapterRating
         binding.categoryRecyclerView.adapter = adapterCategories
-        productViewModel.popularProductList.observe(viewLifecycleOwner) {
-            if (it != null)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            productViewModel.popularProductList.collect {
                 adapterPopular.submitList(it)
+            }
         }
 
-        productViewModel.newestProductList.observe(viewLifecycleOwner) {
-            if (it != null) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            productViewModel.newestProductList.collect {
                 adapterNewest.submitList(removeWrongElement(it))
             }
         }
 
-        productViewModel.ratingProductList.observe(viewLifecycleOwner) {
-            if (it != null)
+        viewLifecycleOwner.lifecycleScope.launch {
+            productViewModel.ratingProductList.collect {
                 adapterRating.submitList(it)
+            }
         }
 
+
         viewLifecycleOwner.lifecycleScope.launch {
-         productViewModel.categoriesList.collect{
-             adapterCategories.submitList(it)
-         }
+            productViewModel.categoriesList.collect {
+                adapterCategories.submitList(it)
+            }
         }
 
         productViewModel.relatedProductById.observe(viewLifecycleOwner) {
@@ -94,7 +98,7 @@ class MainFragment : BaseFragment() {
 
     }
 
-    fun removeWrongElement(list: List<Product?>): List<Product?> {
+    private fun removeWrongElement(list: List<Product?>): List<Product?> {
         list.forEach { product ->
             if (product?.id == 608)
                 return list.minus(product)

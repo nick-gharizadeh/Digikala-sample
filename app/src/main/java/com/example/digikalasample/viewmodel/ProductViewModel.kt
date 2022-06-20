@@ -16,9 +16,9 @@ import javax.inject.Inject
 class ProductViewModel @Inject constructor(private val productRepository: ProductsRepository) :
     ViewModel() {
     var product: Product? = null
-    val popularProductList = MutableLiveData<List<Product?>>()
-    val ratingProductList = MutableLiveData<List<Product?>>()
-    val newestProductList = MutableLiveData<List<Product?>>()
+    val popularProductList = MutableStateFlow<List<Product?>>(emptyList())
+    val ratingProductList = MutableStateFlow<List<Product?>>(emptyList())
+    val newestProductList = MutableStateFlow<List<Product?>>(emptyList())
     val categoriesList = MutableStateFlow<List<Category?>>(emptyList())
     val productByCategoriesList = MutableLiveData<List<Product?>>()
     val relatedProductById = MutableLiveData<Product?>()
@@ -38,10 +38,9 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
         getProductById(608)
     }
 
-    private fun getProducts(orderBy: String, relatedLiveData: MutableLiveData<List<Product?>>) {
+    private fun getProducts(orderBy: String, relatedLiveData: MutableStateFlow<List<Product?>>) {
         viewModelScope.launch {
-            val list = productRepository.getProducts(orderBy = orderBy)
-            relatedLiveData.value = list
+            relatedLiveData.emit(productRepository.getProducts(orderBy = orderBy))
         }
     }
 
