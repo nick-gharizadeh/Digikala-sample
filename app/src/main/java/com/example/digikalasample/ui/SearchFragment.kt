@@ -82,7 +82,7 @@ class SearchFragment : BaseFragment() {
             }
         }
         alert = alertDialog.create()
-        alert?.setCanceledOnTouchOutside(false)
+        alert?.setCanceledOnTouchOutside(true)
         alert?.show()
 
 

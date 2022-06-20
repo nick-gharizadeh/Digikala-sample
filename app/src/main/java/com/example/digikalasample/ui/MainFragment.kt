@@ -2,7 +2,6 @@ package com.example.digikalasample.ui
 
 import android.os.Bundle
 import android.view.*
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.digikalasample.R
@@ -14,7 +13,6 @@ import com.example.digikalasample.ui.adapter.DetailViewPagerAdapter
 import com.example.digikalasample.ui.adapter.ProductAdapter
 import com.example.digikalasample.viewmodel.ProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
-
 
 
 var flagAnimationOnceShowed = false
@@ -66,9 +64,11 @@ class MainFragment : BaseFragment() {
         }
 
         productViewModel.newestProductList.observe(viewLifecycleOwner) {
-            if (it != null)
-                adapterNewest.submitList(it)
+            if (it != null) {
+                adapterNewest.submitList(removeWrongElement(it))
+            }
         }
+
         productViewModel.ratingProductList.observe(viewLifecycleOwner) {
             if (it != null)
                 adapterRating.submitList(it)
@@ -87,6 +87,14 @@ class MainFragment : BaseFragment() {
 
         }
 
+    }
+
+    fun removeWrongElement(list: List<Product?>): List<Product?> {
+        list.forEach { product ->
+            if (product?.id == 608)
+                return list.minus(product)
+        }
+        return listOf()
     }
 
     private fun goToDetailFragment(product: Product) {
