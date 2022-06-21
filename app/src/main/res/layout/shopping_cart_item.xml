@@ -12,6 +12,7 @@
         android:id="@+id/cardview_shopping_cart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
         android:orientation="vertical">
 
@@ -111,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="4dp"
-                android:backgroundTint="@color/digikala_red"
+                android:backgroundTint="@color/digikala_red_origin"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
