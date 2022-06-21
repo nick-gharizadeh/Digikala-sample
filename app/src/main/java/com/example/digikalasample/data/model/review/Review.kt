@@ -1,4 +1,5 @@
-package com.example.digikalasample.data.model
+package com.example.digikalasample.data.model.review
+
 
 data class Review(
     val date_created: String,

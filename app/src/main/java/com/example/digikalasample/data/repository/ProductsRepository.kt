@@ -1,9 +1,9 @@
 package com.example.digikalasample.data.repository
 
 import com.example.digikalasample.data.ProductRemoteDataSource
-import com.example.digikalasample.data.model.Category
-import com.example.digikalasample.data.model.Review
-import com.example.digikalasample.data.model.Product
+import com.example.digikalasample.data.model.product.Category
+import com.example.digikalasample.data.model.review.Review
+import com.example.digikalasample.data.model.product.Product
 import javax.inject.Inject
 
 class ProductsRepository @Inject constructor(

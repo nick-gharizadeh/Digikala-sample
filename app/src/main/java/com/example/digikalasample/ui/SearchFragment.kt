@@ -6,7 +6,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.digikalasample.R
-import com.example.digikalasample.data.model.Product
+import com.example.digikalasample.data.model.product.Product
 import com.example.digikalasample.databinding.FragmentSearchBinding
 import com.example.digikalasample.ui.adapter.HorizontalProductAdaptor
 import com.example.digikalasample.viewmodel.ProductViewModel

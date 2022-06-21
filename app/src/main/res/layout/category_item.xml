@@ -6,7 +6,7 @@
 
         <variable
             name="category"
-            type="com.example.digikalasample.data.model.Category" />
+            type="com.example.digikalasample.data.model.product.Category" />
     </data>
 
     <com.google.android.material.button.MaterialButton

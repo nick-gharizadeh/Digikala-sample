@@ -1,9 +1,9 @@
 package com.example.digikalasample.data
 
 import androidx.lifecycle.MutableLiveData
-import com.example.digikalasample.data.model.Category
-import com.example.digikalasample.data.model.Review
-import com.example.digikalasample.data.model.Product
+import com.example.digikalasample.data.model.product.Category
+import com.example.digikalasample.data.model.review.Review
+import com.example.digikalasample.data.model.product.Product
 import com.example.digikalasample.network.DigiKalaApiService
 import javax.inject.Inject
 

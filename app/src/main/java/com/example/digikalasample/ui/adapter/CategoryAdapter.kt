@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.digikalasample.R
-import com.example.digikalasample.data.model.Category
+import com.example.digikalasample.data.model.product.Category
 import com.example.digikalasample.databinding.CategoryItemBinding
 
 typealias ClickHandlerCategory = (Category) -> Unit

@@ -9,7 +9,7 @@ import android.widget.LinearLayout
 import androidx.viewpager.widget.PagerAdapter
 import com.bumptech.glide.Glide
 import com.example.digikalasample.R
-import com.example.digikalasample.data.model.Image
+import com.example.digikalasample.data.model.product.Image
 import java.util.*
 
 class DetailViewPagerAdapter(var context: Context, private var images: List<Image>) :

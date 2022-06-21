@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.digikalasample.R
-import com.example.digikalasample.data.model.Review
+import com.example.digikalasample.data.model.review.Review
 import com.example.digikalasample.databinding.ReviewItemBinding
 
 

@@ -1,8 +1,8 @@
 package com.example.digikalasample.network
 
-import com.example.digikalasample.data.model.Category
-import com.example.digikalasample.data.model.Review
-import com.example.digikalasample.data.model.Product
+import com.example.digikalasample.data.model.product.Category
+import com.example.digikalasample.data.model.review.Review
+import com.example.digikalasample.data.model.product.Product
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

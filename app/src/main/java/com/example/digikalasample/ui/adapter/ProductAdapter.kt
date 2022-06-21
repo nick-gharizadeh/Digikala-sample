@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.example.digikalasample.R
-import com.example.digikalasample.data.model.Product
+import com.example.digikalasample.data.model.product.Product
 
 typealias ClickHandler = (Product)-> Unit
 class ProductAdapter(private var clickHandler: ClickHandler) :

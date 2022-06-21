@@ -1,4 +1,4 @@
-package com.example.digikalasample.data.model
+package com.example.digikalasample.data.model.product
 
 data class Image(
     val alt: String,

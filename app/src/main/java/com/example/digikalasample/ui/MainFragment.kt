@@ -6,8 +6,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.digikalasample.R
-import com.example.digikalasample.data.model.Category
-import com.example.digikalasample.data.model.Product
+import com.example.digikalasample.data.model.product.Category
+import com.example.digikalasample.data.model.product.Product
 import com.example.digikalasample.databinding.FragmentMainBinding
 import com.example.digikalasample.ui.adapter.CategoryAdapter
 import com.example.digikalasample.ui.adapter.DetailViewPagerAdapter

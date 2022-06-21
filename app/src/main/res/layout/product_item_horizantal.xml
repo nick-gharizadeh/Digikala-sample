@@ -7,7 +7,7 @@
     <data>
         <variable
             name="product"
-            type="com.example.digikalasample.data.model.Product" />
+            type="com.example.digikalasample.data.model.product.Product" />
     </data>
 
 

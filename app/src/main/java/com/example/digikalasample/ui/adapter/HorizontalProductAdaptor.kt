@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.digikalasample.R
-import com.example.digikalasample.data.model.Product
+import com.example.digikalasample.data.model.product.Product
 import com.example.digikalasample.databinding.ProductItemHorizantalBinding
 
 
@@ -19,7 +19,7 @@ class HorizontalProductAdaptor(private var clickHandler: ClickHandlerProduct) :
     class ItemHolder(val binding: ProductItemHorizantalBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val imageViewCover: ImageView = itemView.findViewById(R.id.product_image_category)
-        fun bind(product:Product){
+        fun bind(product: Product){
           if (product.images.isNotEmpty()) {
               Glide.with(itemView)
                   .load(product.images[0].src)
