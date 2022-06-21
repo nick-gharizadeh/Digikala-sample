@@ -12,12 +12,10 @@ import com.example.digikalasample.databinding.FragmentProductDetailBinding
 import com.example.digikalasample.ui.adapter.DetailViewPagerAdapter
 import com.example.digikalasample.ui.adapter.ReviewAdapter
 import com.example.digikalasample.viewmodel.ProductViewModel
-import com.example.digikalasample.viewmodel.ShoppingCartViewModel
 
 class ProductDetailFragment : BaseFragment() {
     private lateinit var binding: FragmentProductDetailBinding
     val productViewModel: ProductViewModel by activityViewModels()
-    val shoppingCartViewModel: ShoppingCartViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,7 +47,7 @@ class ProductDetailFragment : BaseFragment() {
         binding.productColorSpinner.adapter = adapter
         binding.recyclerViewComments.adapter = reviewAdapter
         binding.buttonAddToShoppingCart.setOnClickListener {
-        shoppingCartViewModel.addToShoppingCard(productViewModel.product!!)
+        productViewModel.addToShoppingCard()
         }
 
         productViewModel.reviewsList.observe(viewLifecycleOwner) {

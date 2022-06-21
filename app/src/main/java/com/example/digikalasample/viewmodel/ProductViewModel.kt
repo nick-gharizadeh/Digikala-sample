@@ -4,8 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.digikalasample.data.model.product.Category
-import com.example.digikalasample.data.model.review.Review
 import com.example.digikalasample.data.model.product.Product
+import com.example.digikalasample.data.model.review.Review
 import com.example.digikalasample.data.repository.ProductsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,9 +22,10 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
     val categoriesList = MutableStateFlow<List<Category?>>(emptyList())
     val productByCategoriesList = MutableLiveData<List<Product?>>()
     val relatedProductById = MutableLiveData<Product?>()
+    var shoppingCardList :List<Product?> = emptyList()
     var reviewsList = MutableLiveData<List<Review?>>()
     val searchedProductsList = MutableLiveData<List<Product?>>()
-    var orderCriterion : String? = null
+    var orderCriterion: String? = null
 
     init {
         callServices()
@@ -44,9 +45,13 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
         }
     }
 
-    fun getProductsBySearch(searchQuery: String,orderBy: String = "popularity",order :String="asc") {
+    fun getProductsBySearch(
+        searchQuery: String,
+        orderBy: String = "popularity",
+        order: String = "asc"
+    ) {
         viewModelScope.launch {
-            val list = productRepository.getProductsBySearch(searchQuery,orderBy,order)
+            val list = productRepository.getProductsBySearch(searchQuery, orderBy, order)
             searchedProductsList.value = list
         }
     }
@@ -65,19 +70,23 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
         }
     }
 
-    private fun getProductById(id:Int) {
+    private fun getProductById(id: Int) {
         viewModelScope.launch {
             val list = productRepository.getProductById(id)
-            relatedProductById.value=list
+            relatedProductById.value = list
         }
     }
 
 
-     fun getReviews(id:String) {
+    fun getReviews(id: String) {
         viewModelScope.launch {
             val list = productRepository.getReviews(id)
-            reviewsList.value=list
+            reviewsList.value = list
         }
+    }
+
+    fun addToShoppingCard() {
+        shoppingCardList =  shoppingCardList.plus(product)
     }
 
 
