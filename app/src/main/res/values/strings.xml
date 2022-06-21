@@ -26,6 +26,10 @@
     <string name="error_server">سرور در دسترس نیست </string>
     <string name="error_404"> نتيجه اي يافت نشد !😟</string>
     <string name="error_not_connected">عدم اتصال به اینترنت </string>
+    <string name="count">تعداد</string>
+    <string name="delete">حذف</string>
+    <string name="discount_shopping_cart">جمع سبد خرید</string>
+    <string name="continue_shopping">ادامه فرآیند خرید</string>
 
 
     <string-array name="colors">
