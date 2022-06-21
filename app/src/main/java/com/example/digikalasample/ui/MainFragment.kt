@@ -131,7 +131,7 @@ class MainFragment : BaseFragment() {
                 return false
             }
             R.id.item_menu_shopping_cart -> {
-
+                findNavController().navigate(R.id.action_mainFragment_to_shoppingCartFragment)
                 return false
             }
         }

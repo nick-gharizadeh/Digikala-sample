@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+<variable
+    name="product"
+    type="com.example.digikalasample.data.model.product.Product" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -40,7 +42,7 @@
                         android:layout_marginLeft="8dp"
                         android:layout_marginTop="4dp"
                         android:gravity="right"
-                        android:text="name"
+                        android:text="@{product.name}"
                         android:textSize="14dp"
                         app:fontFamily="@font/iran_yekan" />
 
@@ -80,7 +82,7 @@
                         <androidx.appcompat.widget.AppCompatTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="تعداد"
+                            android:text="@string/count"
                             android:textSize="10dp"
                             app:fontFamily="@font/iran_yekan" />
 
@@ -113,7 +115,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
-                android:text="حذف"
+                android:text="@string/delete"
                 android:textColor="@color/digikala_raw_white"
                 android:textSize="10dp"
                 app:fontFamily="@font/iran_yekan"

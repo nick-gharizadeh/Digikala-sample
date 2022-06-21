@@ -52,9 +52,9 @@ class ReviewAdapter :
     }
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        val comment = getItem(position)
-        holder.binding.comment = comment
-        holder.bind(comment)
+        val review = getItem(position)
+        holder.binding.review = review
+        holder.bind(review)
 
     }
 }
