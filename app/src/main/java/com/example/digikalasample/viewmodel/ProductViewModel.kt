@@ -21,8 +21,8 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
     val newestProductList = MutableStateFlow<List<Product?>>(emptyList())
     val categoriesList = MutableStateFlow<List<Category?>>(emptyList())
     val productByCategoriesList = MutableLiveData<List<Product?>>()
-    val relatedProductById = MutableLiveData<Product?>()
-    var shoppingCardList :List<Product?> = emptyList()
+    val specialProduct = MutableLiveData<Product?>()
+    var shoppingCardList: List<Product?> = emptyList()
     var reviewsList = MutableLiveData<List<Review?>>()
     val searchedProductsList = MutableLiveData<List<Product?>>()
     var orderCriterion: String? = null
@@ -36,7 +36,7 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
         getProducts("popularity", popularProductList)
         getProducts("rating", ratingProductList)
         getProducts("date", newestProductList)
-        getProductById(608)
+        getSpecialProduct()
     }
 
     private fun getProducts(orderBy: String, relatedLiveData: MutableStateFlow<List<Product?>>) {
@@ -70,13 +70,17 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
         }
     }
 
-    private fun getProductById(id: Int) {
-        viewModelScope.launch {
-            val list = productRepository.getProductById(id)
-            relatedProductById.value = list
-        }
+    suspend fun getProductById(id: Int): Product? {
+        return productRepository.getProductById(id)
     }
 
+    // 📌 get slider photos
+    private fun getSpecialProduct(id: Int = 608) {
+        viewModelScope.launch {
+            val list = productRepository.getProductById(id)
+            specialProduct.value = list
+        }
+    }
 
     fun getReviews(id: String) {
         viewModelScope.launch {
@@ -85,8 +89,8 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
         }
     }
 
-    fun addToShoppingCard() {
-        shoppingCardList =  shoppingCardList.plus(product)
+    fun addToShoppingCard(product: Product? = this.product) {
+        shoppingCardList = shoppingCardList.plus(product)
     }
 
 

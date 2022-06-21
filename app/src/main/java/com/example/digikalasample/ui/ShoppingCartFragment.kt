@@ -1,15 +1,17 @@
 package com.example.digikalasample.ui
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.example.digikalasample.databinding.FragmentShoppingCartBinding
 import com.example.digikalasample.ui.adapter.ShoppingCartAdapter
 import com.example.digikalasample.viewmodel.ProductViewModel
 
+
+lateinit var sharedPreferences: SharedPreferences
 
 class ShoppingCartFragment : BaseFragment() {
     private lateinit var binding: FragmentShoppingCartBinding
@@ -17,7 +19,6 @@ class ShoppingCartFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -33,7 +34,7 @@ class ShoppingCartFragment : BaseFragment() {
         val adapter = ShoppingCartAdapter()
         binding.recyclerviewShoppingcard.adapter = adapter
         adapter.submitList(productViewModel.shoppingCardList)
-        Toast.makeText(requireContext(), productViewModel.shoppingCardList.size.toString(), Toast.LENGTH_SHORT).show()
 
     }
+
 }

@@ -19,6 +19,7 @@ import kotlinx.coroutines.launch
 
 
 var flagAnimationOnceShowed = false
+var flagIsDataSetFromShared = false
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment() {
@@ -47,6 +48,20 @@ class MainFragment : BaseFragment() {
             binding.animationView.visibility = View.GONE
             binding.mainLayout.visibility = View.VISIBLE
         }
+
+
+        if (!sharedPreferences.getStringSet("shoppingCartSet", emptySet()).isNullOrEmpty() && !flagIsDataSetFromShared) {
+            flagIsDataSetFromShared=true
+            val shoppingCartSet =
+                sharedPreferences.getStringSet("shoppingCartSet", emptySet())
+            for (productId in shoppingCartSet!!) {
+                viewLifecycleOwner.lifecycleScope.launch {
+                    productViewModel.addToShoppingCard(productViewModel.getProductById(productId.toInt()))
+                }
+
+            }
+        }
+
         val adapterPopular = ProductAdapter {
             goToDetailFragment(it)
         }
@@ -87,7 +102,7 @@ class MainFragment : BaseFragment() {
             }
         }
 
-        productViewModel.relatedProductById.observe(viewLifecycleOwner) {
+        productViewModel.specialProduct.observe(viewLifecycleOwner) {
             val images = it?.images
             val mViewPagerAdapter: DetailViewPagerAdapter? =
                 images?.let { DetailViewPagerAdapter(requireContext(), it) }
@@ -136,5 +151,16 @@ class MainFragment : BaseFragment() {
             }
         }
         return false
+    }
+
+    override fun onDestroy() {
+        val editor = sharedPreferences.edit()
+        val shoppingCartSet = mutableSetOf<String>()
+        for (product in productViewModel.shoppingCardList) {
+            shoppingCartSet.add(product?.id.toString())
+        }
+        editor.putStringSet("shoppingCartSet", shoppingCartSet)
+        editor.apply()
+        super.onDestroy()
     }
 }

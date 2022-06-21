@@ -1,5 +1,6 @@
 package com.example.digikalasample.ui
 
+import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.digikalasample.databinding.ActivityMainBinding
@@ -14,6 +15,8 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         supportActionBar?.show()
+        sharedPreferences=getSharedPreferences("myShare", Context.MODE_PRIVATE)
+
     }
 
 
