@@ -11,8 +11,10 @@ import com.example.digikalasample.R
 import com.example.digikalasample.data.model.product.Product
 import com.example.digikalasample.databinding.ShoppingCartItemBinding
 
+typealias ClickHandlerDelete = (Product) -> Unit
 
-class ShoppingCartAdapter :
+
+class ShoppingCartAdapter(private var clickHandlerDelete: ClickHandlerDelete) :
     ListAdapter<Product, ShoppingCartAdapter.ItemHolder>(ProductAdapter.ProductDiffCallback) {
 
 
@@ -43,6 +45,9 @@ class ShoppingCartAdapter :
         val product = getItem(position)
         holder.binding.product = product
         holder.bind(product)
+        holder.binding.buttonDelete.setOnClickListener {
+            clickHandlerDelete.invoke(product)
+        }
 
     }
 }

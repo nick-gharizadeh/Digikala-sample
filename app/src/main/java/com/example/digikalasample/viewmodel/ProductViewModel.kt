@@ -93,5 +93,7 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
         shoppingCardList = shoppingCardList.plus(product)
     }
 
-
+    fun removeFromShoppingCard(product: Product? ) {
+        shoppingCardList = shoppingCardList.minus(product)
+    }
 }
