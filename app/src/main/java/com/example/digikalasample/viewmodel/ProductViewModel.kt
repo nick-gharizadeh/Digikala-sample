@@ -3,6 +3,7 @@ package com.example.digikalasample.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.digikalasample.data.model.customer.Customer
 import com.example.digikalasample.data.model.product.Category
 import com.example.digikalasample.data.model.product.Product
 import com.example.digikalasample.data.model.review.Review
@@ -16,6 +17,7 @@ import javax.inject.Inject
 class ProductViewModel @Inject constructor(private val productRepository: ProductsRepository) :
     ViewModel() {
     var product: Product? = null
+    var mCustomer: Customer? = null
     val popularProductList = MutableStateFlow<List<Product?>>(emptyList())
     val ratingProductList = MutableStateFlow<List<Product?>>(emptyList())
     val newestProductList = MutableStateFlow<List<Product?>>(emptyList())
@@ -113,6 +115,17 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
                 set.elementAt(index).toInt()
         }
 
+    }
+
+     fun createCustomer(firstName: String, lastName: String, email: String) {
+         viewModelScope.launch {
+            val customer =  productRepository.createCustomer(
+                 firstName = firstName,
+                 lastName = lastName,
+                 email = email
+             )
+             mCustomer = customer
+         }
     }
 
 }

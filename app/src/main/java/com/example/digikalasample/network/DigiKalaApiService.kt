@@ -1,11 +1,10 @@
 package com.example.digikalasample.network
 
+import com.example.digikalasample.data.model.customer.Customer
 import com.example.digikalasample.data.model.product.Category
 import com.example.digikalasample.data.model.review.Review
 import com.example.digikalasample.data.model.product.Product
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 
 const val CONSUMER_KEY = "ck_0e61e4a29d9130ed954bb8c11e7f827a7e8c2dfb"
@@ -85,5 +84,15 @@ interface DigiKalaApiService {
         @Query("consumer_secret") consumerSecret:String = CONSUMER_SECRET,
         @Query("product") productId: String
     ):List<Review>
+
+    @POST("customers")
+    suspend fun createCustomer(
+        @Query("consumer_key") consumerKey:String = CONSUMER_KEY,
+        @Query("consumer_secret") consumerSecret:String = CONSUMER_SECRET,
+        @Field("first_name")  firstName:String,
+        @Field("last_name")  lastName:String,
+        @Field("email")  email:String):Customer
+
+
 
 }

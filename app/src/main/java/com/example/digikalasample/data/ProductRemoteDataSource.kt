@@ -1,9 +1,10 @@
 package com.example.digikalasample.data
 
 import androidx.lifecycle.MutableLiveData
+import com.example.digikalasample.data.model.customer.Customer
 import com.example.digikalasample.data.model.product.Category
-import com.example.digikalasample.data.model.review.Review
 import com.example.digikalasample.data.model.product.Product
+import com.example.digikalasample.data.model.review.Review
 import com.example.digikalasample.network.DigiKalaApiService
 import javax.inject.Inject
 
@@ -23,10 +24,18 @@ class ProductRemoteDataSource @Inject constructor(private val productApiService:
     }
 
 
-    suspend fun getProductsBySearch(searchQuery: String,orderBy: String = "popularity",order :String="asc"): List<Product> {
+    suspend fun getProductsBySearch(
+        searchQuery: String,
+        orderBy: String = "popularity",
+        order: String = "asc"
+    ): List<Product> {
         return try {
             errorThatOccur.value = null
-            productApiService.getProduct(searchQuery = searchQuery, orderBy = orderBy, order = order)
+            productApiService.getProduct(
+                searchQuery = searchQuery,
+                orderBy = orderBy,
+                order = order
+            )
         } catch (e: Exception) {
             if (errorThatOccur.value == null)
                 errorThatOccur.value = e
@@ -70,8 +79,26 @@ class ProductRemoteDataSource @Inject constructor(private val productApiService:
         }
     }
 
-    suspend fun getReviews(productId: String):List<Review> {
-       return productApiService.getReviews(productId = productId)
+    suspend fun getReviews(productId: String): List<Review> {
+        return try {
+            errorThatOccur.value = null
+            productApiService.getReviews(productId = productId)
+        } catch (e: Exception) {
+            if (errorThatOccur.value == null)
+                errorThatOccur.value = e
+            listOf()
+        }
+    }
+    suspend fun createCustomer(firstName:String , lastName:String , email:String): Customer? {
+        return try {
+            errorThatOccur.value = null
+            productApiService.createCustomer(firstName=firstName, lastName = lastName, email = email)
+        } catch (e: Exception) {
+            if (errorThatOccur.value == null)
+                errorThatOccur.value = e
+          val customer :Customer ? = null
+            return customer
+        }
     }
 
 }
