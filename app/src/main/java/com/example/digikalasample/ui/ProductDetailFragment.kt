@@ -34,7 +34,7 @@ class ProductDetailFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         productViewModel.reviewsList.value = null
         val colors = resources.getStringArray(R.array.colors)
-        val images = productViewModel.product?.images
+        val images = productViewModel.mProduct?.images
         val mViewPagerAdapter: DetailViewPagerAdapter? =
             images?.let { DetailViewPagerAdapter(requireContext(), it) }
         binding.productDetailViewPager.adapter = mViewPagerAdapter
@@ -68,7 +68,7 @@ class ProductDetailFragment : BaseFragment() {
         }
 
         binding.reviewsButton.setOnClickListener {
-            productViewModel.getReviews(productViewModel.product?.id.toString())
+            productViewModel.getReviews(productViewModel.mProduct?.id.toString())
             changeVisibilities(showReviews = true)
 
         }

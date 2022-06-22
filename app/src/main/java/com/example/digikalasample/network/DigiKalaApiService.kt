@@ -2,8 +2,8 @@ package com.example.digikalasample.network
 
 import com.example.digikalasample.data.model.customer.Customer
 import com.example.digikalasample.data.model.product.Category
-import com.example.digikalasample.data.model.review.Review
 import com.example.digikalasample.data.model.product.Product
+import com.example.digikalasample.data.model.review.Review
 import retrofit2.http.*
 
 
@@ -75,24 +75,26 @@ interface DigiKalaApiService {
         @Query("orderby")
         orderBy: String = "popularity",
         @Query("order")
-        order: String ="asc"
+        order: String = "asc"
     ): List<Product>
 
     @GET("products/reviews")
     suspend fun getReviews(
-        @Query("consumer_key") consumerKey:String = CONSUMER_KEY,
-        @Query("consumer_secret") consumerSecret:String = CONSUMER_SECRET,
+        @Query("consumer_key") consumerKey: String = CONSUMER_KEY,
+        @Query("consumer_secret") consumerSecret: String = CONSUMER_SECRET,
         @Query("product") productId: String
-    ):List<Review>
+    ): List<Review>
 
+
+    @FormUrlEncoded
     @POST("customers")
     suspend fun createCustomer(
-        @Query("consumer_key") consumerKey:String = CONSUMER_KEY,
-        @Query("consumer_secret") consumerSecret:String = CONSUMER_SECRET,
-        @Field("first_name")  firstName:String,
-        @Field("last_name")  lastName:String,
-        @Field("email")  email:String):Customer
-
+        @Query("consumer_key") consumerKey: String = CONSUMER_KEY,
+        @Query("consumer_secret") consumerSecret: String = CONSUMER_SECRET,
+        @Field("first_name") firstName: String,
+        @Field("last_name") lastName: String,
+        @Field("email") email: String
+    ): Customer?
 
 
 }

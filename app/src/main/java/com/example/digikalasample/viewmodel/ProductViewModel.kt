@@ -16,8 +16,9 @@ import javax.inject.Inject
 @HiltViewModel
 class ProductViewModel @Inject constructor(private val productRepository: ProductsRepository) :
     ViewModel() {
-    var product: Product? = null
-    var mCustomer: Customer? = null
+    var mProduct: Product? = null
+    var mCustomer=MutableLiveData<Customer?>()
+    var mCustomerId : Int?  =null
     val popularProductList = MutableStateFlow<List<Product?>>(emptyList())
     val ratingProductList = MutableStateFlow<List<Product?>>(emptyList())
     val newestProductList = MutableStateFlow<List<Product?>>(emptyList())
@@ -92,7 +93,7 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
         }
     }
 
-    fun addToShoppingCard(product: Product? = this.product,count :Int = 1 ) {
+    fun addToShoppingCard(product: Product? = this.mProduct, count :Int = 1 ) {
         product?.count = count
         shoppingCardList = shoppingCardList.plus(product)
     }
@@ -119,12 +120,12 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
 
      fun createCustomer(firstName: String, lastName: String, email: String) {
          viewModelScope.launch {
-            val customer =  productRepository.createCustomer(
+          val customer =    productRepository.createCustomer(
                  firstName = firstName,
                  lastName = lastName,
                  email = email
              )
-             mCustomer = customer
+             mCustomer.value = customer
          }
     }
 

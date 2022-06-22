@@ -94,7 +94,7 @@
                     android:layout_marginRight="16dp"
                     android:fontFamily="@font/far_roya_bd"
                     android:gravity="right"
-                    android:text='@{productViewModel.product.name}'
+                    android:text="@{productViewModel.MProduct.name}"
                     android:textSize="18sp" />
 
 
@@ -302,7 +302,7 @@
                         android:layout_marginLeft="4dp"
                         android:fontFamily="@font/far_trafc_bd"
                         android:gravity="left"
-                        android:text='@{productViewModel.product.price+` تومان `}'
+                        android:text="@{productViewModel.MProduct.price+` تومان `}"
                         android:textColor="@color/digikala_green"
                         android:textSize="17dp" />
 
@@ -359,7 +359,7 @@
                     android:paddingTop="4dp"
                     android:paddingRight="12dp"
                     android:paddingBottom="4dp"
-                    android:text='@{productViewModel.product == null ? "" : productViewModel.product.description}'
+                    android:text='@{productViewModel.MProduct == null ? "" : productViewModel.MProduct.description}'
                     android:textColor="@color/digikala_gray"
                     android:textDirection="rtl"
                     android:textSize="16sp" />

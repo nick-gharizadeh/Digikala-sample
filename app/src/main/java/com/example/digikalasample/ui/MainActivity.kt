@@ -2,6 +2,7 @@ package com.example.digikalasample.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -21,7 +22,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
         supportActionBar?.show()
         sharedPreferences = getSharedPreferences("myShare", Context.MODE_PRIVATE)
-
         if (!sharedPreferences.getStringSet("shoppingCartSet", emptySet())
                 .isNullOrEmpty() && !flagIsDataSetFromShared
         ) {
