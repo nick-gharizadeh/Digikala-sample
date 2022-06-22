@@ -34,7 +34,6 @@ class RegisterFragment : BaseFragment() {
             val editor = sharedPreferences.edit()
             it?.id?.let { it1 -> editor.putInt("CustomerId", it1) }
             editor.apply()
-//            sharedPreferences.getInt("CustomerId",0).toString()
         }
         binding.buttonRegister.setOnClickListener {
             setError(binding.editTextFirstname)

@@ -22,6 +22,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
         supportActionBar?.show()
         sharedPreferences = getSharedPreferences("myShare", Context.MODE_PRIVATE)
+        if (sharedPreferences.getInt("CustomerId", 0) != 0) {
+            productViewModel.mCustomerId = sharedPreferences.getInt("CustomerId", 0)
+            Toast.makeText(applicationContext,  productViewModel.mCustomerId.toString(), Toast.LENGTH_SHORT).show()
+        }
         if (!sharedPreferences.getStringSet("shoppingCartSet", emptySet())
                 .isNullOrEmpty() && !flagIsDataSetFromShared
         ) {
@@ -44,21 +48,6 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
-    override fun onStop() {
-        val editor = sharedPreferences.edit()
-        val shoppingCartSet = mutableSetOf<String>()
-        val shoppingCartCountSet = mutableSetOf<String>()
-        for (product in productViewModel.shoppingCardList) {
-            shoppingCartSet.add(product?.id.toString())
-            shoppingCartCountSet.add(product?.count.toString())
-        }
-        editor.putStringSet("shoppingCartSet", shoppingCartSet)
-        editor.putStringSet("shoppingCartCountSet", shoppingCartCountSet)
-        editor.apply()
-        super.onStop()
-    }
-
 
 }
 
