@@ -1,10 +1,8 @@
 package com.example.digikalasample.ui.adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -26,7 +24,6 @@ class ShoppingCartAdapter(
     ListAdapter<Product, ShoppingCartAdapter.ItemHolder>(ProductAdapter.ProductDiffCallback) {
 
 
-    var sum = 0
 
     class ItemHolder(val binding: ShoppingCartItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -41,7 +38,6 @@ class ShoppingCartAdapter(
                 .into(imageViewProduct)
 
         }
-
 
 
     }
@@ -61,7 +57,6 @@ class ShoppingCartAdapter(
         val product = getItem(position)
         holder.binding.product = product
         holder.bind(product)
-        sum += (product?.count?.let { product.price.toInt() * (it) }!!)
         holder.binding.buttonDelete.setOnClickListener {
             clickHandlerDelete.invoke(product)
         }

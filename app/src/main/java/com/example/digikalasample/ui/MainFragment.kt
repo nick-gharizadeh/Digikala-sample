@@ -50,18 +50,6 @@ class MainFragment : BaseFragment() {
         }
 
 
-        if (!sharedPreferences.getStringSet("shoppingCartSet", emptySet()).isNullOrEmpty() && !flagIsDataSetFromShared) {
-            flagIsDataSetFromShared=true
-            val shoppingCartSet =
-                sharedPreferences.getStringSet("shoppingCartSet", emptySet())
-            for (productId in shoppingCartSet!!) {
-                viewLifecycleOwner.lifecycleScope.launch {
-                    productViewModel.addToShoppingCard(productViewModel.getProductById(productId.toInt()))
-                }
-
-            }
-        }
-
         val adapterPopular = ProductAdapter {
             goToDetailFragment(it)
         }
@@ -151,17 +139,6 @@ class MainFragment : BaseFragment() {
             }
         }
         return false
-    }
-
-    override fun onStop() {
-        val editor = sharedPreferences.edit()
-        val shoppingCartSet = mutableSetOf<String>()
-        for (product in productViewModel.shoppingCardList) {
-            shoppingCartSet.add(product?.id.toString())
-        }
-        editor.putStringSet("shoppingCartSet", shoppingCartSet)
-        editor.apply()
-        super.onStop()
     }
 
 

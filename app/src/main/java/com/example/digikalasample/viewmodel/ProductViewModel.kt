@@ -90,8 +90,8 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
         }
     }
 
-    fun addToShoppingCard(product: Product? = this.product) {
-        product?.count = 1
+    fun addToShoppingCard(product: Product? = this.product,count :Int = 1 ) {
+        product?.count = count
         shoppingCardList = shoppingCardList.plus(product)
     }
 
@@ -105,6 +105,14 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
             sum += (product?.count?.let { product.price.toInt() * (it) }!!)
         }
         finalAmount.value = sum
+    }
+
+    fun setProductCount(set: Set<String>) {
+        for (index in shoppingCardList.indices) {
+            shoppingCardList[index]?.count =
+                set.elementAt(index).toInt()
+        }
+
     }
 
 }

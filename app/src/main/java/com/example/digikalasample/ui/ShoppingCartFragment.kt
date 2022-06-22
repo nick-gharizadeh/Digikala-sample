@@ -74,9 +74,9 @@ class ShoppingCartFragment : BaseFragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    fun setPrice(){
+    fun setPrice() {
         productViewModel.calculatePrice()
-        binding.textViewFinalAmount.text = productViewModel.finalAmount.value.toString() +" تومان"
+        binding.textViewFinalAmount.text = productViewModel.finalAmount.value.toString() + " تومان"
 
     }
 }
