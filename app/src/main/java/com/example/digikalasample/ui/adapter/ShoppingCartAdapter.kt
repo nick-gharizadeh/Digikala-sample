@@ -1,8 +1,10 @@
 package com.example.digikalasample.ui.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -12,15 +14,26 @@ import com.example.digikalasample.data.model.product.Product
 import com.example.digikalasample.databinding.ShoppingCartItemBinding
 
 typealias ClickHandlerDelete = (Product) -> Unit
+typealias ClickHandlerIncrease = (Product) -> Unit
+typealias ClickHandlerDecrease = (Product) -> Unit
 
 
-class ShoppingCartAdapter(private var clickHandlerDelete: ClickHandlerDelete) :
+class ShoppingCartAdapter(
+    private var clickHandlerDelete: ClickHandlerDelete,
+    private var clickHandlerIncrease: ClickHandlerIncrease,
+    private var clickHandlerDecrease: ClickHandlerDecrease
+) :
     ListAdapter<Product, ShoppingCartAdapter.ItemHolder>(ProductAdapter.ProductDiffCallback) {
 
 
+    var sum = 0
+
     class ItemHolder(val binding: ShoppingCartItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        private val imageViewProduct: ImageView = itemView.findViewById(R.id.shopping_cart_product_image)
+        private val imageViewProduct: ImageView =
+            itemView.findViewById(R.id.shopping_cart_product_image)
+
+
         fun bind(product: Product) {
             Glide.with(itemView)
                 .load(product.images[0].src)
@@ -28,6 +41,9 @@ class ShoppingCartAdapter(private var clickHandlerDelete: ClickHandlerDelete) :
                 .into(imageViewProduct)
 
         }
+
+
+
     }
 
 
@@ -45,9 +61,17 @@ class ShoppingCartAdapter(private var clickHandlerDelete: ClickHandlerDelete) :
         val product = getItem(position)
         holder.binding.product = product
         holder.bind(product)
+        sum += (product?.count?.let { product.price.toInt() * (it) }!!)
         holder.binding.buttonDelete.setOnClickListener {
             clickHandlerDelete.invoke(product)
         }
-
+        holder.binding.buttonIncrease.setOnClickListener {
+            clickHandlerIncrease.invoke(product)
+            holder.binding.shoppingCartItemCount.text = product.count.toString()
+        }
+        holder.binding.buttonDecrease.setOnClickListener {
+            clickHandlerDecrease.invoke(product)
+            holder.binding.shoppingCartItemCount.text = product.count.toString()
+        }
     }
 }

@@ -26,6 +26,7 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
     var reviewsList = MutableLiveData<List<Review?>>()
     val searchedProductsList = MutableLiveData<List<Product?>>()
     var orderCriterion: String? = null
+    val finalAmount = MutableLiveData<Int>()
 
     init {
         callServices()
@@ -90,10 +91,20 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
     }
 
     fun addToShoppingCard(product: Product? = this.product) {
+        product?.count = 1
         shoppingCardList = shoppingCardList.plus(product)
     }
 
-    fun removeFromShoppingCard(product: Product? ) {
+    fun removeFromShoppingCard(product: Product?) {
         shoppingCardList = shoppingCardList.minus(product)
     }
+
+    fun calculatePrice() {
+        var sum = 0
+        for (product in shoppingCardList) {
+            sum += (product?.count?.let { product.price.toInt() * (it) }!!)
+        }
+        finalAmount.value = sum
+    }
+
 }

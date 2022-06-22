@@ -64,5 +64,6 @@ data class Product(
     val type: String,
     val variations: List<Any>,
     val virtual: Boolean,
-    val weight: String
+    val weight: String,
+    var count: Int?,
 )

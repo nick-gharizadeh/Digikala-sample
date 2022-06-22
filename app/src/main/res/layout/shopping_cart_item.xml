@@ -66,6 +66,7 @@
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/shopping_cart_item_count"
                             android:layout_width="wrap_content"
+                            android:text="@{product.count.toString()}"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="12dp"
                             android:textSize="10dp"
@@ -89,6 +90,14 @@
 
 
                     </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/textViewPrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:text="@{product.price+` تومان `}"
+                        android:textAlignment="viewStart" />
 
 
                 </LinearLayout>

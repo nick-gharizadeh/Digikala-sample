@@ -153,7 +153,7 @@ class MainFragment : BaseFragment() {
         return false
     }
 
-    override fun onDestroy() {
+    override fun onStop() {
         val editor = sharedPreferences.edit()
         val shoppingCartSet = mutableSetOf<String>()
         for (product in productViewModel.shoppingCardList) {
@@ -161,6 +161,8 @@ class MainFragment : BaseFragment() {
         }
         editor.putStringSet("shoppingCartSet", shoppingCartSet)
         editor.apply()
-        super.onDestroy()
+        super.onStop()
     }
+
+
 }
