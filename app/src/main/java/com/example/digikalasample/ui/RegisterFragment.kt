@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import com.example.digikalasample.R
 import com.example.digikalasample.databinding.FragmentRegisterBinding
 import com.example.digikalasample.viewmodel.ProductViewModel
 import com.google.android.material.textfield.TextInputLayout
@@ -30,23 +32,27 @@ class RegisterFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        productViewModel.mCustomer.observe(viewLifecycleOwner){
+        productViewModel.mCustomer.observe(viewLifecycleOwner) {
             val editor = sharedPreferences.edit()
             it?.id?.let { it1 -> editor.putInt("CustomerId", it1) }
             editor.apply()
+            productViewModel.mCustomerId = it?.id
         }
         binding.buttonRegister.setOnClickListener {
             setError(binding.editTextFirstname)
             setError(binding.editTextLastname)
             setError(binding.editTextEmail)
-            if (validate()){
+            if (validate()) {
                 productViewModel.createCustomer(
                     binding.editTextFirstname.editText?.text.toString(),
                     binding.editTextLastname.editText?.text.toString(),
                     binding.editTextEmail.editText?.text.toString()
                 )
+
+                Toast.makeText(requireContext(), "ثبت نام با موفقیت انجام شد", Toast.LENGTH_SHORT)
+                    .show()
+                findNavController().navigate(R.id.action_registerFragment_to_mainFragment)
             }
-            Toast.makeText(requireContext(), "ثبت نام با موفقیت انجام شد", Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -72,6 +78,7 @@ class RegisterFragment : BaseFragment() {
             binding.editTextEmail.error = "ایمیل معتبر نیست "
             return false
         }
+
         return true
     }
 

@@ -90,7 +90,7 @@ class MainFragment : BaseFragment() {
             }
         }
 
-        productViewModel.specialProduct.observe(viewLifecycleOwner) {
+        productViewModel.specialOffers.observe(viewLifecycleOwner) {
             val images = it?.images
             val mViewPagerAdapter: DetailViewPagerAdapter? =
                 images?.let { DetailViewPagerAdapter(requireContext(), it) }
@@ -146,16 +146,23 @@ class MainFragment : BaseFragment() {
     }
 
     override fun onStop() {
-        val editor = sharedPreferences.edit()
-        val shoppingCartSet = mutableSetOf<String>()
-        val shoppingCartCountSet = mutableSetOf<String>()
-        for (product in productViewModel.shoppingCardList) {
-            shoppingCartSet.add(product?.id.toString())
-            shoppingCartCountSet.add(product?.count.toString())
+        if (!productViewModel.shoppingCardList.isNullOrEmpty()) {
+            val editor = sharedPreferences.edit()
+            val shoppingCartSet = mutableSetOf<String>()
+            val shoppingCartCountSet = mutableSetOf<String>()
+            for (product in productViewModel.shoppingCardList) {
+                shoppingCartSet.add(product?.id.toString())
+                shoppingCartCountSet.add(product?.count.toString())
+            }
+            editor.putStringSet("shoppingCartSet", shoppingCartSet)
+            editor.putStringSet("shoppingCartCountSet", shoppingCartCountSet)
+            editor.apply()
         }
-        editor.putStringSet("shoppingCartSet", shoppingCartSet)
-        editor.putStringSet("shoppingCartCountSet", shoppingCartCountSet)
-        editor.apply()
+        else
+        {
+            sharedPreferences. edit(). remove("shoppingCartSet"). apply()
+            sharedPreferences. edit(). remove("shoppingCartCountSet"). apply()
+        }
         super.onStop()
     }
 }

@@ -2,6 +2,7 @@ package com.example.digikalasample.data
 
 import androidx.lifecycle.MutableLiveData
 import com.example.digikalasample.data.model.customer.Customer
+import com.example.digikalasample.data.model.order.Order
 import com.example.digikalasample.data.model.product.Category
 import com.example.digikalasample.data.model.product.Product
 import com.example.digikalasample.data.model.review.Review
@@ -89,15 +90,32 @@ class ProductRemoteDataSource @Inject constructor(private val productApiService:
             listOf()
         }
     }
-    suspend fun createCustomer(firstName:String , lastName:String , email:String): Customer? {
+
+    suspend fun createCustomer(firstName: String, lastName: String, email: String): Customer? {
         return try {
             errorThatOccur.value = null
-            productApiService.createCustomer(firstName=firstName, lastName = lastName, email = email)
+            productApiService.createCustomer(
+                firstName = firstName,
+                lastName = lastName,
+                email = email
+            )
         } catch (e: Exception) {
             if (errorThatOccur.value == null)
                 errorThatOccur.value = e
-          val customer :Customer ? = null
+            val customer: Customer? = null
             return customer
+        }
+    }
+
+    suspend fun createOrder(customerId: Int, totalPrice: String): Order? {
+        return try {
+            errorThatOccur.value = null
+            productApiService.createOrder(customerId = customerId, totalPrice = totalPrice)
+        } catch (e: Exception) {
+            if (errorThatOccur.value == null)
+                errorThatOccur.value = e
+            val order: Order? = null
+            order
         }
     }
 

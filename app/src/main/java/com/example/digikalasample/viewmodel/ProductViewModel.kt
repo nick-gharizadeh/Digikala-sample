@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.digikalasample.data.model.customer.Customer
+import com.example.digikalasample.data.model.order.Order
 import com.example.digikalasample.data.model.product.Category
 import com.example.digikalasample.data.model.product.Product
 import com.example.digikalasample.data.model.review.Review
@@ -17,14 +18,15 @@ import javax.inject.Inject
 class ProductViewModel @Inject constructor(private val productRepository: ProductsRepository) :
     ViewModel() {
     var mProduct: Product? = null
-    var mCustomer=MutableLiveData<Customer?>()
-    var mCustomerId : Int?  =null
+    var mCustomer = MutableLiveData<Customer?>()
+    var mOrder = MutableLiveData<Order?>()
+    var mCustomerId: Int? = null
     val popularProductList = MutableStateFlow<List<Product?>>(emptyList())
     val ratingProductList = MutableStateFlow<List<Product?>>(emptyList())
     val newestProductList = MutableStateFlow<List<Product?>>(emptyList())
     val categoriesList = MutableStateFlow<List<Category?>>(emptyList())
     val productByCategoriesList = MutableLiveData<List<Product?>>()
-    val specialProduct = MutableLiveData<Product?>()
+    val specialOffers = MutableLiveData<Product?>()
     var shoppingCardList: List<Product?> = emptyList()
     var reviewsList = MutableLiveData<List<Review?>>()
     val searchedProductsList = MutableLiveData<List<Product?>>()
@@ -40,7 +42,7 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
         getProducts("popularity", popularProductList)
         getProducts("rating", ratingProductList)
         getProducts("date", newestProductList)
-        getSpecialProduct()
+        getSpecialOffers()
     }
 
     private fun getProducts(orderBy: String, relatedLiveData: MutableStateFlow<List<Product?>>) {
@@ -79,10 +81,10 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
     }
 
     // 📌 get slider photos
-    private fun getSpecialProduct(id: Int = 608) {
+    private fun getSpecialOffers(id: Int = 608) {
         viewModelScope.launch {
             val list = productRepository.getProductById(id)
-            specialProduct.value = list
+            specialOffers.value = list
         }
     }
 
@@ -93,7 +95,7 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
         }
     }
 
-    fun addToShoppingCard(product: Product? = this.mProduct, count :Int = 1 ) {
+    fun addToShoppingCard(product: Product? = this.mProduct, count: Int = 1) {
         product?.count = count
         shoppingCardList = shoppingCardList.plus(product)
     }
@@ -118,15 +120,26 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
 
     }
 
-     fun createCustomer(firstName: String, lastName: String, email: String) {
-         viewModelScope.launch {
-          val customer =    productRepository.createCustomer(
-                 firstName = firstName,
-                 lastName = lastName,
-                 email = email
-             )
-             mCustomer.value = customer
-         }
+    fun createCustomer(firstName: String, lastName: String, email: String) {
+        viewModelScope.launch {
+            val customer = productRepository.createCustomer(
+                firstName = firstName,
+                lastName = lastName,
+                email = email
+            )
+            mCustomer.value = customer
+            mCustomerId = customer?.id
+        }
     }
+
+
+     fun createOrder(customerId: Int, totalPrice: String) {
+        viewModelScope.launch {
+            val order =
+                productRepository.createOrder(customerId = customerId, totalPrice = totalPrice)
+            mOrder.value = order
+        }
+    }
+
 
 }

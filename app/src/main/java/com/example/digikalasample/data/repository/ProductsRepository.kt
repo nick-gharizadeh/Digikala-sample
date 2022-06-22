@@ -2,6 +2,7 @@ package com.example.digikalasample.data.repository
 
 import com.example.digikalasample.data.ProductRemoteDataSource
 import com.example.digikalasample.data.model.customer.Customer
+import com.example.digikalasample.data.model.order.Order
 import com.example.digikalasample.data.model.product.Category
 import com.example.digikalasample.data.model.product.Product
 import com.example.digikalasample.data.model.review.Review
@@ -45,6 +46,10 @@ class ProductsRepository @Inject constructor(
             lastName = lastName,
             email = email
         )
+    }
+
+    suspend fun createOrder(customerId: Int, totalPrice: String): Order? {
+        return productRemoteDataSource.createOrder(customerId = customerId, totalPrice = totalPrice)
     }
 
 }

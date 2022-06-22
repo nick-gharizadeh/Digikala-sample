@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity() {
                 sharedPreferences.getStringSet("shoppingCartSet", emptySet())
             val shoppingCartCountSet =
                 sharedPreferences.getStringSet("shoppingCartCountSet", emptySet())
-
             for ((index, element) in shoppingCartSet?.withIndex()!!) {
                 lifecycleScope.launch {
                     shoppingCartCountSet?.elementAt(index)?.toInt()?.let {

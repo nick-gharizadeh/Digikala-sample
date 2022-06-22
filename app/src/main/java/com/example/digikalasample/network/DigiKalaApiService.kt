@@ -1,6 +1,8 @@
 package com.example.digikalasample.network
 
+import androidx.room.Index
 import com.example.digikalasample.data.model.customer.Customer
+import com.example.digikalasample.data.model.order.Order
 import com.example.digikalasample.data.model.product.Category
 import com.example.digikalasample.data.model.product.Product
 import com.example.digikalasample.data.model.review.Review
@@ -95,6 +97,16 @@ interface DigiKalaApiService {
         @Field("last_name") lastName: String,
         @Field("email") email: String
     ): Customer?
+
+
+    @FormUrlEncoded
+    @POST("orders")
+    suspend fun createOrder(
+        @Query("consumer_key") consumerKey: String = CONSUMER_KEY,
+        @Query("consumer_secret") consumerSecret: String = CONSUMER_SECRET,
+        @Field("total") totalPrice : String,
+        @Field("customer_id") customerId : Int,
+        ):Order
 
 
 }
