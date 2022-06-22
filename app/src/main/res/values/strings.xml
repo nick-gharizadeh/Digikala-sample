@@ -30,6 +30,7 @@
     <string name="delete">حذف</string>
     <string name="discount_shopping_cart">جمع سبد خرید</string>
     <string name="continue_shopping">ادامه فرآیند خرید</string>
+    <string name="register">ثبت نام</string>
 
 
     <string-array name="colors">
