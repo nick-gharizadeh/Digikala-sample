@@ -44,6 +44,27 @@ class ProductRemoteDataSource @Inject constructor(private val productApiService:
         }
     }
 
+    suspend fun getProductsBySearch(
+        searchQuery: String,
+        orderBy: String = "popularity",
+        order: String = "asc", attribute: String, attributeTerm: String
+    ): List<Product> {
+        return try {
+            errorThatOccur.value = null
+            productApiService.getProduct(
+                searchQuery = searchQuery,
+                orderBy = orderBy,
+                order = order,
+                attribute = attribute,
+                terms = attributeTerm
+            )
+        } catch (e: Exception) {
+            if (errorThatOccur.value == null)
+                errorThatOccur.value = e
+            listOf()
+        }
+    }
+
     suspend fun getProductsByCategory(category: Int): List<Product> {
         return try {
             errorThatOccur.value = null

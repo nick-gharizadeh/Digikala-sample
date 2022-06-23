@@ -23,6 +23,14 @@ class ProductsRepository @Inject constructor(
         return productRemoteDataSource.getProductsBySearch(searchQuery, orderBy, order)
     }
 
+    suspend fun getProductsBySearch(
+        searchQuery: String,
+        orderBy: String = "popularity",
+        order: String = "asc",attribute: String, attributeTerm: String
+    ): List<Product> {
+        return productRemoteDataSource.getProductsBySearch(searchQuery, orderBy, order,attribute,attributeTerm)
+    }
+
     suspend fun getProductsByCategory(category: Int): List<Product> {
         return productRemoteDataSource.getProductsByCategory(category = category)
     }

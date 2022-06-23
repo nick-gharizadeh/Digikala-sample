@@ -62,6 +62,23 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
         }
     }
 
+    fun getProductsBySearch(
+        searchQuery: String,
+        orderBy: String = "popularity",
+        order: String = "asc", attribute: String, attributeTerm: String
+    ) {
+        viewModelScope.launch {
+            val list = productRepository.getProductsBySearch(
+                searchQuery,
+                orderBy,
+                order,
+                attribute,
+                attributeTerm
+            )
+            searchedProductsList.value = list
+        }
+    }
+
 
     fun getProductsByCategory(category: Int) {
         viewModelScope.launch {

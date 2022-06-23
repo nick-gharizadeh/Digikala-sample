@@ -1,6 +1,5 @@
 package com.example.digikalasample.network
 
-import androidx.room.Index
 import com.example.digikalasample.data.model.customer.Customer
 import com.example.digikalasample.data.model.order.Order
 import com.example.digikalasample.data.model.product.Category
@@ -80,6 +79,25 @@ interface DigiKalaApiService {
         order: String = "asc"
     ): List<Product>
 
+    @GET("products")
+    suspend fun getProduct(
+        @Query("consumer_key")
+        consumerKey: String = CONSUMER_KEY,
+        @Query("consumer_secret")
+        consumerSecret: String = CONSUMER_SECRET,
+        @Query("search") searchQuery: String,
+        @Query("per_page")
+        perPage: Int = 40,
+        @Query("page")
+        numberOfPage: Int = 1,
+        @Query("orderby")
+        orderBy: String = "popularity",
+        @Query("order")
+        order: String = "asc",
+        @Query("attribute") attribute: String,
+        @Query("attribute_term") terms: String,
+    ): List<Product>
+
     @GET("products/reviews")
     suspend fun getReviews(
         @Query("consumer_key") consumerKey: String = CONSUMER_KEY,
@@ -104,9 +122,9 @@ interface DigiKalaApiService {
     suspend fun createOrder(
         @Query("consumer_key") consumerKey: String = CONSUMER_KEY,
         @Query("consumer_secret") consumerSecret: String = CONSUMER_SECRET,
-        @Field("total") totalPrice : String,
-        @Field("customer_id") customerId : Int,
-        ):Order
+        @Field("total") totalPrice: String,
+        @Field("customer_id") customerId: Int,
+    ): Order
 
 
 }
