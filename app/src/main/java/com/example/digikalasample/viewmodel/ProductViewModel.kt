@@ -96,8 +96,16 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
     }
 
     fun addToShoppingCard(product: Product? = this.mProduct, count: Int = 1) {
-        product?.count = count
-        shoppingCardList = shoppingCardList.plus(product)
+        if (isItAlreadyInShoppingCart()) {
+            product?.count = product?.count?.plus(1)
+            if (mProduct?.id == product?.id) {
+                shoppingCardList = shoppingCardList.minus(product)
+                shoppingCardList = shoppingCardList.plus(product)
+            }
+        } else {
+            product?.count = count
+            shoppingCardList = shoppingCardList.plus(product)
+        }
     }
 
     fun removeFromShoppingCard(product: Product?) {
@@ -112,13 +120,6 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
         finalAmount.value = sum
     }
 
-    fun setProductCount(set: Set<String>) {
-        for (index in shoppingCardList.indices) {
-            shoppingCardList[index]?.count =
-                set.elementAt(index).toInt()
-        }
-
-    }
 
     fun createCustomer(firstName: String, lastName: String, email: String) {
         viewModelScope.launch {
@@ -133,12 +134,20 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
     }
 
 
-     fun createOrder(customerId: Int, totalPrice: String) {
+    fun createOrder(customerId: Int, totalPrice: String) {
         viewModelScope.launch {
             val order =
                 productRepository.createOrder(customerId = customerId, totalPrice = totalPrice)
             mOrder.value = order
         }
+    }
+
+    fun isItAlreadyInShoppingCart(): Boolean {
+        for (product in shoppingCardList) {
+            if (mProduct?.id == product?.id)
+                return true
+        }
+        return false
     }
 
 
