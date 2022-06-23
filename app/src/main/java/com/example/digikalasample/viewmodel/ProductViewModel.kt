@@ -76,8 +76,8 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
         }
     }
 
-    suspend fun getProductById(id: Int): Product? {
-        return productRepository.getProductById(id)
+    suspend fun getProductById(id: Int?): Product? {
+        return id?.let { productRepository.getProductById(it) }
     }
 
     // 📌 get slider photos

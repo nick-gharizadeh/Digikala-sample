@@ -146,23 +146,23 @@ class MainFragment : BaseFragment() {
     }
 
     override fun onStop() {
-        if (!productViewModel.shoppingCardList.isNullOrEmpty()) {
+        if (productViewModel.shoppingCardList.isNotEmpty()) {
             val editor = sharedPreferences.edit()
-            val shoppingCartSet = mutableSetOf<String>()
-            val shoppingCartCountSet = mutableSetOf<String>()
+            var shoppingCartString: String? =""
+            var shoppingCartCountString: String? =""
             for (product in productViewModel.shoppingCardList) {
-                shoppingCartSet.add(product?.id.toString())
-                shoppingCartCountSet.add(product?.count.toString())
+                shoppingCartString += "${product?.id.toString()};"
+                shoppingCartCountString += "${product?.count.toString()};"
+
             }
-            editor.putStringSet("shoppingCartSet", shoppingCartSet)
-            editor.putStringSet("shoppingCartCountSet", shoppingCartCountSet)
+            editor.putString("shoppingCartString", shoppingCartString)
+            editor.putString("shoppingCartCountString", shoppingCartCountString)
             editor.apply()
         }
-        else
-        {
-            sharedPreferences. edit(). remove("shoppingCartSet"). apply()
-            sharedPreferences. edit(). remove("shoppingCartCountSet"). apply()
-        }
+//        else{
+//            sharedPreferences.edit().remove("shoppingCartSet").apply()
+//            sharedPreferences.edit().remove("shoppingCartCountSet").apply()
+//        }
         super.onStop()
     }
 }

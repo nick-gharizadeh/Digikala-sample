@@ -24,29 +24,42 @@ class MainActivity : AppCompatActivity() {
         sharedPreferences = getSharedPreferences("myShare", Context.MODE_PRIVATE)
         if (sharedPreferences.getInt("CustomerId", 0) != 0) {
             productViewModel.mCustomerId = sharedPreferences.getInt("CustomerId", 0)
-            Toast.makeText(applicationContext,  productViewModel.mCustomerId.toString(), Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                applicationContext,
+                productViewModel.mCustomerId.toString(),
+                Toast.LENGTH_SHORT
+            ).show()
         }
-        if (!sharedPreferences.getStringSet("shoppingCartSet", emptySet())
+        if (!sharedPreferences.getString("shoppingCartString", "")
                 .isNullOrEmpty() && !flagIsDataSetFromShared
         ) {
             flagIsDataSetFromShared = true
-            val shoppingCartSet =
-                sharedPreferences.getStringSet("shoppingCartSet", emptySet())
-            val shoppingCartCountSet =
-                sharedPreferences.getStringSet("shoppingCartCountSet", emptySet())
-            for ((index, element) in shoppingCartSet?.withIndex()!!) {
-                lifecycleScope.launch {
-                    shoppingCartCountSet?.elementAt(index)?.toInt()?.let {
-                        productViewModel.addToShoppingCard(
-                            productViewModel.getProductById(element.toInt()),
-                            it
-                        )
+            val shoppingCartList = sharedPreferences.getString("shoppingCartString", "")
+                ?.let { convertStringToList(it) }
+            val shoppingCartCountList = sharedPreferences.getString("shoppingCartCountString", "")
+                ?.let { convertStringToList(it) }
+            if (!shoppingCartList.isNullOrEmpty()) {
+                val size = shoppingCartList.size.minus(2)
+                for (index in 0..size) {
+                    lifecycleScope.launch {
+                        shoppingCartCountList?.get(index)?.let {
+                            productViewModel.addToShoppingCard(
+                                productViewModel.getProductById(shoppingCartList[index].toInt()),
+                                it.toInt()
+                            )
+                        }
+
                     }
+
                 }
             }
+
         }
 
     }
+
+
+    fun convertStringToList(string: String) = string.split(";")
 
 }
 
