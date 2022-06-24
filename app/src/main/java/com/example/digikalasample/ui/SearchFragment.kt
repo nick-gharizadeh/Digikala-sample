@@ -16,7 +16,6 @@ class SearchFragment : BaseFragment() {
     private lateinit var binding: FragmentSearchBinding
     val productViewModel: ProductViewModel by activityViewModels()
     var alert: android.app.AlertDialog? = null
-    var lastSearach:String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -40,10 +39,12 @@ class SearchFragment : BaseFragment() {
             adapter.submitList(it)
         }
         binding.buttonSort.setOnClickListener {
-
             showAlertDialog()
         }
 
+        binding.buttonFilter.setOnClickListener {
+            findNavController().navigate(R.id.action_searchFragment_to_filterFragment)
+        }
 
     }
 
@@ -52,7 +53,7 @@ class SearchFragment : BaseFragment() {
         val searchItem = menu.findItem(R.id.item_menu_search_fragment)
         val searchView = searchItem.actionView as SearchView
         searchView.onQueryTextChanged {
-            lastSearach = it
+            productViewModel.lastSearch = it
             productViewModel.getProductsBySearch(it)
         }
         super.onCreateOptionsMenu(menu, inflater)
@@ -68,7 +69,8 @@ class SearchFragment : BaseFragment() {
         val alertDialog: android.app.AlertDialog.Builder =
             android.app.AlertDialog.Builder(requireContext())
         alertDialog.setTitle("مرتب سازی بر اساس: ")
-        val items = arrayOf("پیشنهاد خریداران", "محبوب ترین", "کمترین قیمت", "بیشترین قیمت", "جدیدترین")
+        val items =
+            arrayOf("پیشنهاد خریداران", "محبوب ترین", "کمترین قیمت", "بیشترین قیمت", "جدیدترین")
         val checkedItem = 1
         alertDialog.setSingleChoiceItems(
             items, checkedItem
@@ -77,8 +79,8 @@ class SearchFragment : BaseFragment() {
                 0 -> setVariableToSort("rating")
                 1 -> setVariableToSort("popularity")
                 2 -> setVariableToSort("price")
-                3 -> setVariableToSort("price","desc")
-                4 -> setVariableToSort("date",)
+                3 -> setVariableToSort("price", "desc")
+                4 -> setVariableToSort("date")
             }
         }
         alert = alertDialog.create()
@@ -88,9 +90,10 @@ class SearchFragment : BaseFragment() {
 
     }
 
-    fun setVariableToSort(orderCriterion: String,order:String="asc") {
+    fun setVariableToSort(orderCriterion: String, order: String = "asc") {
         productViewModel.orderCriterion = orderCriterion
-        productViewModel.getProductsBySearch(lastSearach, productViewModel.orderCriterion!!,order)
+        productViewModel.orderSortType = order
+        productViewModel.getProductsBySearch(productViewModel.lastSearch, productViewModel.orderCriterion!!, order)
         alert?.dismiss()
     }
 

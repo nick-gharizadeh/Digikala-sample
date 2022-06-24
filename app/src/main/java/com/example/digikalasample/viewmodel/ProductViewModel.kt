@@ -3,6 +3,7 @@ package com.example.digikalasample.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.digikalasample.data.model.FilterItem
 import com.example.digikalasample.data.model.customer.Customer
 import com.example.digikalasample.data.model.order.Order
 import com.example.digikalasample.data.model.product.Category
@@ -28,9 +29,12 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
     val productByCategoriesList = MutableLiveData<List<Product?>>()
     val specialOffers = MutableLiveData<Product?>()
     var shoppingCardList: List<Product?> = emptyList()
+    var filterItemList: List<FilterItem?> = emptyList()
     var reviewsList = MutableLiveData<List<Review?>>()
     val searchedProductsList = MutableLiveData<List<Product?>>()
     var orderCriterion: String? = null
+    var orderSortType: String? = "asc"
+    var lastSearch: String = ""
     val finalAmount = MutableLiveData<Int>()
 
     init {
@@ -165,6 +169,18 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
                 return true
         }
         return false
+    }
+
+    fun addToFilterItemList(filterItem: FilterItem) {
+        filterItemList = filterItemList.plus(filterItem)
+        orderSortType?.let {
+            orderCriterion?.let { it1 ->
+                getProductsBySearch(
+                    lastSearch, it1,
+                    it, "pa-color", filterItem.id.toString()
+                )
+            }
+        }
     }
 
 
