@@ -29,10 +29,9 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
     val productByCategoriesList = MutableLiveData<List<Product?>>()
     val specialOffers = MutableLiveData<Product?>()
     var shoppingCardList: List<Product?> = emptyList()
-    var filterItemList: List<FilterItem?> = emptyList()
     var reviewsList = MutableLiveData<List<Review?>>()
     val searchedProductsList = MutableLiveData<List<Product?>>()
-    var orderCriterion: String? = null
+    var orderCriterion: String? = "popularity"
     var orderSortType: String? = "asc"
     var lastSearch: String = ""
     val finalAmount = MutableLiveData<Int>()
@@ -171,17 +170,27 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
         return false
     }
 
-    fun addToFilterItemList(filterItem: FilterItem) {
-        filterItemList = filterItemList.plus(filterItem)
+    fun doFilterByColor(filterItem: FilterItem) {
         orderSortType?.let {
             orderCriterion?.let { it1 ->
                 getProductsBySearch(
                     lastSearch, it1,
-                    it, "pa-color", filterItem.id.toString()
+                    it, "pa_color", filterItem.id.toString()
                 )
             }
         }
     }
 
+
+    fun doFilterBySize(filterItem: FilterItem) {
+        orderSortType?.let {
+            orderCriterion?.let { it1 ->
+                getProductsBySearch(
+                    lastSearch, it1,
+                    it, "pa_size", filterItem.id.toString()
+                )
+            }
+        }
+    }
 
 }
