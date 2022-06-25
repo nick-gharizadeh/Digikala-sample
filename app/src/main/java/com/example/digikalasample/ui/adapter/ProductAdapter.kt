@@ -15,7 +15,8 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.example.digikalasample.R
 import com.example.digikalasample.data.model.product.Product
 
-typealias ClickHandler = (Product)-> Unit
+typealias ClickHandler = (Product) -> Unit
+
 class ProductAdapter(private var clickHandler: ClickHandler) :
     ListAdapter<Product, ProductAdapter.ViewHolder>(ProductDiffCallback) {
 
@@ -61,6 +62,6 @@ class ProductAdapter(private var clickHandler: ClickHandler) :
         }
         holder.bind(product)
         holder.textViewTitle.text = product.name
-        holder.textViewPrice.text =   product.price + " تومان"
+        holder.textViewPrice.text = product.price + " تومان"
     }
 }

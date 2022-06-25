@@ -40,7 +40,7 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
         callServices()
     }
 
-    fun callServices() {
+    private fun callServices() {
         getAllCategories()
         getProducts("popularity", popularProductList)
         getProducts("rating", ratingProductList)
@@ -65,7 +65,7 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
         }
     }
 
-    fun getProductsBySearch(
+    private fun getProductsBySearch(
         searchQuery: String,
         orderBy: String = "popularity",
         order: String = "asc", attribute: String, attributeTerm: String
@@ -162,7 +162,7 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
         }
     }
 
-    fun isItAlreadyInShoppingCart(): Boolean {
+    private fun isItAlreadyInShoppingCart(): Boolean {
         for (product in shoppingCardList) {
             if (mProduct?.id == product?.id)
                 return true

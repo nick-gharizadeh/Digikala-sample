@@ -47,7 +47,7 @@ class ProductDetailFragment : BaseFragment() {
         binding.productColorSpinner.adapter = adapter
         binding.recyclerViewComments.adapter = reviewAdapter
         binding.buttonAddToShoppingCart.setOnClickListener {
-        productViewModel.addToShoppingCard()
+            productViewModel.addToShoppingCard()
         }
 
         productViewModel.reviewsList.observe(viewLifecycleOwner) {
@@ -74,7 +74,7 @@ class ProductDetailFragment : BaseFragment() {
         }
     }
 
-    fun changeVisibilities(showReviews: Boolean) {
+    private fun changeVisibilities(showReviews: Boolean) {
         if (showReviews) {
             binding.linearLayoutRecyclerView.visibility = View.VISIBLE
             binding.CardView1.visibility = View.GONE

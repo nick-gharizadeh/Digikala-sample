@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun convertStringToList(string: String) = string.split(";")
+    private fun convertStringToList(string: String) = string.split(";")
 
 }
 

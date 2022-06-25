@@ -24,7 +24,6 @@ class ShoppingCartAdapter(
     ListAdapter<Product, ShoppingCartAdapter.ItemHolder>(ProductAdapter.ProductDiffCallback) {
 
 
-
     class ItemHolder(val binding: ShoppingCartItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val imageViewProduct: ImageView =

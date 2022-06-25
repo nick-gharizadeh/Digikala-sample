@@ -90,7 +90,7 @@ class MainFragment : BaseFragment() {
             }
         }
 
-        productViewModel.specialOffers.observe(viewLifecycleOwner) {
+        productViewModel.specialOffers.observe(viewLifecycleOwner) { it ->
             val images = it?.images
             val mViewPagerAdapter: DetailViewPagerAdapter? =
                 images?.let { DetailViewPagerAdapter(requireContext(), it) }
@@ -123,7 +123,7 @@ class MainFragment : BaseFragment() {
 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.main_menu, menu);
+        inflater.inflate(R.menu.main_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -148,8 +148,8 @@ class MainFragment : BaseFragment() {
     override fun onStop() {
         if (productViewModel.shoppingCardList.isNotEmpty()) {
             val editor = sharedPreferences.edit()
-            var shoppingCartString: String? =""
-            var shoppingCartCountString: String? =""
+            var shoppingCartString: String? = ""
+            var shoppingCartCountString: String? = ""
             for (product in productViewModel.shoppingCardList) {
                 shoppingCartString += "${product?.id.toString()};"
                 shoppingCartCountString += "${product?.count.toString()};"

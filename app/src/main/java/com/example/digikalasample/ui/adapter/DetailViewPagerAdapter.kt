@@ -14,7 +14,9 @@ import java.util.*
 
 class DetailViewPagerAdapter(var context: Context, private var images: List<Image>) :
     PagerAdapter() {
-    private var mLayoutInflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+    private var mLayoutInflater: LayoutInflater =
+        context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
     override fun getCount(): Int {
         return images.size
     }

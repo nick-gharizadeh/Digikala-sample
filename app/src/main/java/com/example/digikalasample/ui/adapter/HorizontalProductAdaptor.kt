@@ -19,14 +19,14 @@ class HorizontalProductAdaptor(private var clickHandler: ClickHandlerProduct) :
     class ItemHolder(val binding: ProductItemHorizantalBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val imageViewCover: ImageView = itemView.findViewById(R.id.product_image_category)
-        fun bind(product: Product){
-          if (product.images.isNotEmpty()) {
-              Glide.with(itemView)
-                  .load(product.images[0].src)
-                  .placeholder(R.drawable.place_holder)
-                  .into(imageViewCover)
-          }
-      }
+        fun bind(product: Product) {
+            if (product.images.isNotEmpty()) {
+                Glide.with(itemView)
+                    .load(product.images[0].src)
+                    .placeholder(R.drawable.place_holder)
+                    .into(imageViewCover)
+            }
+        }
     }
 
 

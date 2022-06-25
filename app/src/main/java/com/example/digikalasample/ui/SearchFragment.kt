@@ -21,8 +21,8 @@ enum class FilterType {
 class SearchFragment : BaseFragment() {
     private lateinit var binding: FragmentSearchBinding
     val productViewModel: ProductViewModel by activityViewModels()
-    var alert: android.app.AlertDialog? = null
-    val filterColorList: List<FilterItem> =
+    private var alert: android.app.AlertDialog? = null
+    private val filterColorList: List<FilterItem> =
         listOf(
             FilterItem(57, "آبی"),
             FilterItem(50, "سفید"),
@@ -30,7 +30,7 @@ class SearchFragment : BaseFragment() {
             FilterItem(59, "مرجانی"),
             FilterItem(49, "مشکی"),
         )
-    val filterSizeList: List<FilterItem> =
+    private val filterSizeList: List<FilterItem> =
         listOf(
             FilterItem(31, "M"),
             FilterItem(30, "L"),
@@ -185,7 +185,7 @@ class SearchFragment : BaseFragment() {
         alert?.show()
     }
 
-    fun searchBySort(orderCriterion: String, order: String = "asc") {
+    private fun searchBySort(orderCriterion: String, order: String = "asc") {
         productViewModel.orderCriterion = orderCriterion
         productViewModel.orderSortType = order
         productViewModel.getProductsBySearch(
@@ -196,7 +196,7 @@ class SearchFragment : BaseFragment() {
         alert?.dismiss()
     }
 
-    fun searchByFilter(filterType: FilterType, filterItem: FilterItem) {
+    private fun searchByFilter(filterType: FilterType, filterItem: FilterItem) {
         if (filterType == FilterType.Color) {
             productViewModel.doFilterByColor(filterItem)
         } else if (filterType == FilterType.Size) {

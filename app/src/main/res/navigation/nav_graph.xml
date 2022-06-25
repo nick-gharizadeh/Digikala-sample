@@ -47,9 +47,6 @@
         <action
             android:id="@+id/action_searchFragment_to_productDetailFragment"
             app:destination="@id/productDetailFragment" />
-        <action
-            android:id="@+id/action_searchFragment_to_filterFragment"
-            app:destination="@id/filterFragment" />
     </fragment>
     <fragment
         android:id="@+id/shoppingCartFragment"
@@ -72,9 +69,4 @@
             android:id="@+id/action_registerFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/filterFragment"
-        android:name="com.example.digikalasample.ui.FilterFragment"
-        android:label="fragment_filter"
-        tools:layout="@layout/fragment_filter" />
 </navigation>

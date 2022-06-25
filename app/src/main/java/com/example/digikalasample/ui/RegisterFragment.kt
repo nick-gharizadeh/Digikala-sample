@@ -17,10 +17,7 @@ import com.google.android.material.textfield.TextInputLayout
 class RegisterFragment : BaseFragment() {
     private lateinit var binding: FragmentRegisterBinding
     val productViewModel: ProductViewModel by activityViewModels()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,9 +36,9 @@ class RegisterFragment : BaseFragment() {
             productViewModel.mCustomerId = it?.id
         }
         binding.buttonRegister.setOnClickListener {
-            setError(binding.editTextFirstname)
-            setError(binding.editTextLastname)
-            setError(binding.editTextEmail)
+            setErrorNull(binding.editTextFirstname)
+            setErrorNull(binding.editTextLastname)
+            setErrorNull(binding.editTextEmail)
             if (validate()) {
                 productViewModel.createCustomer(
                     binding.editTextFirstname.editText?.text.toString(),
@@ -57,7 +54,7 @@ class RegisterFragment : BaseFragment() {
 
     }
 
-    fun validate(): Boolean {
+    private fun validate(): Boolean {
         if (binding.editTextFirstname.editText?.text.toString().isBlank()) {
             binding.editTextFirstname.error = " نام خود را وارد کنید  "
             return false
@@ -82,7 +79,7 @@ class RegisterFragment : BaseFragment() {
         return true
     }
 
-    fun setError(view: TextInputLayout) {
+    private fun setErrorNull(view: TextInputLayout) {
         view.error = null
     }
 }

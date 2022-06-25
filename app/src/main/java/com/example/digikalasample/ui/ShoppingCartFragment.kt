@@ -24,9 +24,7 @@ class ShoppingCartFragment : BaseFragment() {
     val productViewModel: ProductViewModel by activityViewModels()
     var adapter: ShoppingCartAdapter? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -69,12 +67,12 @@ class ShoppingCartFragment : BaseFragment() {
         adapterSubmitList()
     }
 
-    fun deleteFromShoppingCart(product: Product) {
+    private fun deleteFromShoppingCart(product: Product) {
         productViewModel.removeFromShoppingCard(product)
         adapterSubmitList()
     }
 
-    fun increase(product: Product) {
+    private fun increase(product: Product) {
         for (item in productViewModel.shoppingCardList) {
             if (item?.id == product.id) {
                 product.count = product.count?.plus(1)
@@ -83,7 +81,7 @@ class ShoppingCartFragment : BaseFragment() {
         setPrice()
     }
 
-    fun decrease(product: Product) {
+    private fun decrease(product: Product) {
         for (item in productViewModel.shoppingCardList) {
             if (item?.id == product.id) {
                 if (product.count != 1)
@@ -96,7 +94,7 @@ class ShoppingCartFragment : BaseFragment() {
         setPrice()
     }
 
-    fun adapterSubmitList() {
+    private fun adapterSubmitList() {
         setPrice()
         adapter?.submitList(productViewModel.shoppingCardList)
     }
