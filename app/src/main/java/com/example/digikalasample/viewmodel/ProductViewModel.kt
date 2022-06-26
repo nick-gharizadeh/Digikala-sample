@@ -117,9 +117,12 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
 
     fun addToShoppingCard(product: Product? = mProduct, count: Int = 1) {
         if (isItAlreadyInShoppingCart()) {
-            product?.count = product?.count?.plus(1)
-                shoppingCardList = shoppingCardList.minus(product)
-                shoppingCardList = shoppingCardList.plus(product)
+            for (shoppingCartProduct in shoppingCardList)
+                if (shoppingCartProduct?.id == product?.id) {
+                    shoppingCartProduct?.count = shoppingCartProduct?.count?.plus(1)
+                    shoppingCardList = shoppingCardList.minus(shoppingCartProduct)
+                    shoppingCardList = shoppingCardList.plus(shoppingCartProduct)
+                }
         } else {
             product?.count = count
             shoppingCardList = shoppingCardList.plus(product)
