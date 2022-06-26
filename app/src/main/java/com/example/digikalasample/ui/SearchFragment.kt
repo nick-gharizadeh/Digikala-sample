@@ -22,6 +22,7 @@ class SearchFragment : BaseFragment() {
     private lateinit var binding: FragmentSearchBinding
     val productViewModel: ProductViewModel by activityViewModels()
     private var alert: android.app.AlertDialog? = null
+    lateinit var alertDialog: android.app.AlertDialog.Builder
     private val filterColorList: List<FilterItem> =
         listOf(
             FilterItem(57, "آبی"),
@@ -50,6 +51,7 @@ class SearchFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        alertDialog = android.app.AlertDialog.Builder(requireContext(), R.style.AlertDialogCustom)
         val adapter = HorizontalProductAdaptor { goToDetailFragment(it) }
         binding.recyclerViewSearch.adapter = adapter
         productViewModel.searchedProductsList.observe(viewLifecycleOwner)
@@ -84,8 +86,6 @@ class SearchFragment : BaseFragment() {
     }
 
     private fun showSortAlertDialog() {
-        val alertDialog: android.app.AlertDialog.Builder =
-            android.app.AlertDialog.Builder(requireContext())
         alertDialog.setTitle("مرتب سازی بر اساس: ")
         val items =
             arrayOf("پیشنهاد خریداران", "محبوب ترین", "کمترین قیمت", "بیشترین قیمت", "جدیدترین")
@@ -108,8 +108,6 @@ class SearchFragment : BaseFragment() {
     }
 
     private fun showFilterTypeAlertDialog() {
-        val alertDialog: android.app.AlertDialog.Builder =
-            android.app.AlertDialog.Builder(requireContext())
         alertDialog.setTitle("فیلتر بر اساس: ")
         val items = arrayOf(
             "سایز", "رنگ"
@@ -134,8 +132,6 @@ class SearchFragment : BaseFragment() {
     }
 
     private fun showFilterColorAlertDialog() {
-        val alertDialog: android.app.AlertDialog.Builder =
-            android.app.AlertDialog.Builder(requireContext())
         alertDialog.setTitle("فیلتر بر اساس: ")
         val items = arrayOf(
             filterColorList[0].name,
@@ -161,8 +157,6 @@ class SearchFragment : BaseFragment() {
     }
 
     private fun showFilterSizeAlertDialog() {
-        val alertDialog: android.app.AlertDialog.Builder =
-            android.app.AlertDialog.Builder(requireContext())
         alertDialog.setTitle("فیلتر بر اساس: ")
         val items = arrayOf(
             filterSizeList[0].name,

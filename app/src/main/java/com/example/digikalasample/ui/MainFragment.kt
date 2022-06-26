@@ -159,10 +159,10 @@ class MainFragment : BaseFragment() {
             editor.putString("shoppingCartCountString", shoppingCartCountString)
             editor.apply()
         }
-//        else{
-//            sharedPreferences.edit().remove("shoppingCartSet").apply()
-//            sharedPreferences.edit().remove("shoppingCartCountSet").apply()
-//        }
+        else{
+            sharedPreferences.edit().remove("shoppingCartString").apply()
+            sharedPreferences.edit().remove("shoppingCartCountString").apply()
+        }
         super.onStop()
     }
 }

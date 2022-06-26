@@ -24,11 +24,6 @@ class MainActivity : AppCompatActivity() {
         sharedPreferences = getSharedPreferences("myShare", Context.MODE_PRIVATE)
         if (sharedPreferences.getInt("CustomerId", 0) != 0) {
             productViewModel.mCustomerId = sharedPreferences.getInt("CustomerId", 0)
-            Toast.makeText(
-                applicationContext,
-                productViewModel.mCustomerId.toString(),
-                Toast.LENGTH_SHORT
-            ).show()
         }
         if (!sharedPreferences.getString("shoppingCartString", "")
                 .isNullOrEmpty() && !flagIsDataSetFromShared

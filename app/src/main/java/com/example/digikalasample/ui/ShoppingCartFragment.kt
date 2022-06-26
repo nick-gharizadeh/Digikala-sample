@@ -25,7 +25,6 @@ class ShoppingCartFragment : BaseFragment() {
     var adapter: ShoppingCartAdapter? = null
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,8 +42,11 @@ class ShoppingCartFragment : BaseFragment() {
                         productViewModel.mCustomerId!!,
                         productViewModel.finalAmount.value.toString()
                     )
-                    val message = "کاربر گرامی سفارش شما با کد ${productViewModel.mOrder.value?.id} به ثبت رسید  "
-                    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+//                    if (productViewModel.mOrder.value?.id != null) {
+//                        val message =
+//                            "کاربر گرامی سفارش شما با کد ${productViewModel.mOrder.value?.id} به ثبت رسید  "
+//                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+//                    }
                     productViewModel.shoppingCardList = emptyList()
                     adapterSubmitList()
                 } else {
