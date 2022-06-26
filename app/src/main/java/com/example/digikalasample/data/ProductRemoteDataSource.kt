@@ -128,15 +128,15 @@ class ProductRemoteDataSource @Inject constructor(private val productApiService:
         }
     }
 
-    suspend fun createOrder(customerId: Int, totalPrice: String): Order? {
+    suspend fun createOrder(order: Order): Order? {
         return try {
             errorThatOccur.value = null
-            productApiService.createOrder(customerId = customerId, totalPrice = totalPrice)
+            productApiService.createOrder(order)
         } catch (e: Exception) {
             if (errorThatOccur.value == null)
                 errorThatOccur.value = e
-            val order: Order? = null
-            order
+            val nullOrder: Order? = null
+            nullOrder
         }
     }
 

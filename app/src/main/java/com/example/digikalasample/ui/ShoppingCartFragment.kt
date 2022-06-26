@@ -10,6 +10,8 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.digikalasample.R
+import com.example.digikalasample.data.model.order.LineItem
+import com.example.digikalasample.data.model.order.Order
 import com.example.digikalasample.data.model.product.Product
 import com.example.digikalasample.databinding.FragmentShoppingCartBinding
 import com.example.digikalasample.ui.adapter.ShoppingCartAdapter
@@ -35,18 +37,40 @@ class ShoppingCartFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        productViewModel.mOrder.observe(viewLifecycleOwner) {
+            if (it?.id != null) {
+                val message =
+                    "کاربر گرامی سفارش شما با کد ${it.id} به ثبت رسید  "
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+            }
+        }
         binding.buttonPostOrder.setOnClickListener {
             if (productViewModel.shoppingCardList.isNotEmpty()) {
+                var itemsList = emptyList<LineItem>()
+                for (product in productViewModel.shoppingCardList) {
+                    val lineItem = product?.id?.let { productId ->
+                        product.count?.let { count ->
+                            LineItem(
+                                product_id = productId,
+                                quantity = count,
+                                name = product.name,
+                            )
+                        }
+                    }
+                    if (lineItem != null)
+                        itemsList = itemsList.plus(lineItem)
+                }
                 if (productViewModel.mCustomerId != null) {
-                    productViewModel.createOrder(
-                        productViewModel.mCustomerId!!,
-                        productViewModel.finalAmount.value.toString()
+                    val order = Order(
+                        customer_id = productViewModel.mCustomerId!!,
+                        line_items = itemsList,
+                        total = productViewModel.finalAmount.value.toString()
                     )
-//                    if (productViewModel.mOrder.value?.id != null) {
-//                        val message =
-//                            "کاربر گرامی سفارش شما با کد ${productViewModel.mOrder.value?.id} به ثبت رسید  "
-//                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-//                    }
+                    productViewModel.createOrder(
+                        order
+                    )
                     productViewModel.shoppingCardList = emptyList()
                     adapterSubmitList()
                 } else {

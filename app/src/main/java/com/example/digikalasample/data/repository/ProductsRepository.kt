@@ -26,9 +26,15 @@ class ProductsRepository @Inject constructor(
     suspend fun getProductsBySearch(
         searchQuery: String,
         orderBy: String = "popularity",
-        order: String = "asc",attribute: String, attributeTerm: String
+        order: String = "asc", attribute: String, attributeTerm: String
     ): List<Product> {
-        return productRemoteDataSource.getProductsBySearch(searchQuery, orderBy, order,attribute,attributeTerm)
+        return productRemoteDataSource.getProductsBySearch(
+            searchQuery,
+            orderBy,
+            order,
+            attribute,
+            attributeTerm
+        )
     }
 
     suspend fun getProductsByCategory(category: Int): List<Product> {
@@ -56,8 +62,10 @@ class ProductsRepository @Inject constructor(
         )
     }
 
-    suspend fun createOrder(customerId: Int, totalPrice: String): Order? {
-        return productRemoteDataSource.createOrder(customerId = customerId, totalPrice = totalPrice)
+    suspend fun createOrder(order: Order): Order? {
+        return productRemoteDataSource.createOrder(
+            order
+        )
     }
 
 }

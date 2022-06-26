@@ -117,13 +117,11 @@ interface DigiKalaApiService {
     ): Customer?
 
 
-    @FormUrlEncoded
     @POST("orders")
     suspend fun createOrder(
+        @Body order: Order,
         @Query("consumer_key") consumerKey: String = CONSUMER_KEY,
-        @Query("consumer_secret") consumerSecret: String = CONSUMER_SECRET,
-        @Field("total") totalPrice: String,
-        @Field("customer_id") customerId: Int,
+        @Query("consumer_secret") consumerSecret: String = CONSUMER_SECRET
     ): Order
 
 
