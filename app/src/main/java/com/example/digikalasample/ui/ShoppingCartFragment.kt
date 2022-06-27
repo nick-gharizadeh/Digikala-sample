@@ -3,9 +3,7 @@ package com.example.digikalasample.ui
 import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -32,9 +30,11 @@ class ShoppingCartFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentShoppingCartBinding.inflate(layoutInflater)
+        setHasOptionsMenu(true)
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -46,6 +46,12 @@ class ShoppingCartFragment : BaseFragment() {
                 Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
             }
         }
+
+        productViewModel.finalAmount.observe(viewLifecycleOwner) {
+            binding.textViewFinalAmount.text =
+                "$it تومان "
+        }
+
         binding.buttonPostOrder.setOnClickListener {
             if (productViewModel.shoppingCardList.isNotEmpty()) {
                 var itemsList = emptyList<LineItem>()
@@ -128,7 +134,22 @@ class ShoppingCartFragment : BaseFragment() {
     @SuppressLint("SetTextI18n")
     fun setPrice() {
         productViewModel.calculatePrice()
-        binding.textViewFinalAmount.text = productViewModel.finalAmount.value.toString() + " تومان"
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.shopping_cart_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.item_menu_coupon -> {
+                val dialogFragment = CouponDialogFragment()
+                activity?.let { dialogFragment.show(it.supportFragmentManager, "My  Fragment") }
+                return false
+            }
+        }
+        return false
     }
 }

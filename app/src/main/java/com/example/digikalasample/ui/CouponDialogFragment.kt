@@ -34,13 +34,30 @@ class CouponDialogFragment : DialogFragment() {
         val buttonSubmit = view.findViewById<Button>(R.id.button_submit_coupon)
         val textViewCoupon = view.findViewById<TextInputLayout>(R.id.editText_coupon)
         buttonSubmit.setOnClickListener {
-            if (productViewModel.isItExistsInTheCoupons(
-                    textViewCoupon.editText?.text.toString().trim().lowercase()
+            if (textViewCoupon.editText?.text.toString().isNotBlank())
+                if (productViewModel.isItExistsInTheCoupons(
+                        textViewCoupon.editText?.text.toString().trim().lowercase()
+                    )
                 )
-            )
-                Toast.makeText(requireContext(), "hast", Toast.LENGTH_SHORT).show()
-            else
-                Toast.makeText(requireContext(), "nist", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.valid_coupon_message),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                else
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.invalid_coupon_message),
+                        Toast.LENGTH_SHORT
+                    ).show()
+            else {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.enter_coupon_message),
+                    Toast.LENGTH_SHORT
+                ).show()
+
+            }
         }
     }
 }
