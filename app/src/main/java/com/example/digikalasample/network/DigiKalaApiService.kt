@@ -1,5 +1,6 @@
 package com.example.digikalasample.network
 
+import com.example.digikalasample.data.model.coupon.Coupon
 import com.example.digikalasample.data.model.customer.Customer
 import com.example.digikalasample.data.model.order.Order
 import com.example.digikalasample.data.model.product.Category
@@ -124,5 +125,11 @@ interface DigiKalaApiService {
         @Query("consumer_secret") consumerSecret: String = CONSUMER_SECRET
     ): Order
 
+    @GET("coupons")
+    suspend fun getAllCoupons(
+        @Query("consumer_key") consumerKey: String = CONSUMER_KEY,
+        @Query("consumer_secret") consumerSecret: String = CONSUMER_SECRET,
+        @Query("per_page") perPage: Int = 100,
+    ): List<Coupon>
 
 }

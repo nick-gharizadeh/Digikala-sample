@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.digikalasample.data.model.FilterItem
+import com.example.digikalasample.data.model.coupon.Coupon
 import com.example.digikalasample.data.model.customer.Customer
 import com.example.digikalasample.data.model.order.Order
 import com.example.digikalasample.data.model.product.Category
@@ -29,6 +30,7 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
     val productByCategoriesList = MutableLiveData<List<Product?>>()
     val specialOffers = MutableLiveData<Product?>()
     var shoppingCardList: List<Product?> = emptyList()
+    var couponsList: List<Coupon?> = emptyList()
     var reviewsList = MutableLiveData<List<Review?>>()
     val searchedProductsList = MutableLiveData<List<Product?>>()
     var orderCriterion: String? = "popularity"
@@ -115,6 +117,12 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
         }
     }
 
+    fun getCoupons() {
+        viewModelScope.launch {
+            couponsList = productRepository.getAllCoupons()
+        }
+    }
+
     fun addToShoppingCard(product: Product? = mProduct, count: Int = 1) {
         if (isItAlreadyInShoppingCart()) {
             for (shoppingCartProduct in shoppingCardList)
@@ -191,6 +199,22 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
                 )
             }
         }
+    }
+
+
+    fun isItExistsInTheCoupons(code: String): Boolean {
+        for (coupon in couponsList) {
+            if (code == coupon?.code) {
+                minusFromFinalAmount(coupon.amount.toDouble().toInt())
+                return true
+            }
+        }
+        return false
+    }
+
+
+    private fun minusFromFinalAmount(amount: Int) {
+        finalAmount.value = finalAmount.value?.minus(amount)
     }
 
 }

@@ -1,6 +1,7 @@
 package com.example.digikalasample.data
 
 import androidx.lifecycle.MutableLiveData
+import com.example.digikalasample.data.model.coupon.Coupon
 import com.example.digikalasample.data.model.customer.Customer
 import com.example.digikalasample.data.model.order.Order
 import com.example.digikalasample.data.model.product.Category
@@ -137,6 +138,17 @@ class ProductRemoteDataSource @Inject constructor(private val productApiService:
                 errorThatOccur.value = e
             val nullOrder: Order? = null
             nullOrder
+        }
+    }
+
+    suspend fun getAllCoupons(): List<Coupon> {
+        return try {
+            errorThatOccur.value = null
+            productApiService.getAllCoupons()
+        } catch (e: Exception) {
+            if (errorThatOccur.value == null)
+                errorThatOccur.value = e
+            listOf()
         }
     }
 

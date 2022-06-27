@@ -1,6 +1,7 @@
 package com.example.digikalasample.data.repository
 
 import com.example.digikalasample.data.ProductRemoteDataSource
+import com.example.digikalasample.data.model.coupon.Coupon
 import com.example.digikalasample.data.model.customer.Customer
 import com.example.digikalasample.data.model.order.Order
 import com.example.digikalasample.data.model.product.Category
@@ -66,6 +67,10 @@ class ProductsRepository @Inject constructor(
         return productRemoteDataSource.createOrder(
             order
         )
+    }
+
+    suspend fun getAllCoupons(): List<Coupon> {
+        return productRemoteDataSource.getAllCoupons()
     }
 
 }

@@ -33,6 +33,7 @@
     <string name="register">ثبت نام</string>
     <string name="dialog_register_title"> برای ثبت سفارش ثبت نام کنید </string>
     <string name="dialog_register_message"> کاربر گرامی برای ثبت سفارش در دیجی کالا ابتدا ثبت نام کنید </string>
+    <string name="coعpon">اعمال کد تخفیف</string>
 
 
     <string-array name="colors">
