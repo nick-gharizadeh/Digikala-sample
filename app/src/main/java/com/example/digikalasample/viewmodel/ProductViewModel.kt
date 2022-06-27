@@ -11,6 +11,7 @@ import com.example.digikalasample.data.model.product.Category
 import com.example.digikalasample.data.model.product.Product
 import com.example.digikalasample.data.model.review.Review
 import com.example.digikalasample.data.repository.ProductsRepository
+import com.example.digikalasample.ui.flagOnceUseCoupon
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -37,6 +38,7 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
     var orderSortType: String? = "asc"
     var lastSearch: String = ""
     val finalAmount = MutableLiveData<Int>()
+    var couponAmount = 0
 
     init {
         callServices()
@@ -147,6 +149,9 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
             sum += product?.count?.times(product.price.toInt()) ?: 0
         }
         finalAmount.value = sum
+        if (flagOnceUseCoupon && couponAmount > 0)
+            minusFromFinalAmount(couponAmount)
+
     }
 
 
@@ -204,8 +209,9 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
 
     fun isItExistsInTheCoupons(code: String): Boolean {
         for (coupon in couponsList) {
-            if (code == coupon?.code) {
+            if (code == coupon?.code && !flagOnceUseCoupon) {
                 minusFromFinalAmount(coupon.amount.toDouble().toInt())
+                couponAmount = coupon.amount.toDouble().toInt()
                 return true
             }
         }
