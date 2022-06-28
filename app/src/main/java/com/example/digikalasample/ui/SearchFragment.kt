@@ -73,8 +73,10 @@ class SearchFragment : BaseFragment() {
         val searchItem = menu.findItem(R.id.item_menu_search_fragment)
         val searchView = searchItem.actionView as SearchView
         searchView.onQueryTextChanged {
-            productViewModel.lastSearch = it
-            productViewModel.getProductsBySearch(it)
+            if (it.isNotEmpty()) {
+                productViewModel.lastSearch = it
+                productViewModel.getProductsBySearch(it)
+            }
         }
         super.onCreateOptionsMenu(menu, inflater)
     }
@@ -199,6 +201,10 @@ class SearchFragment : BaseFragment() {
         alert?.dismiss()
     }
 
+    override fun onDestroyView() {
+        productViewModel.searchedProductsList.value = emptyList()
+        super.onDestroyView()
+    }
 }
 
 inline fun SearchView.onQueryTextChanged(crossinline listener: (String) -> Unit) {
