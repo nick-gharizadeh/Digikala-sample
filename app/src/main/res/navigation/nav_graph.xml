@@ -58,7 +58,8 @@
             app:destination="@id/registerFragment" />
         <action
             android:id="@+id/action_shoppingCartFragment_to_mainFragment3"
-            app:destination="@id/mainFragment" />
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/mainFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -67,6 +68,7 @@
         tools:layout="@layout/fragment_register" >
         <action
             android:id="@+id/action_registerFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/mainFragment" />
     </fragment>
 </navigation>
