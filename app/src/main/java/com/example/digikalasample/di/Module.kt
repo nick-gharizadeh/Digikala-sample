@@ -28,24 +28,14 @@ object Module {
 
     @Singleton
     @Provides
-    fun getRetrofit(moshi: Moshi,client:OkHttpClient): Retrofit {
+    fun getRetrofit(moshi: Moshi): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .baseUrl("https://woocommerce.maktabsharif.ir/wp-json/wc/v3/")
-            .client(client)
             .build()
     }
 
-    @Singleton
-    @Provides
-    fun getOkHttp(): OkHttpClient {
-        return OkHttpClient.Builder()
-            .readTimeout(25, TimeUnit.SECONDS)
-            .writeTimeout(25, TimeUnit.SECONDS)
-            .connectTimeout(25, TimeUnit.SECONDS)
-            .build()
 
-    }
 
     @Singleton
     @Provides

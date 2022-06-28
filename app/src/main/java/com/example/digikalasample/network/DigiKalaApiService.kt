@@ -9,8 +9,8 @@ import com.example.digikalasample.data.model.review.Review
 import retrofit2.http.*
 
 
-const val CONSUMER_KEY = "ck_0e61e4a29d9130ed954bb8c11e7f827a7e8c2dfb"
-const val CONSUMER_SECRET = "cs_46699340821cdba8425c23e67c0af8672e7dac88"
+const val CONSUMER_KEY = "ck_63f4c52da932ddad1570283b31f3c96c4bd9fd6f"
+const val CONSUMER_SECRET = "cs_294e7de35430398f323b43c21dd1b29f67b5370b"
 
 interface DigiKalaApiService {
 
