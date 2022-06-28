@@ -21,6 +21,9 @@ enum class FilterType {
 class SearchFragment : BaseFragment() {
     private lateinit var binding: FragmentSearchBinding
     val productViewModel: ProductViewModel by activityViewModels()
+    var flagIsFilterSet = false
+    var filterType: FilterType = FilterType.Size
+    var filterItem: FilterItem? = null
     private var alert: android.app.AlertDialog? = null
     lateinit var alertDialog: android.app.AlertDialog.Builder
     private val filterColorList: List<FilterItem> =
@@ -76,6 +79,7 @@ class SearchFragment : BaseFragment() {
             if (it.isNotEmpty()) {
                 productViewModel.lastSearch = it
                 productViewModel.getProductsBySearch(it)
+                flagIsFilterSet = false
             }
         }
         super.onCreateOptionsMenu(menu, inflater)
@@ -182,17 +186,30 @@ class SearchFragment : BaseFragment() {
     }
 
     private fun searchBySort(orderCriterion: String, order: String = "asc") {
-        productViewModel.orderCriterion = orderCriterion
-        productViewModel.orderSortType = order
-        productViewModel.getProductsBySearch(
-            productViewModel.lastSearch,
-            productViewModel.orderCriterion!!,
-            order
-        )
+        if (!flagIsFilterSet) {
+            productViewModel.orderCriterion = orderCriterion
+            productViewModel.orderSortType = order
+            productViewModel.getProductsBySearch(
+                productViewModel.lastSearch,
+                productViewModel.orderCriterion!!,
+                order
+            )
+        } else {
+            productViewModel.orderCriterion = orderCriterion
+            productViewModel.orderSortType = order
+            if (filterType == FilterType.Color) {
+                filterItem?.let { productViewModel.doFilterByColor(it) }
+            } else if (filterType == FilterType.Size) {
+                filterItem?.let { productViewModel.doFilterBySize(it) }
+            }
+        }
         alert?.dismiss()
     }
 
     private fun searchByFilter(filterType: FilterType, filterItem: FilterItem) {
+        flagIsFilterSet = true
+        this.filterItem = filterItem
+        this.filterType = filterType
         if (filterType == FilterType.Color) {
             productViewModel.doFilterByColor(filterItem)
         } else if (filterType == FilterType.Size) {
