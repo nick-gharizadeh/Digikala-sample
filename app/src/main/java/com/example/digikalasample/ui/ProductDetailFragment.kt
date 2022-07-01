@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.digikalasample.R
 import com.example.digikalasample.databinding.FragmentProductDetailBinding
 import com.example.digikalasample.ui.adapter.ViewPagerAdapter
@@ -43,48 +44,20 @@ class ProductDetailFragment : BaseFragment() {
             requireContext(),
             android.R.layout.simple_spinner_item, colors
         )
-        val reviewAdapter = ReviewAdapter()
         binding.productColorSpinner.adapter = adapter
-        binding.recyclerViewComments.adapter = reviewAdapter
         binding.buttonAddToShoppingCart.setOnClickListener {
             productViewModel.addToShoppingCard()
         }
 
-        productViewModel.reviewsList.observe(viewLifecycleOwner) {
-            if (it != null)
-                for (review in it) {
-                    review?.review = review?.review?.let { it1 ->
-                        RemoveHTMLTags.removeHTMLTagsFromString(
-                            it1
-                        )
-                    }.toString()
-                }
-            reviewAdapter.submitList(it)
-        }
 
-
-        binding.detailButton.setOnClickListener {
-            changeVisibilities(showReviews = false)
-        }
 
         binding.reviewsButton.setOnClickListener {
             productViewModel.getReviews(productViewModel.mProduct?.id.toString())
-            changeVisibilities(showReviews = true)
-
+            findNavController().navigate(R.id.action_productDetailFragment_to_reviewFragment)
         }
     }
 
-    private fun changeVisibilities(showReviews: Boolean) {
-        if (showReviews) {
-            binding.linearLayoutRecyclerView.visibility = View.VISIBLE
-            binding.CardView1.visibility = View.GONE
-            binding.CardView2.visibility = View.GONE
-        } else {
-            binding.linearLayoutRecyclerView.visibility = View.GONE
-            binding.CardView1.visibility = View.VISIBLE
-            binding.CardView2.visibility = View.VISIBLE
-        }
-    }
+
 
 
 }

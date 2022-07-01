@@ -36,12 +36,12 @@
                     android:id="@+id/textViewReviewer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="24dp"
                     android:fontFamily="@font/iran_yekan"
                     android:text="@{review.reviewer}"
                     android:textColor="#000000"
                     app:layout_constraintBottom_toBottomOf="@+id/imageViewAvatar"
-                    app:layout_constraintStart_toEndOf="@+id/imageViewAvatar"
+                    app:layout_constraintEnd_toStartOf="@+id/imageViewAvatar"
                     app:layout_constraintTop_toTopOf="@+id/imageViewAvatar" />
 
                 <View
@@ -59,11 +59,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="16dp"
                     android:fontFamily="@font/iran_yekan"
                     android:text="@{review.review}"
                     android:textAlignment="viewEnd"
                     android:textColor="#000000"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/divider2" />
 
@@ -71,11 +72,12 @@
                     android:id="@+id/imageViewAvatar"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:srcCompat="@tools:sample/avatars" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>

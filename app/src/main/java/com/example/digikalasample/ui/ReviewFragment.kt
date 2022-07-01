@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import com.example.digikalasample.R
 import com.example.digikalasample.databinding.FragmentRegisterBinding
 import com.example.digikalasample.databinding.FragmentReviewBinding
+import com.example.digikalasample.ui.adapter.ReviewAdapter
 import com.example.digikalasample.viewmodel.ProductViewModel
 
 class ReviewFragment : Fragment() {
@@ -32,6 +33,19 @@ class ReviewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val reviewAdapter = ReviewAdapter()
+        binding.recyclerViewReviews.adapter = reviewAdapter
+        productViewModel.reviewsList.observe(viewLifecycleOwner) {
+            if (it != null)
+                for (review in it) {
+                    review?.review = review?.review?.let { it1 ->
+                        RemoveHTMLTags.removeHTMLTagsFromString(
+                            it1
+                        )
+                    }.toString()
+                }
+            reviewAdapter.submitList(it)
+        }
 
     }
 
