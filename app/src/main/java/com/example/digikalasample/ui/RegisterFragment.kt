@@ -29,12 +29,6 @@ class RegisterFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        productViewModel.mCustomer.observe(viewLifecycleOwner) {
-            val editor = sharedPreferences.edit()
-            it?.id?.let { it1 -> editor.putInt("CustomerId", it1) }
-            editor.apply()
-            productViewModel.mCustomerId = it?.id
-        }
         binding.buttonRegister.setOnClickListener {
             setErrorNull(binding.editTextFirstname)
             setErrorNull(binding.editTextLastname)

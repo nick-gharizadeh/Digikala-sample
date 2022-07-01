@@ -19,7 +19,6 @@ import kotlinx.coroutines.launch
 
 
 var flagAnimationOnceShowed = false
-var flagIsDataSetFromShared = false
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment() {
@@ -49,6 +48,12 @@ class MainFragment : BaseFragment() {
             binding.mainLayout.visibility = View.VISIBLE
         }
 
+        productViewModel.mCustomer.observe(viewLifecycleOwner) {
+            val editor = sharedPreferences.edit()
+            it?.id?.let { it1 -> editor.putInt("CustomerId", it1) }
+            editor.apply()
+            productViewModel.mCustomerId = it?.id
+        }
 
         val adapterPopular = ProductAdapter {
             goToDetailFragment(it)

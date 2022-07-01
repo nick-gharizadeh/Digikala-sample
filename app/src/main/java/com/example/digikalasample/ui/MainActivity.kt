@@ -2,7 +2,6 @@ package com.example.digikalasample.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -26,9 +25,8 @@ class MainActivity : AppCompatActivity() {
             productViewModel.mCustomerId = sharedPreferences.getInt("CustomerId", 0)
         }
         if (!sharedPreferences.getString("shoppingCartString", "")
-                .isNullOrEmpty() && !flagIsDataSetFromShared
+                .isNullOrEmpty()
         ) {
-            flagIsDataSetFromShared = true
             val shoppingCartList = sharedPreferences.getString("shoppingCartString", "")
                 ?.let { convertStringToList(it) }
             val shoppingCartCountList = sharedPreferences.getString("shoppingCartCountString", "")

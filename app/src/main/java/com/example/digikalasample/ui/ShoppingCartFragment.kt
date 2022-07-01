@@ -43,7 +43,7 @@ class ShoppingCartFragment : BaseFragment() {
             if (it?.id != null) {
                 val message =
                     "کاربر گرامی سفارش شما با کد ${it.id} به ثبت رسید  "
-                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
             }
         }
 
@@ -151,5 +151,10 @@ class ShoppingCartFragment : BaseFragment() {
             }
         }
         return false
+    }
+
+    override fun onStop() {
+        productViewModel.mOrder.value = null
+        super.onStop()
     }
 }
