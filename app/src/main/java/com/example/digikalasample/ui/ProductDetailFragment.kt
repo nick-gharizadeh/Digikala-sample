@@ -9,7 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import com.example.digikalasample.R
 import com.example.digikalasample.databinding.FragmentProductDetailBinding
-import com.example.digikalasample.ui.adapter.DetailViewPagerAdapter
+import com.example.digikalasample.ui.adapter.ViewPagerAdapter
 import com.example.digikalasample.ui.adapter.ReviewAdapter
 import com.example.digikalasample.viewmodel.ProductViewModel
 
@@ -35,8 +35,8 @@ class ProductDetailFragment : BaseFragment() {
         productViewModel.reviewsList.value = null
         val colors = resources.getStringArray(R.array.colors)
         val images = productViewModel.mProduct?.images
-        val mViewPagerAdapter: DetailViewPagerAdapter? =
-            images?.let { DetailViewPagerAdapter(requireContext(), it) }
+        val mViewPagerAdapter: ViewPagerAdapter? =
+            images?.let { ViewPagerAdapter(requireContext(), it) }
         binding.productDetailViewPager.adapter = mViewPagerAdapter
         binding.indicator.setViewPager(binding.productDetailViewPager)
         val adapter = ArrayAdapter(

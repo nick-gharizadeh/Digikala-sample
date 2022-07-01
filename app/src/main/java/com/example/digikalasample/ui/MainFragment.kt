@@ -10,7 +10,7 @@ import com.example.digikalasample.data.model.product.Category
 import com.example.digikalasample.data.model.product.Product
 import com.example.digikalasample.databinding.FragmentMainBinding
 import com.example.digikalasample.ui.adapter.CategoryAdapter
-import com.example.digikalasample.ui.adapter.DetailViewPagerAdapter
+import com.example.digikalasample.ui.adapter.ViewPagerAdapter
 import com.example.digikalasample.ui.adapter.ProductAdapter
 import com.example.digikalasample.viewmodel.ProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -97,8 +97,8 @@ class MainFragment : BaseFragment() {
 
         productViewModel.specialOffers.observe(viewLifecycleOwner) { it ->
             val images = it?.images
-            val mViewPagerAdapter: DetailViewPagerAdapter? =
-                images?.let { DetailViewPagerAdapter(requireContext(), it) }
+            val mViewPagerAdapter: ViewPagerAdapter? =
+                images?.let { ViewPagerAdapter(requireContext(), it) }
             binding.mainViewPager.adapter = mViewPagerAdapter
             binding.indicator.setViewPager(binding.mainViewPager)
 
