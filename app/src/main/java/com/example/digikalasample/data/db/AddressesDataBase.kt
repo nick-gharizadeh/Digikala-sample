@@ -2,7 +2,7 @@ package com.example.digikalasample.data.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.digikalasample.data.model.Address
+import com.example.digikalasample.data.model.address.Address
 
 
 @Database(entities = [Address::class], version = 1)

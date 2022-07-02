@@ -1,4 +1,4 @@
-package com.example.digikalasample.data.model
+package com.example.digikalasample.data.model.address
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

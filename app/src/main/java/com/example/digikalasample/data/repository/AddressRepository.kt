@@ -2,7 +2,7 @@ package com.example.digikalasample.data.repository
 
 import androidx.lifecycle.LiveData
 import com.example.digikalasample.data.AddressLocalDataSource
-import com.example.digikalasample.data.model.Address
+import com.example.digikalasample.data.model.address.Address
 import javax.inject.Inject
 
 class AddressRepository @Inject constructor(

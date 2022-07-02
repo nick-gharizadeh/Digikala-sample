@@ -5,8 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.digikalasample.data.model.Address
-import retrofit2.http.DELETE
+import com.example.digikalasample.data.model.address.Address
 
 @Dao
 interface AddressDao {
