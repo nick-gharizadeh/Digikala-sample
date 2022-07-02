@@ -5,12 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.digikalasample.R
+import com.example.digikalasample.data.model.Address
 import com.example.digikalasample.databinding.FragmentAddressesBinding
+import com.example.digikalasample.viewmodel.AddressViewModel
+import com.example.digikalasample.viewmodel.ProductViewModel
 
 class AddressesFragment : Fragment() {
     private lateinit var binding: FragmentAddressesBinding
+    val addressViewModel: AddressViewModel by activityViewModels()
 
 
     override fun onCreateView(
@@ -23,8 +28,18 @@ class AddressesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        addressViewModel.insertAddress(
+            Address(0,
+            "name",
+            "add",
+            "30.65747",
+            "33.0233")
+        )
+        addressViewModel.allAddresses
+
         binding.extendedFabInsertAddress.setOnClickListener {
             findNavController().navigate(R.id.action_addressesFragment_to_insertAddressFragment)
         }
+
     }
 }

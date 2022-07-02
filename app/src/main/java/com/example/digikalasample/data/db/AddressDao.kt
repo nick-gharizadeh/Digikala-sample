@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.digikalasample.data.model.Address
+import retrofit2.http.DELETE
 
 @Dao
 interface AddressDao {
@@ -16,7 +17,7 @@ interface AddressDao {
     @Query("SELECT * from address  ")
     fun getAllAddress(): LiveData<List<Address?>?>?
 
-    @Query("DELETE FROM address WHERE address=(:address)")
-    suspend fun deleteAddress(address: Address)
+//    @DELETE
+//    suspend fun deleteAddress()
 
 }
