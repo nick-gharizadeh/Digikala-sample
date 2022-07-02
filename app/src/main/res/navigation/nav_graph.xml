@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_mainFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_addressesFragment"
+            app:destination="@id/addressesFragment" />
     </fragment>
     <fragment
         android:id="@+id/productDetailFragment"
@@ -85,4 +88,18 @@
             app:destination="@id/productDetailFragment"
             app:popUpTo="@id/productDetailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/addressesFragment"
+        android:name="com.example.digikalasample.ui.AddressesFragment"
+        android:label="fragment_addresses"
+        tools:layout="@layout/fragment_addresses" >
+        <action
+            android:id="@+id/action_addressesFragment_to_insertAddressFragment"
+            app:destination="@id/insertAddressFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/insertAddressFragment"
+        android:name="com.example.digikalasample.ui.InsertAddressFragment"
+        android:label="fragment_insert_address"
+        tools:layout="@layout/fragment_insert_address" />
 </navigation>

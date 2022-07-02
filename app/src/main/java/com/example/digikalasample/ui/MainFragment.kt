@@ -146,6 +146,10 @@ class MainFragment : BaseFragment() {
                 findNavController().navigate(R.id.action_mainFragment_to_registerFragment)
                 return false
             }
+            R.id.item_menu_addresses -> {
+                findNavController().navigate(R.id.action_mainFragment_to_addressesFragment)
+                return false
+            }
         }
         return false
     }
