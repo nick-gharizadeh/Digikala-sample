@@ -77,7 +77,7 @@ dependencies {
     //circle indicator
     implementation 'me.relex:circleindicator:2.1.6'
     implementation 'com.google.android.gms:play-services-maps:18.0.2'
-
+    implementation 'com.google.android.gms:play-services-location:20.0.0'
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.6.0'
