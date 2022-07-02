@@ -23,7 +23,7 @@ class ReviewAdapter :
         }
 
         override fun areContentsTheSame(oldItem: Review, newItem: Review): Boolean {
-            return oldItem == newItem
+            return oldItem.id == newItem.id
         }
     }
 

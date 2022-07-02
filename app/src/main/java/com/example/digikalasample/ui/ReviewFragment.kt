@@ -50,7 +50,7 @@ class ReviewFragment : BaseFragment() {
             if (binding.TextFieldReview.editText?.text?.isNotBlank() == true) {
                 productViewModel.mCustomerId?.let { it1 -> productViewModel.getCustomer(it1) }
                 productViewModel.mCustomer.observe(viewLifecycleOwner) { customer ->
-
+                    binding.TextFieldReview.editText?.text!!.clear()
                     productViewModel.postReview(
                         Review(
                             product_id = productViewModel.mProduct!!.id,
