@@ -23,7 +23,7 @@ class ReviewAdapter :
         }
 
         override fun areContentsTheSame(oldItem: Review, newItem: Review): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem == newItem
         }
     }
 
@@ -32,7 +32,7 @@ class ReviewAdapter :
         private val imageViewAvatar: ImageView = itemView.findViewById(R.id.imageViewAvatar)
         fun bind(review: Review) {
             Glide.with(itemView)
-                .load(review.reviewer_avatar_urls.`96`)
+                .load(review.reviewer_avatar_urls.`48`)
                 .placeholder(R.drawable.place_holder)
                 .circleCrop()
                 .into(imageViewAvatar)

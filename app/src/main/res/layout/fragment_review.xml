@@ -13,7 +13,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@+id/filledTextField"
+        app:layout_constraintBottom_toTopOf="@+id/TextFieldReview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -22,14 +22,14 @@
     </androidx.recyclerview.widget.RecyclerView>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/filledTextField"
+        android:id="@+id/TextFieldReview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/floatingActionButton">
+        app:layout_constraintStart_toEndOf="@+id/button_send_review">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -41,7 +41,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/button_send_review"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -54,9 +54,9 @@
         android:rotation="180"
         android:src="@drawable/ic_send"
         app:backgroundTint="@color/digikala_red"
-        app:layout_constraintBottom_toBottomOf="@+id/filledTextField"
+        app:layout_constraintBottom_toBottomOf="@+id/TextFieldReview"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/filledTextField"
+        app:layout_constraintTop_toTopOf="@+id/TextFieldReview"
         app:tint="#EEE" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

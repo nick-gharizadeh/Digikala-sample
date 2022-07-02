@@ -1,6 +1,7 @@
 package com.example.digikalasample.data.repository
 
 import com.example.digikalasample.data.ProductRemoteDataSource
+import com.example.digikalasample.data.errorThatOccur
 import com.example.digikalasample.data.model.coupon.Coupon
 import com.example.digikalasample.data.model.customer.Customer
 import com.example.digikalasample.data.model.order.Order
@@ -63,6 +64,10 @@ class ProductsRepository @Inject constructor(
         )
     }
 
+    suspend fun getCustomer(id:Int): Customer? {
+        return productRemoteDataSource.getCustomer(id = id)
+    }
+
     suspend fun createOrder(order: Order): Order? {
         return productRemoteDataSource.createOrder(
             order
@@ -71,6 +76,11 @@ class ProductsRepository @Inject constructor(
 
     suspend fun getAllCoupons(): List<Coupon> {
         return productRemoteDataSource.getAllCoupons()
+    }
+
+
+    suspend fun postReview(review: Review): Review? {
+          return  productRemoteDataSource.postReview(review)
     }
 
 }

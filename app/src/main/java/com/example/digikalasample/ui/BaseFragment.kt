@@ -33,7 +33,7 @@ open class BaseFragment : Fragment() {
                     is UnknownHostException -> {
                         showDialog(resources.getString(R.string.error_not_connected))
                     }
-                    is retrofit2.HttpException -> showDialog(resources.getString(R.string.error_404))
+//                    is retrofit2.HttpException -> showDialog(resources.getString(R.string.error_404))
                     is SocketTimeoutException -> showDialog(resources.getString(R.string.error_not_connected))
                     is ConnectException -> showDialog(resources.getString(R.string.error_server))
                     is SocketException -> showDialog(resources.getString(R.string.error_server))

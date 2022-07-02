@@ -129,6 +129,19 @@ class ProductRemoteDataSource @Inject constructor(private val productApiService:
         }
     }
 
+
+    suspend fun getCustomer(id: Int): Customer? {
+        return try {
+            errorThatOccur.value = null
+            productApiService.getCustomer(id = id)
+        } catch (e: Exception) {
+            if (errorThatOccur.value == null)
+                errorThatOccur.value = e
+            val customer: Customer? = null
+            return customer
+        }
+    }
+
     suspend fun createOrder(order: Order): Order? {
         return try {
             errorThatOccur.value = null
@@ -149,6 +162,18 @@ class ProductRemoteDataSource @Inject constructor(private val productApiService:
             if (errorThatOccur.value == null)
                 errorThatOccur.value = e
             listOf()
+        }
+    }
+
+    suspend fun postReview(review: Review): Review?{
+        return try {
+            errorThatOccur.value = null
+            productApiService.postReview(review = review)
+        } catch (e: Exception) {
+            if (errorThatOccur.value == null)
+                errorThatOccur.value = e
+            val nullReview: Review? = null
+            nullReview
         }
     }
 

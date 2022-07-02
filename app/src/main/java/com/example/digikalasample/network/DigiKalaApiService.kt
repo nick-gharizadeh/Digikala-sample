@@ -117,6 +117,13 @@ interface DigiKalaApiService {
         @Field("email") email: String
     ): Customer?
 
+    @GET("customers/{id}?")
+    suspend fun getCustomer(
+        @Path("id") id: Int,
+        @Query("consumer_key") consumerKey: String = CONSUMER_KEY,
+        @Query("consumer_secret") consumerSecret: String = CONSUMER_SECRET,
+    ): Customer?
+
 
     @POST("orders")
     suspend fun createOrder(
@@ -131,5 +138,14 @@ interface DigiKalaApiService {
         @Query("consumer_secret") consumerSecret: String = CONSUMER_SECRET,
         @Query("per_page") perPage: Int = 100,
     ): List<Coupon>
+
+
+
+    @POST("products/reviews")
+   suspend fun postReview(
+        @Body review: Review,
+        @Query("consumer_key") consumerKey: String = CONSUMER_KEY,
+        @Query("consumer_secret") consumerSecret: String = CONSUMER_SECRET,
+    ): Review
 
 }

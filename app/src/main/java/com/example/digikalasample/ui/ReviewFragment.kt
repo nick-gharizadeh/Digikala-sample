@@ -1,18 +1,17 @@
 package com.example.digikalasample.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import com.example.digikalasample.R
-import com.example.digikalasample.databinding.FragmentRegisterBinding
+import com.example.digikalasample.data.model.review.Review
+import com.example.digikalasample.data.model.review.ReviewerAvatarUrls
 import com.example.digikalasample.databinding.FragmentReviewBinding
 import com.example.digikalasample.ui.adapter.ReviewAdapter
 import com.example.digikalasample.viewmodel.ProductViewModel
 
-class ReviewFragment : Fragment() {
+class ReviewFragment : BaseFragment() {
     private lateinit var binding: FragmentReviewBinding
     val productViewModel: ProductViewModel by activityViewModels()
 
@@ -45,6 +44,23 @@ class ReviewFragment : Fragment() {
                     }.toString()
                 }
             reviewAdapter.submitList(it)
+        }
+
+        binding.buttonSendReview.setOnClickListener {
+            if (binding.TextFieldReview.editText?.text?.isNotBlank() == true) {
+                productViewModel.mCustomerId?.let { it1 -> productViewModel.getCustomer(it1) }
+                productViewModel.mCustomer.observe(viewLifecycleOwner) { customer ->
+
+                    productViewModel.postReview(
+                        Review(
+                            product_id = productViewModel.mProduct!!.id,
+                            review = binding.TextFieldReview.editText!!.text.toString(),
+                            reviewer = "${customer?.first_name} ${customer?.last_name}",
+                            reviewer_email = customer!!.email
+                        )
+                    )
+                }
+            }
         }
 
     }

@@ -119,6 +119,16 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
         }
     }
 
+    fun postReview(
+        review: Review
+    ) {
+        viewModelScope.launch {
+            productRepository.postReview(review)
+        }
+        getReviews(mProduct?.id.toString())
+
+    }
+
     fun getCoupons() {
         viewModelScope.launch {
             couponsList = productRepository.getAllCoupons()
@@ -164,6 +174,13 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
             )
             mCustomer.value = customer
             mCustomerId = customer?.id
+        }
+    }
+
+    fun getCustomer(id: Int) {
+        viewModelScope.launch {
+            val customer = productRepository.getCustomer(id)
+            mCustomer.value = customer
         }
     }
 

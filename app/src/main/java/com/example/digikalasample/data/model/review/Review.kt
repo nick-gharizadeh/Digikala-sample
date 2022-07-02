@@ -2,15 +2,10 @@ package com.example.digikalasample.data.model.review
 
 
 data class Review(
-    val date_created: String,
-    val date_created_gmt: String,
-    val id: Int,
+    val id: Int = 0,
     val product_id: Int,
-    val rating: Int,
     var review: String,
     val reviewer: String,
-    val reviewer_avatar_urls: ReviewerAvatarUrls,
-    val reviewer_email: String,
-    val status: String,
-    val verified: Boolean
+    val reviewer_avatar_urls: ReviewerAvatarUrls =ReviewerAvatarUrls("") ,
+    val reviewer_email: String
 )
