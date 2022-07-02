@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Address(
-    @PrimaryKey var id: Int,
+    @PrimaryKey(autoGenerate = true) var id: Int,
     @ColumnInfo var name: String?,
     @ColumnInfo var addressField: String?,
     @ColumnInfo var theLat: String,

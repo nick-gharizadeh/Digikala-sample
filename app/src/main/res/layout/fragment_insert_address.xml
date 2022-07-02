@@ -7,7 +7,7 @@
     tools:context=".ui.InsertAddressFragment" >
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/TextInputAddress"
+        android:id="@+id/TextInputAddressName"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/TextInputAddressName"
+        android:id="@+id/TextInputAddressField"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
         android:hint="نشانی"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TextInputAddress">
+        app:layout_constraintTop_toBottomOf="@+id/TextInputAddressName">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -59,7 +59,7 @@
         app:layout_constraintBottom_toTopOf="@+id/buttonInsertAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TextInputAddressName"
+        app:layout_constraintTop_toBottomOf="@+id/TextInputAddressField"
         tools:context=".MainActivity" />
 
     <Button
@@ -69,6 +69,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/digikala_red_origin"
         android:fontFamily="@font/far_trafc_bd"
         android:text="ایجاد آدرس"
         app:layout_constraintBottom_toBottomOf="parent"

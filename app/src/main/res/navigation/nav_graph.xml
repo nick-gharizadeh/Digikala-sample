@@ -101,5 +101,10 @@
         android:id="@+id/insertAddressFragment"
         android:name="com.example.digikalasample.ui.InsertAddressFragment"
         android:label="fragment_insert_address"
-        tools:layout="@layout/fragment_insert_address" />
+        tools:layout="@layout/fragment_insert_address" >
+        <action
+            android:id="@+id/action_insertAddressFragment_to_addressesFragment"
+            app:destination="@id/addressesFragment"
+            app:popUpTo="@id/addressesFragment" />
+    </fragment>
 </navigation>

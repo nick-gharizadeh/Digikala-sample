@@ -32,14 +32,6 @@ class AddressesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val adapter =AddressAdapter()
         binding.recyclerViewAddress.adapter = adapter
-
-        addressViewModel.insertAddress(
-            Address(0,
-            "name",
-            "add",
-            "30.65747",
-            "33.0233")
-        )
         addressViewModel.allAddresses?.observe(viewLifecycleOwner){
             adapter.submitList(it)
         }
