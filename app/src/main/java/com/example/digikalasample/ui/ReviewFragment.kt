@@ -15,12 +15,6 @@ class ReviewFragment : BaseFragment() {
     private lateinit var binding: FragmentReviewBinding
     val productViewModel: ProductViewModel by activityViewModels()
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,6 +26,8 @@ class ReviewFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (productViewModel.mCustomerId != null)
+            productViewModel.mCustomerId?.let { it1 -> productViewModel.getCustomer(it1) }
         val reviewAdapter = ReviewAdapter()
         binding.recyclerViewReviews.adapter = reviewAdapter
         productViewModel.reviewsList.observe(viewLifecycleOwner) {
@@ -48,20 +44,31 @@ class ReviewFragment : BaseFragment() {
 
         binding.buttonSendReview.setOnClickListener {
             if (binding.TextFieldReview.editText?.text?.isNotBlank() == true) {
-                productViewModel.mCustomerId?.let { it1 -> productViewModel.getCustomer(it1) }
-                productViewModel.mCustomer.observe(viewLifecycleOwner) { customer ->
+                if (productViewModel.mCustomerId != 0 ) {
                     val review = Review(
                         product_id = productViewModel.mProduct!!.id,
                         review = binding.TextFieldReview.editText?.text.toString(),
-                        reviewer = "${customer?.first_name} ${customer?.last_name}",
-                        reviewer_email = customer!!.email
+                        reviewer = "${productViewModel.mCustomer.value?.first_name} ${productViewModel.mCustomer.value?.last_name}",
+                        reviewer_email = productViewModel.mCustomer.value!!.email
+
                     )
                     productViewModel.postReview(
                         review
                     )
+                    Toast.makeText(requireContext(), "با موفقیت ثبت شد", Toast.LENGTH_SHORT)
+                        .show()
                     binding.TextFieldReview.editText!!.text.clear()
-                    Toast.makeText(requireContext(), "با موفقیت ثبت شد", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "برای ثبت نظر ابتدا ثبت نام کنید",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
+            } else {
+                Toast.makeText(requireContext(), "نظر خود را وارد کنید ! ", Toast.LENGTH_SHORT)
+                    .show()
+
             }
         }
 
