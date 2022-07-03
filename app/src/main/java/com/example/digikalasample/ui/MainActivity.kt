@@ -10,6 +10,7 @@ import com.example.digikalasample.viewmodel.ProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -25,8 +26,9 @@ class MainActivity : AppCompatActivity() {
             productViewModel.mCustomerId = sharedPreferences.getInt("CustomerId", 0)
         }
         if (!sharedPreferences.getString("shoppingCartString", "")
-                .isNullOrEmpty()
+                .isNullOrEmpty() && !flagOnceDataSet
         ) {
+            flagOnceDataSet=true
             val shoppingCartList = sharedPreferences.getString("shoppingCartString", "")
                 ?.let { convertStringToList(it) }
             val shoppingCartCountList = sharedPreferences.getString("shoppingCartCountString", "")

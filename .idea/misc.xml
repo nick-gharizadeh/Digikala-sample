@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Andoid-Apps/digikala_sample/app/src/main/res/drawable/indicator_color.xml" value="0.148" />
+        <entry key="..\:/Andoid-Apps/digikala_sample/app/src/main/res/layout-land/fragment_insert_address.xml" value="0.25" />
         <entry key="..\:/Andoid-Apps/digikala_sample/app/src/main/res/layout-land/fragment_shopping_cart.xml" value="0.33" />
         <entry key="..\:/Andoid-Apps/digikala_sample/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Andoid-Apps/digikala_sample/app/src/main/res/layout/activity_splash_screen.xml" value="0.1" />

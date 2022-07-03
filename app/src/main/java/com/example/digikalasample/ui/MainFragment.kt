@@ -19,6 +19,7 @@ import kotlinx.coroutines.launch
 
 
 var flagAnimationOnceShowed = false
+var flagOnceDataSet = false
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment() {
