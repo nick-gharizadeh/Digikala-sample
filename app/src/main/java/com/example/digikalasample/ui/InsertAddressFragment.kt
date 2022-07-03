@@ -2,12 +2,13 @@ package com.example.digikalasample.ui
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
-import android.location.LocationManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,6 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
-import androidx.core.location.LocationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -101,25 +101,28 @@ class InsertAddressFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.N)
     private fun getLocationPermission() {
-        val locationPermissionRequest = registerForActivityResult(
-            ActivityResultContracts.RequestMultiplePermissions()
-        ) { permissions ->
+        val locationPermissionRequest = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             when {
                 permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
                     showLocation()
                 }
-                permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
-                    showLocation()
-                }
                 else -> {
-                    Toast.makeText(requireContext(), "goodbye", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "برای افزودن نشانی، دسترسی به مکان را فعال کنید",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                    val uri: Uri = Uri.fromParts("package", activity?.applicationContext?.packageName, null)
+                    intent.data = uri
+                    startActivity(intent)
+                    findNavController().navigate(R.id.action_insertAddressFragment_to_addressesFragment)
                 }
             }
         }
         locationPermissionRequest.launch(
             arrayOf(
                 Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION
             )
         )
     }
@@ -129,17 +132,9 @@ class InsertAddressFragment : Fragment() {
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
+            ) != PackageManager.PERMISSION_GRANTED) {
             return
         }
-        if (!isLocationEnabled()) {
-            Toast.makeText(requireContext(), "turn on your location", Toast.LENGTH_SHORT).show()
-        }
-
         fusedLocationClient.getCurrentLocation(PRIORITY_HIGH_ACCURACY, null)
             .addOnSuccessListener { location: Location? ->
                 location?.let {
@@ -152,11 +147,6 @@ class InsertAddressFragment : Fragment() {
 
     }
 
-    private fun isLocationEnabled(): Boolean {
-        val locationManager =
-            activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        return LocationManagerCompat.isLocationEnabled(locationManager)
-    }
 
     private fun showLocationOnMap(latLng: LatLng) {
         map.setMinZoomPreference(2.0f)
