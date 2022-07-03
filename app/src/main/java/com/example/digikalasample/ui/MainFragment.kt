@@ -36,6 +36,7 @@ class MainFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
+        flagIsNavigateFromShoppingCart = false
         if (!flagAnimationOnceShowed) {
             binding.animationView.alpha = 0f
             binding.animationView.animate().setDuration(1500).alpha(1f).withEndAction {

@@ -16,7 +16,6 @@ import com.example.digikalasample.databinding.FragmentAddressesBinding
 import com.example.digikalasample.ui.adapter.AddressAdapter
 import com.example.digikalasample.viewmodel.AddressViewModel
 import com.example.digikalasample.viewmodel.ProductViewModel
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class AddressesFragment : Fragment() {
     private lateinit var binding: FragmentAddressesBinding
@@ -49,21 +48,21 @@ class AddressesFragment : Fragment() {
     }
 
     fun onAddressesSelected(address: Address) {
-        var itemsList = emptyList<LineItem>()
-        for (product in productViewModel.shoppingCardList) {
-            val lineItem = product?.id?.let { productId ->
-                product.count?.let { count ->
-                    LineItem(
-                        product_id = productId,
-                        quantity = count,
-                        name = product.name,
-                    )
+        if (flagIsNavigateFromShoppingCart) {
+            var itemsList = emptyList<LineItem>()
+            for (product in productViewModel.shoppingCardList) {
+                val lineItem = product?.id?.let { productId ->
+                    product.count?.let { count ->
+                        LineItem(
+                            product_id = productId,
+                            quantity = count,
+                            name = product.name,
+                        )
+                    }
                 }
+                if (lineItem != null)
+                    itemsList = itemsList.plus(lineItem)
             }
-            if (lineItem != null)
-                itemsList = itemsList.plus(lineItem)
-        }
-            productViewModel.getCustomer(productViewModel.mCustomerId!!.toInt())
             val order = Order(
                 customer_id = productViewModel.mCustomerId!!,
                 line_items = itemsList,
@@ -80,5 +79,6 @@ class AddressesFragment : Fragment() {
             productViewModel.shoppingCardList = emptyList()
             findNavController().navigate(R.id.action_addressesFragment_to_shoppingCartFragment)
 
+        }
     }
 }

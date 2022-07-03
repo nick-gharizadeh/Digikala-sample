@@ -16,6 +16,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 
 lateinit var sharedPreferences: SharedPreferences
+var flagIsNavigateFromShoppingCart = false
 
 class ShoppingCartFragment : BaseFragment() {
     private lateinit var binding: FragmentShoppingCartBinding
@@ -53,6 +54,8 @@ class ShoppingCartFragment : BaseFragment() {
         binding.buttonPostOrder.setOnClickListener {
             if (productViewModel.shoppingCardList.isNotEmpty())
                 if (productViewModel.mCustomerId != null) {
+                    flagIsNavigateFromShoppingCart = true
+                    productViewModel.getCustomer(productViewModel.mCustomerId!!.toInt())
                     findNavController().navigate(R.id.action_shoppingCartFragment_to_addressesFragment)
                 } else {
                     MaterialAlertDialogBuilder(requireContext())
