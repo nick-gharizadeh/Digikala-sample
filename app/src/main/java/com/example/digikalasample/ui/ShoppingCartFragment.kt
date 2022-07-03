@@ -8,8 +8,6 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.digikalasample.R
-import com.example.digikalasample.data.model.order.LineItem
-import com.example.digikalasample.data.model.order.Order
 import com.example.digikalasample.data.model.product.Product
 import com.example.digikalasample.databinding.FragmentShoppingCartBinding
 import com.example.digikalasample.ui.adapter.ShoppingCartAdapter
@@ -53,32 +51,9 @@ class ShoppingCartFragment : BaseFragment() {
         }
 
         binding.buttonPostOrder.setOnClickListener {
-            if (productViewModel.shoppingCardList.isNotEmpty()) {
-                var itemsList = emptyList<LineItem>()
-                for (product in productViewModel.shoppingCardList) {
-                    val lineItem = product?.id?.let { productId ->
-                        product.count?.let { count ->
-                            LineItem(
-                                product_id = productId,
-                                quantity = count,
-                                name = product.name,
-                            )
-                        }
-                    }
-                    if (lineItem != null)
-                        itemsList = itemsList.plus(lineItem)
-                }
+            if (productViewModel.shoppingCardList.isNotEmpty())
                 if (productViewModel.mCustomerId != null) {
-                    val order = Order(
-                        customer_id = productViewModel.mCustomerId!!,
-                        line_items = itemsList,
-                        total = productViewModel.finalAmount.value.toString()
-                    )
-                    productViewModel.createOrder(
-                        order
-                    )
-                    productViewModel.shoppingCardList = emptyList()
-                    adapterSubmitList()
+                    findNavController().navigate(R.id.action_shoppingCartFragment_to_addressesFragment)
                 } else {
                     MaterialAlertDialogBuilder(requireContext())
                         .setMessage(getString(R.string.dialog_register_message))
@@ -87,7 +62,7 @@ class ShoppingCartFragment : BaseFragment() {
                         }
                         .show()
                 }
-            } else {
+            else {
                 Toast.makeText(requireContext(), "سبد خرید خالی است!", Toast.LENGTH_SHORT).show()
             }
         }

@@ -67,6 +67,9 @@
             android:id="@+id/action_shoppingCartFragment_to_mainFragment3"
             app:destination="@id/mainFragment"
             app:popUpTo="@id/mainFragment" />
+        <action
+            android:id="@+id/action_shoppingCartFragment_to_addressesFragment"
+            app:destination="@id/addressesFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -96,6 +99,9 @@
         <action
             android:id="@+id/action_addressesFragment_to_insertAddressFragment"
             app:destination="@id/insertAddressFragment" />
+        <action
+            android:id="@+id/action_addressesFragment_to_shoppingCartFragment"
+            app:destination="@id/shoppingCartFragment" />
     </fragment>
     <fragment
         android:id="@+id/insertAddressFragment"
