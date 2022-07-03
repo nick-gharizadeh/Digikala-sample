@@ -1,9 +1,15 @@
 package com.example.digikalasample.ui
 
+import android.content.Context
+import android.content.Intent
+import android.location.LocationManager
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.location.LocationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -16,6 +22,7 @@ import com.example.digikalasample.databinding.FragmentAddressesBinding
 import com.example.digikalasample.ui.adapter.AddressAdapter
 import com.example.digikalasample.viewmodel.AddressViewModel
 import com.example.digikalasample.viewmodel.ProductViewModel
+
 
 class AddressesFragment : Fragment() {
     private lateinit var binding: FragmentAddressesBinding
@@ -42,9 +49,18 @@ class AddressesFragment : Fragment() {
         }
 
         binding.extendedFabInsertAddress.setOnClickListener {
+            if (!isLocationEnabled()) {
+                Toast.makeText(requireContext(), "برای افزودن نشانی، لطفا GPS خود را روشن کنید", Toast.LENGTH_SHORT).show()
+                loadGPSPageSetting()
+            }
+            else
             findNavController().navigate(R.id.action_addressesFragment_to_insertAddressFragment)
         }
 
+    }
+    private fun loadGPSPageSetting() {
+         val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+        startActivity(intent);
     }
 
     fun onAddressesSelected(address: Address) {
@@ -80,5 +96,11 @@ class AddressesFragment : Fragment() {
             findNavController().navigate(R.id.action_addressesFragment_to_shoppingCartFragment)
 
         }
+    }
+
+    private fun isLocationEnabled(): Boolean {
+        val locationManager =
+            activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return LocationManagerCompat.isLocationEnabled(locationManager)
     }
 }
