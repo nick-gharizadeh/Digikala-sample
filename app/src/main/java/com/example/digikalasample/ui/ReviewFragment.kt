@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.example.digikalasample.data.model.review.Review
-import com.example.digikalasample.data.model.review.ReviewerAvatarUrls
 import com.example.digikalasample.databinding.FragmentReviewBinding
 import com.example.digikalasample.ui.adapter.ReviewAdapter
 import com.example.digikalasample.viewmodel.ProductViewModel
@@ -50,15 +50,17 @@ class ReviewFragment : BaseFragment() {
             if (binding.TextFieldReview.editText?.text?.isNotBlank() == true) {
                 productViewModel.mCustomerId?.let { it1 -> productViewModel.getCustomer(it1) }
                 productViewModel.mCustomer.observe(viewLifecycleOwner) { customer ->
-                    binding.TextFieldReview.editText?.text!!.clear()
-                    productViewModel.postReview(
-                        Review(
-                            product_id = productViewModel.mProduct!!.id,
-                            review = binding.TextFieldReview.editText!!.text.toString(),
-                            reviewer = "${customer?.first_name} ${customer?.last_name}",
-                            reviewer_email = customer!!.email
-                        )
+                    val review = Review(
+                        product_id = productViewModel.mProduct!!.id,
+                        review = binding.TextFieldReview.editText?.text.toString(),
+                        reviewer = "${customer?.first_name} ${customer?.last_name}",
+                        reviewer_email = customer!!.email
                     )
+                    productViewModel.postReview(
+                        review
+                    )
+                    binding.TextFieldReview.editText!!.text.clear()
+                    Toast.makeText(requireContext(), "با موفقیت ثبت شد", Toast.LENGTH_LONG).show()
                 }
             }
         }
