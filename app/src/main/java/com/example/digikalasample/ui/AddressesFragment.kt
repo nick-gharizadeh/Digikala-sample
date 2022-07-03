@@ -50,16 +50,20 @@ class AddressesFragment : Fragment() {
 
         binding.extendedFabInsertAddress.setOnClickListener {
             if (!isLocationEnabled()) {
-                Toast.makeText(requireContext(), "برای افزودن نشانی، لطفا GPS خود را روشن کنید", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "برای افزودن نشانی، لطفا GPS خود را روشن کنید",
+                    Toast.LENGTH_SHORT
+                ).show()
                 loadGPSPageSetting()
-            }
-            else
-            findNavController().navigate(R.id.action_addressesFragment_to_insertAddressFragment)
+            } else
+                findNavController().navigate(R.id.action_addressesFragment_to_insertAddressFragment)
         }
 
     }
+
     private fun loadGPSPageSetting() {
-         val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+        val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
         startActivity(intent);
     }
 

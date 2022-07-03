@@ -54,9 +54,20 @@ class InsertAddressFragment : Fragment() {
         return binding.root
     }
 
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("name", binding.TextInputAddressName.editText?.text.toString())
+        outState.putString("address", binding.TextInputAddressField.editText?.text.toString())
+    }
+
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (savedInstanceState != null) {
+            binding.TextInputAddressName.editText?.setText(savedInstanceState.getString("name"))
+            binding.TextInputAddressField.editText?.setText(savedInstanceState.getString("address"))
+        }
         getLocationPermission()
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         val mapFragment = childFragmentManager
@@ -101,25 +112,30 @@ class InsertAddressFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.N)
     private fun getLocationPermission() {
-        val locationPermissionRequest = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-            when {
-                permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
-                    showLocation()
-                }
-                else -> {
-                    Toast.makeText(
-                        requireContext(),
-                        "برای افزودن نشانی، دسترسی به مکان را فعال کنید",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                    val uri: Uri = Uri.fromParts("package", activity?.applicationContext?.packageName, null)
-                    intent.data = uri
-                    startActivity(intent)
-                    findNavController().navigate(R.id.action_insertAddressFragment_to_addressesFragment)
+        val locationPermissionRequest =
+            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+                when {
+                    permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
+                        showLocation()
+                    }
+                    else -> {
+                        Toast.makeText(
+                            requireContext(),
+                            "برای افزودن نشانی، دسترسی به مکان را فعال کنید",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                        val uri: Uri = Uri.fromParts(
+                            "package",
+                            activity?.applicationContext?.packageName,
+                            null
+                        )
+                        intent.data = uri
+                        startActivity(intent)
+                        findNavController().navigate(R.id.action_insertAddressFragment_to_addressesFragment)
+                    }
                 }
             }
-        }
         locationPermissionRequest.launch(
             arrayOf(
                 Manifest.permission.ACCESS_FINE_LOCATION,
@@ -132,7 +148,8 @@ class InsertAddressFragment : Fragment() {
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED) {
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
             return
         }
         fusedLocationClient.getCurrentLocation(PRIORITY_HIGH_ACCURACY, null)

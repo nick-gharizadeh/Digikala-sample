@@ -23,9 +23,16 @@ class ReviewFragment : BaseFragment() {
         return binding.root
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("review", binding.TextFieldReview.editText?.text.toString())
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (savedInstanceState != null) {
+            binding.TextFieldReview.editText?.setText(savedInstanceState.getString("review"))
+        }
         if (productViewModel.mCustomerId != null)
             productViewModel.mCustomerId?.let { it1 -> productViewModel.getCustomer(it1) }
         val reviewAdapter = ReviewAdapter()
