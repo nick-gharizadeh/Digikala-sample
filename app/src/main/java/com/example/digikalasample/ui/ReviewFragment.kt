@@ -33,8 +33,7 @@ class ReviewFragment : BaseFragment() {
         if (savedInstanceState != null) {
             binding.TextFieldReview.editText?.setText(savedInstanceState.getString("review"))
         }
-        if (productViewModel.mCustomerId != null)
-            productViewModel.mCustomerId?.let { it1 -> productViewModel.getCustomer(it1) }
+
         val reviewAdapter = ReviewAdapter { deleteReview(it) }
         binding.recyclerViewReviews.adapter = reviewAdapter
         productViewModel.reviewsList.observe(viewLifecycleOwner) {

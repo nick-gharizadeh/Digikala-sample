@@ -1,6 +1,7 @@
 package com.example.digikalasample.ui.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
@@ -11,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.example.digikalasample.R
 import com.example.digikalasample.data.model.review.Review
 import com.example.digikalasample.databinding.ReviewItemBinding
+import com.example.digikalasample.ui.customerEmail
 
 typealias ClickHandlerDeleteReview = (Review) -> Unit
 
@@ -56,6 +58,12 @@ class ReviewAdapter(private var clickHandlerDelete: ClickHandlerDeleteReview) :
         val review = getItem(position)
         holder.binding.review = review
         holder.bind(review)
+        if (customerEmail!=null)
+        if (getItem(position).reviewer_email.equals(customerEmail,true)) {
+            holder.binding.imageViewDelete.visibility = View.VISIBLE
+            holder.binding.imageViewEdit.visibility = View.VISIBLE
+        }
+
         holder.binding.imageViewDelete.setOnClickListener {
             clickHandlerDelete.invoke(review)
         }

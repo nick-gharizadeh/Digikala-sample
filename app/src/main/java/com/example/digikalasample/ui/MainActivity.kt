@@ -24,11 +24,12 @@ class MainActivity : AppCompatActivity() {
         sharedPreferences = getSharedPreferences("myShare", Context.MODE_PRIVATE)
         if (sharedPreferences.getInt("CustomerId", 0) != 0) {
             productViewModel.mCustomerId = sharedPreferences.getInt("CustomerId", 0)
+            productViewModel.mCustomerId?.let { it1 -> productViewModel.getCustomer(it1) }
         }
         if (!sharedPreferences.getString("shoppingCartString", "")
                 .isNullOrEmpty() && !flagOnceDataSet
         ) {
-            flagOnceDataSet=true
+            flagOnceDataSet = true
             val shoppingCartList = sharedPreferences.getString("shoppingCartString", "")
                 ?.let { convertStringToList(it) }
             val shoppingCartCountList = sharedPreferences.getString("shoppingCartCountString", "")
