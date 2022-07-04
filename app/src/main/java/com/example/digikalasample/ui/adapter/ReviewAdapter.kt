@@ -12,8 +12,9 @@ import com.example.digikalasample.R
 import com.example.digikalasample.data.model.review.Review
 import com.example.digikalasample.databinding.ReviewItemBinding
 
+typealias ClickHandlerDeleteReview = (Review) -> Unit
 
-class ReviewAdapter :
+class ReviewAdapter(private var clickHandlerDelete: ClickHandlerDeleteReview) :
     ListAdapter<Review, ReviewAdapter.ItemHolder>(ReviewDiffCallback) {
 
     object ReviewDiffCallback : DiffUtil.ItemCallback<Review>() {
@@ -55,7 +56,9 @@ class ReviewAdapter :
         val review = getItem(position)
         holder.binding.review = review
         holder.bind(review)
-
+        holder.binding.imageViewDelete.setOnClickListener {
+            clickHandlerDelete.invoke(review)
+        }
     }
 }
 

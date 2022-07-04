@@ -35,7 +35,7 @@ class ReviewFragment : BaseFragment() {
         }
         if (productViewModel.mCustomerId != null)
             productViewModel.mCustomerId?.let { it1 -> productViewModel.getCustomer(it1) }
-        val reviewAdapter = ReviewAdapter()
+        val reviewAdapter = ReviewAdapter { deleteReview(it) }
         binding.recyclerViewReviews.adapter = reviewAdapter
         productViewModel.reviewsList.observe(viewLifecycleOwner) {
             if (it != null)
@@ -51,7 +51,7 @@ class ReviewFragment : BaseFragment() {
 
         binding.buttonSendReview.setOnClickListener {
             if (binding.TextFieldReview.editText?.text?.isNotBlank() == true) {
-                if (productViewModel.mCustomerId != 0 ) {
+                if (productViewModel.mCustomerId != 0) {
                     val review = Review(
                         product_id = productViewModel.mProduct!!.id,
                         review = binding.TextFieldReview.editText?.text.toString(),
@@ -79,6 +79,10 @@ class ReviewFragment : BaseFragment() {
             }
         }
 
+    }
+
+    fun deleteReview(review: Review) {
+        productViewModel.deleteReview(review.id)
     }
 
 }
