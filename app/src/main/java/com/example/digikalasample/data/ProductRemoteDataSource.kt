@@ -165,7 +165,7 @@ class ProductRemoteDataSource @Inject constructor(private val productApiService:
         }
     }
 
-    suspend fun postReview(review: Review): Review?{
+    suspend fun postReview(review: Review): Review? {
         return try {
             errorThatOccur.value = null
             productApiService.postReview(review = review)
@@ -174,6 +174,17 @@ class ProductRemoteDataSource @Inject constructor(private val productApiService:
                 errorThatOccur.value = e
             val nullReview: Review? = null
             nullReview
+        }
+    }
+
+    suspend fun deleteReview(id: Int) {
+         try {
+            errorThatOccur.value = null
+            productApiService.deleteReview(id = id)
+        } catch (e: Exception) {
+            if (errorThatOccur.value == null)
+                errorThatOccur.value = e
+
         }
     }
 

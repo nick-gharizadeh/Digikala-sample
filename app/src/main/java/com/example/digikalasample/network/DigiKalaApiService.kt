@@ -140,12 +140,20 @@ interface DigiKalaApiService {
     ): List<Coupon>
 
 
-
     @POST("products/reviews")
-   suspend fun postReview(
+    suspend fun postReview(
         @Body review: Review,
         @Query("consumer_key") consumerKey: String = CONSUMER_KEY,
         @Query("consumer_secret") consumerSecret: String = CONSUMER_SECRET,
     ): Review
+
+
+    @DELETE("products/reviews/{id}?")
+    suspend fun deleteReview(
+        @Path("id") id: Int,
+        @Query("consumer_key") consumerKey: String = CONSUMER_KEY,
+        @Query("consumer_secret") consumerSecret: String = CONSUMER_SECRET,
+    )
+
 
 }

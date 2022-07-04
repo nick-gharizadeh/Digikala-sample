@@ -125,8 +125,13 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
         viewModelScope.launch {
             productRepository.postReview(review)
         }
-        getReviews(mProduct?.id.toString())
 
+    }
+
+    fun deleteReview(id: Int) {
+        viewModelScope.launch {
+            productRepository.deleteReview(id)
+        }
     }
 
     fun getCoupons() {
