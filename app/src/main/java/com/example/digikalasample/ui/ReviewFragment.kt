@@ -11,8 +11,12 @@ import com.example.digikalasample.databinding.FragmentReviewBinding
 import com.example.digikalasample.ui.adapter.ReviewAdapter
 import com.example.digikalasample.viewmodel.ProductViewModel
 
+
+var flagUserWantToEditReview = false
+
 class ReviewFragment : BaseFragment() {
     private lateinit var binding: FragmentReviewBinding
+    var reviewId: Int? = null
     val productViewModel: ProductViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -34,7 +38,7 @@ class ReviewFragment : BaseFragment() {
             binding.TextFieldReview.editText?.setText(savedInstanceState.getString("review"))
         }
 
-        val reviewAdapter = ReviewAdapter { deleteReview(it) }
+        val reviewAdapter = ReviewAdapter({ deleteReview(it) }, { editReview(it) })
         binding.recyclerViewReviews.adapter = reviewAdapter
         productViewModel.reviewsList.observe(viewLifecycleOwner) {
             if (it != null)
@@ -49,6 +53,16 @@ class ReviewFragment : BaseFragment() {
         }
 
         binding.buttonSendReview.setOnClickListener {
+            if (flagUserWantToEditReview) {
+                productViewModel.updateReview(
+                    reviewId!!,
+                    binding.TextFieldReview.editText?.text.toString()
+                )
+                binding.TextFieldReview.editText?.text?.clear()
+                reviewId = null
+                flagUserWantToEditReview = false
+                return@setOnClickListener
+            }
             if (binding.TextFieldReview.editText?.text?.isNotBlank() == true) {
                 if (productViewModel.mCustomerId != 0) {
                     val review = Review(
@@ -82,6 +96,12 @@ class ReviewFragment : BaseFragment() {
 
     fun deleteReview(review: Review) {
         productViewModel.deleteReview(review.id)
+    }
+
+    fun editReview(review: Review) {
+        binding.TextFieldReview.editText?.setText(review.review)
+        flagUserWantToEditReview = true
+        reviewId = review.id
     }
 
 }

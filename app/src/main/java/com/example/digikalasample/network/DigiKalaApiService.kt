@@ -6,7 +6,6 @@ import com.example.digikalasample.data.model.order.Order
 import com.example.digikalasample.data.model.product.Category
 import com.example.digikalasample.data.model.product.Product
 import com.example.digikalasample.data.model.review.Review
-import retrofit2.Call
 import retrofit2.http.*
 
 
@@ -157,10 +156,10 @@ interface DigiKalaApiService {
     )
 
     @PUT("products/reviews/{id}?")
-    fun updateReview(
+    suspend fun updateReview(
         @Path("id") id: Int,
         @Query("consumer_key") consumerKey: String = CONSUMER_KEY,
         @Query("consumer_secret") consumerSecret: String = CONSUMER_SECRET,
-        @Field("review") review: String?,
+        @Query("review") review: String?,
     )
 }
