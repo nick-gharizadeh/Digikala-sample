@@ -15,8 +15,12 @@ import com.example.digikalasample.databinding.ReviewItemBinding
 import com.example.digikalasample.ui.customerEmail
 
 typealias ClickHandlerDeleteReview = (Review) -> Unit
+typealias ClickHandlerEditReview = (Review) -> Unit
 
-class ReviewAdapter(private var clickHandlerDelete: ClickHandlerDeleteReview) :
+class ReviewAdapter(
+    private var clickHandlerDelete: ClickHandlerDeleteReview,
+    private var clickHandlerEdit: ClickHandlerEditReview
+) :
     ListAdapter<Review, ReviewAdapter.ItemHolder>(ReviewDiffCallback) {
 
     object ReviewDiffCallback : DiffUtil.ItemCallback<Review>() {
@@ -58,14 +62,17 @@ class ReviewAdapter(private var clickHandlerDelete: ClickHandlerDeleteReview) :
         val review = getItem(position)
         holder.binding.review = review
         holder.bind(review)
-        if (customerEmail!=null)
-        if (getItem(position).reviewer_email.equals(customerEmail,true)) {
-            holder.binding.imageViewDelete.visibility = View.VISIBLE
-            holder.binding.imageViewEdit.visibility = View.VISIBLE
-        }
+        if (customerEmail != null)
+            if (getItem(position).reviewer_email.equals(customerEmail, true)) {
+                holder.binding.imageViewDelete.visibility = View.VISIBLE
+                holder.binding.imageViewEdit.visibility = View.VISIBLE
+            }
 
         holder.binding.imageViewDelete.setOnClickListener {
             clickHandlerDelete.invoke(review)
+        }
+        holder.binding.imageViewEdit.setOnClickListener {
+            clickHandlerEdit.invoke(review)
         }
     }
 }
