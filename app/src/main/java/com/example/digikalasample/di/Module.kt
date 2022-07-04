@@ -13,9 +13,9 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 
@@ -45,14 +45,20 @@ object Module {
 
     @Singleton
     @Provides
-    fun getRetrofit(moshi: Moshi): Retrofit {
+    fun getRetrofit(moshi: Moshi, client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .baseUrl("https://woocommerce.maktabsharif.ir/wp-json/wc/v3/")
+            .client(client)
             .build()
     }
 
-
+    @Singleton
+    @Provides
+    fun getRetrofitClient(): OkHttpClient {
+        val logger = HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BASIC }
+        return OkHttpClient.Builder().addInterceptor(logger).build()
+    }
 
     @Singleton
     @Provides
