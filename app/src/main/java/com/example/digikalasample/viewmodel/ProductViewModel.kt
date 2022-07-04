@@ -135,6 +135,12 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
         }
     }
 
+    fun updateReview(id: Int, review: String) {
+        viewModelScope.launch {
+            productRepository.updateReview(id, review)
+        }
+    }
+
     fun getCoupons() {
         viewModelScope.launch {
             couponsList = productRepository.getAllCoupons()

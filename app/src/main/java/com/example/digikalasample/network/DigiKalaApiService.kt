@@ -6,6 +6,7 @@ import com.example.digikalasample.data.model.order.Order
 import com.example.digikalasample.data.model.product.Category
 import com.example.digikalasample.data.model.product.Product
 import com.example.digikalasample.data.model.review.Review
+import retrofit2.Call
 import retrofit2.http.*
 
 
@@ -144,7 +145,7 @@ interface DigiKalaApiService {
     suspend fun postReview(
         @Body review: Review,
         @Query("consumer_key") consumerKey: String = CONSUMER_KEY,
-        @Query("consumer_secret") consumerSecret: String = CONSUMER_SECRET,
+        @Query("consumer_secret") consumerSecret: String = CONSUMER_SECRET
     ): Review
 
 
@@ -152,8 +153,14 @@ interface DigiKalaApiService {
     suspend fun deleteReview(
         @Path("id") id: Int,
         @Query("consumer_key") consumerKey: String = CONSUMER_KEY,
-        @Query("consumer_secret") consumerSecret: String = CONSUMER_SECRET,
+        @Query("consumer_secret") consumerSecret: String = CONSUMER_SECRET
     )
 
-
+    @PUT("products/reviews/{id}?")
+    fun updateReview(
+        @Path("id") id: Int,
+        @Query("consumer_key") consumerKey: String = CONSUMER_KEY,
+        @Query("consumer_secret") consumerSecret: String = CONSUMER_SECRET,
+        @Field("review") review: String?,
+    )
 }

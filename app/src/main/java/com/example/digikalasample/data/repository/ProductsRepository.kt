@@ -87,4 +87,9 @@ class ProductsRepository @Inject constructor(
 
     }
 
+    suspend fun updateReview(id: Int, review: String) {
+        return productRemoteDataSource.updateReview(id = id, review = review)
+
+    }
+
 }

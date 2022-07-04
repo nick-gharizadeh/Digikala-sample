@@ -178,9 +178,20 @@ class ProductRemoteDataSource @Inject constructor(private val productApiService:
     }
 
     suspend fun deleteReview(id: Int) {
-         try {
+        try {
             errorThatOccur.value = null
             productApiService.deleteReview(id = id)
+        } catch (e: Exception) {
+            if (errorThatOccur.value == null)
+                errorThatOccur.value = e
+
+        }
+    }
+
+    suspend fun updateReview(id: Int, review: String) {
+        try {
+            errorThatOccur.value = null
+            productApiService.updateReview(id = id, review = review)
         } catch (e: Exception) {
             if (errorThatOccur.value == null)
                 errorThatOccur.value = e
