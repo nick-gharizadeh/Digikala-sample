@@ -21,8 +21,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.digikalasample.R
+import com.example.digikalasample.data.model.address.Address
 import com.example.digikalasample.databinding.FragmentEditAddressBinding
-import com.example.digikalasample.databinding.FragmentMainBinding
 import com.example.digikalasample.viewmodel.AddressViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -62,6 +62,21 @@ class EditAddressFragment : Fragment() {
         val address = args.safeArgAddress
         binding.TextInputAddressName2.editText?.setText(address.name)
         binding.TextInputAddressField2.editText?.setText(address.addressField)
+        binding.buttonEditAddress.setOnClickListener {
+            val newAddress = Address(
+                address.id,
+                binding.TextInputAddressName2.editText?.text.toString(),
+                binding.TextInputAddressField2.editText?.text.toString(),
+                latitude, longitude
+            )
+            addressViewModel.updateAddress(newAddress)
+            findNavController().navigate(R.id.action_editAddressFragment_to_addressesFragment)
+        }
+        binding.buttonDeleteAddress.setOnClickListener {
+            addressViewModel.deleteAddress(address)
+            findNavController().navigate(R.id.action_editAddressFragment_to_addressesFragment)
+
+        }
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         val mapFragment = childFragmentManager
             .findFragmentById(R.id.myMapEdit) as SupportMapFragment

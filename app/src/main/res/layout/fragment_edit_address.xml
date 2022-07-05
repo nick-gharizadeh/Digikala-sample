@@ -66,7 +66,7 @@
             tools:context=".MainActivity" />
 
         <Button
-            android:id="@+id/button_delte_address"
+            android:id="@+id/button_delete_address"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="24dp"
@@ -94,7 +94,7 @@
             app:icon="@drawable/ic_edit"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/button_delte_address"
+            app:layout_constraintStart_toEndOf="@+id/button_delete_address"
             app:layout_constraintTop_toBottomOf="@+id/myMapEdit" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
