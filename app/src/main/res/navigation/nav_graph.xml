@@ -146,5 +146,8 @@
             app:destination="@id/addressesFragment"
             app:popUpTo="@id/addressesFragment"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="safeArgAddress"
+            app:argType="com.example.digikalasample.data.model.address.Address" />
     </fragment>
 </navigation>

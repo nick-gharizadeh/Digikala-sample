@@ -118,7 +118,8 @@ class AddressesFragment : Fragment() {
             ).show()
             loadGPSPageSetting()
         } else {
-            findNavController().navigate(R.id.action_addressesFragment_to_editAddressFragment)
+            val action = AddressesFragmentDirections.actionAddressesFragmentToEditAddressFragment(address)
+            findNavController().navigate(action)
         }
     }
 }

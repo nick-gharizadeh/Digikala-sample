@@ -19,7 +19,9 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.digikalasample.R
+import com.example.digikalasample.databinding.FragmentEditAddressBinding
 import com.example.digikalasample.databinding.FragmentMainBinding
 import com.example.digikalasample.viewmodel.AddressViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -33,12 +35,13 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 
 class EditAddressFragment : Fragment() {
-    private lateinit var binding: FragmentMainBinding
+    private lateinit var binding: FragmentEditAddressBinding
     val addressViewModel: AddressViewModel by activityViewModels()
     private lateinit var map: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     var latitude = ""
     var longitude = ""
+    val args: EditAddressFragmentArgs by navArgs()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -48,7 +51,7 @@ class EditAddressFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMainBinding.inflate(layoutInflater)
+        binding = FragmentEditAddressBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -56,6 +59,9 @@ class EditAddressFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getLocationPermission()
+        val address = args.safeArgAddress
+        binding.TextInputAddressName2.editText?.setText(address.name)
+        binding.TextInputAddressField2.editText?.setText(address.addressField)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         val mapFragment = childFragmentManager
             .findFragmentById(R.id.myMapEdit) as SupportMapFragment

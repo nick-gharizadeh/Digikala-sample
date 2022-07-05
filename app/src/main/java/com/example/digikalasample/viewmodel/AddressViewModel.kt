@@ -26,4 +26,16 @@ class AddressViewModel @Inject constructor(val addressRepository: AddressReposit
             addressRepository.insertAddress(address)
         }
     }
+
+    fun updateAddress(address: Address) {
+        viewModelScope.launch {
+            addressRepository.updateAddress(address)
+        }
+    }
+
+    fun deleteAddress(address: Address) {
+        viewModelScope.launch {
+            addressRepository.deleteAddress(address)
+        }
+    }
 }

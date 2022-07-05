@@ -20,7 +20,15 @@ class AddressRepository @Inject constructor(
     }
 
     suspend fun insertAddress(address: Address) {
-        AddressLocalDataSource.insertMovie(address)
+        AddressLocalDataSource.insertAddress(address)
+    }
+
+    suspend fun updateAddress(address: Address) {
+        AddressLocalDataSource.updateAddress(address)
+    }
+
+    suspend fun deleteAddress(address: Address) {
+        AddressLocalDataSource.deleteAddress(address)
     }
 
 }

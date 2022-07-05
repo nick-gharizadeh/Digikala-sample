@@ -15,7 +15,16 @@ class AddressLocalDataSource @Inject constructor(val db: AddressesDataBase) {
 
     }
 
-    suspend fun insertMovie(address: Address) {
+    suspend fun insertAddress(address: Address) {
         db.addressDao()?.insert(address)
+    }
+
+
+    suspend fun updateAddress(address: Address) {
+        db.addressDao()?.updateAddress(address)
+    }
+
+    suspend fun deleteAddress(address: Address) {
+        db.addressDao()?.deleteAddress(address)
     }
 }
