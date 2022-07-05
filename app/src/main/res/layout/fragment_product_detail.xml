@@ -319,11 +319,13 @@
                     android:layout_marginBottom="4dp"
                     android:fontFamily="@font/iran_yekan"
                     android:text="@string/add_to_cart"
+                    android:textColor="@color/white"
                     app:backgroundTint="@color/digikala_red_origin"
                     app:cornerRadius="0dp"
                     app:icon="@drawable/ic_shopping_cart"
                     app:iconGravity="textStart"
-                    app:iconSize="22dp" />
+                    app:iconSize="22dp"
+                    app:iconTint="@color/white" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>

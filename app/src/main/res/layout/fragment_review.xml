@@ -36,7 +36,8 @@
             android:layout_height="wrap_content"
             android:background="@color/digikala_dark_white"
             android:hint="نقد و بررسی"
-            android:inputType="textMultiLine" />
+            android:inputType="textMultiLine"
+            android:textColor="@color/black" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
