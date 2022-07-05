@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.lifecycleScope
 import com.example.digikalasample.databinding.ActivityMainBinding
 import com.example.digikalasample.viewmodel.ProductViewModel
@@ -22,6 +23,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
         supportActionBar?.show()
         sharedPreferences = getSharedPreferences("myShare", Context.MODE_PRIVATE)
+
+        if (sharedPreferences.getBoolean("themeIsDark", false)) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
+        } else {
+            AppCompatDelegate.setDefaultNightMode(
+                AppCompatDelegate.MODE_NIGHT_NO
+            )
+        }
         if (sharedPreferences.getInt("CustomerId", 0) != 0) {
             productViewModel.mCustomerId = sharedPreferences.getInt("CustomerId", 0)
             productViewModel.mCustomerId?.let { it1 -> productViewModel.getCustomer(it1) }
