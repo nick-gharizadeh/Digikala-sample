@@ -71,7 +71,7 @@ class InsertAddressFragment : Fragment() {
         getLocationPermission()
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         val mapFragment = childFragmentManager
-            .findFragmentById(R.id.myMap) as SupportMapFragment
+            .findFragmentById(R.id.myMapEdit) as SupportMapFragment
         mapFragment.getMapAsync { readyMap ->
             map = readyMap
         }

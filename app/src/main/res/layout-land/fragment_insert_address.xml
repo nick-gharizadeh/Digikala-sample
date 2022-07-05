@@ -52,7 +52,7 @@
 
 
     <fragment
-        android:id="@+id/myMap"
+        android:id="@+id/myMapEdit"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="0dp"
         android:layout_height="250dp"
