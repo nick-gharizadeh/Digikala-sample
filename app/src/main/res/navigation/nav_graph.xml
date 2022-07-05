@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_mainFragment_to_addressesFragment"
             app:destination="@id/addressesFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_changeThemeFragment"
+            app:destination="@id/changeThemeFragment" />
     </fragment>
     <fragment
         android:id="@+id/productDetailFragment"
@@ -125,4 +128,9 @@
             app:popUpTo="@id/addressesFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/changeThemeFragment"
+        android:name="com.example.digikalasample.ui.ChangeThemeFragment"
+        android:label="fragment_change_theme"
+        tools:layout="@layout/fragment_change_theme" />
 </navigation>

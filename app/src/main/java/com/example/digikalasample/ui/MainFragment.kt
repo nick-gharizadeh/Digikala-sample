@@ -152,6 +152,10 @@ class MainFragment : BaseFragment() {
                 findNavController().navigate(R.id.action_mainFragment_to_addressesFragment)
                 return false
             }
+            R.id.item_menu_settings-> {
+                findNavController().navigate(R.id.action_mainFragment_to_changeThemeFragment)
+                return false
+            }
         }
         return false
     }

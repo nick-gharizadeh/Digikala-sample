@@ -38,6 +38,7 @@
     <string name="invalid_coupon_message">کد تخفیف نامعتبر است</string>
     <string name="enter_coupon_message">لطفا کد تخفیف را وارد کنید</string>
     <string name="addresses">آدرس ها</string>
+    <string name="setting">تنظیمات</string>
 
 
     <string-array name="colors">
