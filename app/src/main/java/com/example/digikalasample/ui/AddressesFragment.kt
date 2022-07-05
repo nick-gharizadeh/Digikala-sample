@@ -83,19 +83,21 @@ class AddressesFragment : Fragment() {
                 if (lineItem != null)
                     itemsList = itemsList.plus(lineItem)
             }
+            productViewModel.calculatePrice()
             val order = Order(
                 customer_id = productViewModel.mCustomerId!!,
                 line_items = itemsList,
-                total = productViewModel.finalAmount.value.toString(),
                 billing = Billing(
                     address_1 = address.addressField!!,
                     first_name = productViewModel.mCustomer.value!!.first_name,
                     last_name = productViewModel.mCustomer.value!!.last_name
-                )
+                ), coupon_lines = productViewModel.usedCouponList
             )
             productViewModel.createOrder(
                 order
             )
+            flagOnceUseCoupon = false
+            productViewModel.usedCouponList = emptyList()
             productViewModel.shoppingCardList = emptyList()
             findNavController().navigate(R.id.action_addressesFragment_to_shoppingCartFragment)
 

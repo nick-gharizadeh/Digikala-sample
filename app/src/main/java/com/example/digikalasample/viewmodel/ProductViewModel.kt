@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.digikalasample.data.model.FilterItem
 import com.example.digikalasample.data.model.coupon.Coupon
+import com.example.digikalasample.data.model.coupon.CouponLine
 import com.example.digikalasample.data.model.customer.Customer
 import com.example.digikalasample.data.model.order.Order
 import com.example.digikalasample.data.model.product.Category
@@ -40,6 +41,7 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
     var lastSearch: String = ""
     val finalAmount = MutableLiveData<Int>()
     var couponAmount = 0
+    var usedCouponList: List<CouponLine> = emptyList()
 
     init {
         callServices()
@@ -171,7 +173,7 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
             sum += product?.count?.times(product.price.toInt()) ?: 0
         }
         finalAmount.value = sum
-        if (flagOnceUseCoupon && couponAmount > 0)
+        if (flagOnceUseCoupon)
             minusFromFinalAmount(couponAmount)
 
     }
@@ -242,6 +244,7 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
         for (coupon in couponsList) {
             if (code == coupon?.code && !flagOnceUseCoupon) {
                 minusFromFinalAmount(coupon.amount.toDouble().toInt())
+                usedCouponList = usedCouponList.plus(CouponLine(coupon.code))
                 couponAmount = coupon.amount.toDouble().toInt()
                 return true
             }
@@ -250,7 +253,7 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
     }
 
 
-    private fun minusFromFinalAmount(amount: Int) {
+    fun minusFromFinalAmount(amount: Int) {
         finalAmount.value = finalAmount.value?.minus(amount)
     }
 
