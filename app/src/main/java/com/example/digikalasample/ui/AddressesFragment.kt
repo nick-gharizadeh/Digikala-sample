@@ -15,9 +15,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.digikalasample.R
 import com.example.digikalasample.data.model.address.Address
+import com.example.digikalasample.data.model.order.Billing
 import com.example.digikalasample.data.model.order.LineItem
 import com.example.digikalasample.data.model.order.Order
-import com.example.digikalasample.data.model.order.Shipping
 import com.example.digikalasample.databinding.FragmentAddressesBinding
 import com.example.digikalasample.ui.adapter.AddressAdapter
 import com.example.digikalasample.viewmodel.AddressViewModel
@@ -87,7 +87,7 @@ class AddressesFragment : Fragment() {
                 customer_id = productViewModel.mCustomerId!!,
                 line_items = itemsList,
                 total = productViewModel.finalAmount.value.toString(),
-                shipping = Shipping(
+                billing = Billing(
                     address_1 = address.addressField!!,
                     first_name = productViewModel.mCustomer.value!!.first_name,
                     last_name = productViewModel.mCustomer.value!!.last_name
