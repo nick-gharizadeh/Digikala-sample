@@ -30,6 +30,7 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
     val ratingProductList = MutableStateFlow<List<Product?>>(emptyList())
     val newestProductList = MutableStateFlow<List<Product?>>(emptyList())
     val categoriesList = MutableStateFlow<List<Category?>>(emptyList())
+    val relatedProductList = MutableLiveData<List<Product?>>()
     val productByCategoriesList = MutableLiveData<List<Product?>>()
     val specialOffers = MutableLiveData<Product?>()
     var shoppingCardList: List<Product?> = emptyList()
@@ -58,6 +59,12 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
     private fun getProducts(orderBy: String, relatedLiveData: MutableStateFlow<List<Product?>>) {
         viewModelScope.launch {
             relatedLiveData.emit(productRepository.getProducts(orderBy = orderBy))
+        }
+    }
+    private fun getRelatedProducts(includeList:List<Int>) {
+        viewModelScope.launch {
+            val list = productRepository.getRelatedProducts(includeList)
+            relatedProductList.value=list
         }
     }
 

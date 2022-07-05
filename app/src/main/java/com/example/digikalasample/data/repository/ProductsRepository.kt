@@ -15,6 +15,9 @@ class ProductsRepository @Inject constructor(
     suspend fun getProducts(orderBy: String): List<Product> {
         return productRemoteDataSource.getProducts(orderBy = orderBy)
     }
+    suspend fun getRelatedProducts(includeList: List<Int>): List<Product> {
+        return productRemoteDataSource.getRelatedProducts(includeList)
+    }
 
     suspend fun getProductsBySearch(
         searchQuery: String,

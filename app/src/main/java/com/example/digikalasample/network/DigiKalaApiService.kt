@@ -34,6 +34,20 @@ interface DigiKalaApiService {
         consumerKey: String = CONSUMER_KEY,
         @Query("consumer_secret")
         consumerSecret: String = CONSUMER_SECRET,
+        @Query("per_page")
+        perPage: Int = 30,
+        @Query("page")
+        numberOfPage: Int = 1,
+        @Query("include")
+        include: List<Int> ,
+    ): List<Product>
+
+    @GET("products")
+    suspend fun getProduct(
+        @Query("consumer_key")
+        consumerKey: String = CONSUMER_KEY,
+        @Query("consumer_secret")
+        consumerSecret: String = CONSUMER_SECRET,
         @Query("category")
         category: Int,
         @Query("per_page")

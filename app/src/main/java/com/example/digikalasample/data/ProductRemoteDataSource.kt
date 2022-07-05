@@ -24,6 +24,16 @@ class ProductRemoteDataSource @Inject constructor(private val productApiService:
             listOf()
         }
     }
+    suspend fun getRelatedProducts(includeList: List<Int>): List<Product> {
+        return try {
+            errorThatOccur.value = null
+            productApiService.getProduct(include = includeList)
+        } catch (e: Exception) {
+            if (errorThatOccur.value == null)
+                errorThatOccur.value = e
+            listOf()
+        }
+    }
 
 
     suspend fun getProductsBySearch(
