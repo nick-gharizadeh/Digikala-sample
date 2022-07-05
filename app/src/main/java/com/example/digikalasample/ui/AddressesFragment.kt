@@ -40,9 +40,8 @@ class AddressesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = AddressAdapter {
-            onAddressesSelected(it)
-        }
+        val adapter = AddressAdapter({ onAddressesSelected(it) }, { goToEditAddressFragment(it) })
+
         binding.recyclerViewAddress.adapter = adapter
         addressViewModel.allAddresses?.observe(viewLifecycleOwner) {
             adapter.submitList(it)
@@ -108,5 +107,18 @@ class AddressesFragment : Fragment() {
         val locationManager =
             activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return LocationManagerCompat.isLocationEnabled(locationManager)
+    }
+
+    fun goToEditAddressFragment(address: Address) {
+        if (!isLocationEnabled()) {
+            Toast.makeText(
+                requireContext(),
+                "برای افزودن نشانی، لطفا GPS خود را روشن کنید",
+                Toast.LENGTH_SHORT
+            ).show()
+            loadGPSPageSetting()
+        } else {
+            findNavController().navigate(R.id.action_addressesFragment_to_editAddressFragment)
+        }
     }
 }

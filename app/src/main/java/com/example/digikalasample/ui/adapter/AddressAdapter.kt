@@ -8,12 +8,15 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.digikalasample.R
 import com.example.digikalasample.data.model.address.Address
-import com.example.digikalasample.data.model.product.Product
 import com.example.digikalasample.databinding.AddressItemBinding
 
 typealias ClickHandlerAddress = (Address) -> Unit
+typealias ClickHandlerEditAddress = (Address) -> Unit
 
-class AddressAdapter(private var clickHandler: ClickHandlerAddress) :
+class AddressAdapter(
+    private var clickHandler: ClickHandlerAddress,
+    private var clickHandlerEdit: ClickHandlerEditAddress
+) :
     ListAdapter<Address, AddressAdapter.ItemHolder>(AddressDiffCallback) {
     class ItemHolder(val binding: AddressItemBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -33,6 +36,9 @@ class AddressAdapter(private var clickHandler: ClickHandlerAddress) :
         holder.binding.address = address
         holder.binding.cvAddress.setOnClickListener {
             clickHandler.invoke(address)
+        }
+        holder.binding.imageViewEditAddress.setOnClickListener {
+            clickHandlerEdit.invoke(address)
         }
 
     }

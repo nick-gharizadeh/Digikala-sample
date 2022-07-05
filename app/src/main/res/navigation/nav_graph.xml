@@ -116,6 +116,9 @@
             android:id="@+id/action_addressesFragment_to_mainFragment"
             app:destination="@id/mainFragment"
             app:popUpTo="@id/mainFragment" />
+        <action
+            android:id="@+id/action_addressesFragment_to_editAddressFragment"
+            app:destination="@id/editAddressFragment" />
     </fragment>
     <fragment
         android:id="@+id/insertAddressFragment"
@@ -133,4 +136,15 @@
         android:name="com.example.digikalasample.ui.ChangeThemeFragment"
         android:label="fragment_change_theme"
         tools:layout="@layout/fragment_change_theme" />
+    <fragment
+        android:id="@+id/editAddressFragment"
+        android:name="com.example.digikalasample.ui.EditAddressFragment"
+        android:label="fragment_edit_address"
+        tools:layout="@layout/fragment_edit_address" >
+        <action
+            android:id="@+id/action_editAddressFragment_to_addressesFragment"
+            app:destination="@id/addressesFragment"
+            app:popUpTo="@id/addressesFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>
