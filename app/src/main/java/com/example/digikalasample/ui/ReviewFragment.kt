@@ -64,7 +64,7 @@ class ReviewFragment : BaseFragment() {
                 return@setOnClickListener
             }
             if (binding.TextFieldReview.editText?.text?.isNotBlank() == true) {
-                if (productViewModel.mCustomerId != 0) {
+                if ( productViewModel.mCustomerId !=null) {
                     val review = Review(
                         product_id = productViewModel.mProduct!!.id,
                         review = binding.TextFieldReview.editText?.text.toString(),
