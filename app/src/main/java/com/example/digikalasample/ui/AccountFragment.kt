@@ -49,6 +49,8 @@ class AccountFragment : BaseFragment() {
                sharedPreferences.edit().remove("CustomerId").apply()
                productViewModel.mCustomerId=null
                productViewModel.mCustomer.value=null
+               findNavController().navigate(R.id.action_registerFragment_to_mainFragment)
+
            }
        }
 
