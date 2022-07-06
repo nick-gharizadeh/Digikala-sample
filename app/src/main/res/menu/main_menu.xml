@@ -15,9 +15,13 @@
         android:id="@+id/item_menu_register"
         android:title="@string/register" />
     <item
+        android:id="@+id/item_menu_account"
+        android:title="@string/account" />
+    <item
         android:id="@+id/item_menu_addresses"
         android:title="@string/addresses" />
     <item
         android:id="@+id/item_menu_settings"
         android:title="@string/setting" />
+
 </menu>

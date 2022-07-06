@@ -42,6 +42,8 @@
     <string name="address_name">عنوان آدرس</string>
     <string name="address_field">نشانی</string>
     <string name="insert_address">ایجاد آدرس</string>
+    <string name="account">حساب کاربری</string>
+    <string name="log_out">خروج از حساب کاربری</string>
 
 
     <string-array name="colors">

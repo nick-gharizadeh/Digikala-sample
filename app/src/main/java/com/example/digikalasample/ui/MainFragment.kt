@@ -156,6 +156,10 @@ class MainFragment : BaseFragment() {
                 findNavController().navigate(R.id.action_mainFragment_to_changeThemeFragment)
                 return false
             }
+            R.id.item_menu_account-> {
+                findNavController().navigate(R.id.action_mainFragment_to_accountFragment)
+                return false
+            }
         }
         return false
     }
