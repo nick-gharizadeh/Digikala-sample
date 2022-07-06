@@ -61,7 +61,8 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
             relatedLiveData.emit(productRepository.getProducts(orderBy = orderBy))
         }
     }
-    private fun getRelatedProducts(includeList:List<Int>) {
+
+     fun getRelatedProducts(includeList:List<Int>) {
         viewModelScope.launch {
             val list = productRepository.getRelatedProducts(includeList)
             relatedProductList.value=list

@@ -6,13 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.digikalasample.R
+import com.example.digikalasample.data.model.product.Product
 import com.example.digikalasample.databinding.FragmentProductDetailBinding
+import com.example.digikalasample.ui.adapter.ProductAdapter
 import com.example.digikalasample.ui.adapter.ViewPagerAdapter
-import com.example.digikalasample.ui.adapter.ReviewAdapter
 import com.example.digikalasample.viewmodel.ProductViewModel
+
 
 class ProductDetailFragment : BaseFragment() {
     private lateinit var binding: FragmentProductDetailBinding
@@ -33,7 +36,17 @@ class ProductDetailFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val adapterRelatedProducts = ProductAdapter {
+            goToDetailFragment(it)
+        }
+        binding.relatedProductRecyclerView.adapter = adapterRelatedProducts
         productViewModel.reviewsList.value = null
+        productViewModel.relatedProductList.value = null
+        productViewModel.getRelatedProducts(productViewModel.mProduct!!.related_ids)
+        productViewModel.relatedProductList.observe(viewLifecycleOwner) {
+            if (it != null)
+                adapterRelatedProducts.submitList(it)
+        }
         val colors = resources.getStringArray(R.array.colors)
         val images = productViewModel.mProduct?.images
         val mViewPagerAdapter: ViewPagerAdapter? =
@@ -57,7 +70,14 @@ class ProductDetailFragment : BaseFragment() {
         }
     }
 
-
+    private fun goToDetailFragment(product: Product) {
+        product.description = RemoveHTMLTags.removeHTMLTagsFromString(product.description)
+        productViewModel.mProduct = product
+        val fragmentTransaction: FragmentTransaction? = activity?.supportFragmentManager?.beginTransaction()
+        fragmentTransaction?.add(R.id.fragmentContainerView, ProductDetailFragment())
+        fragmentTransaction?.addToBackStack("detail")
+        fragmentTransaction?.commit()
+    }
 
 
 }
