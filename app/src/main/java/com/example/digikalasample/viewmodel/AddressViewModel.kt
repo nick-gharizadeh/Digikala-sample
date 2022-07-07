@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class AddressViewModel @Inject constructor(val addressRepository: AddressRepository) : ViewModel() {
+class AddressViewModel @Inject constructor(private val addressRepository: AddressRepository) : ViewModel() {
 
     val allAddresses: LiveData<List<Address?>?>?
 

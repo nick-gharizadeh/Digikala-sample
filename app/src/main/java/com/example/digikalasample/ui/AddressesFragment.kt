@@ -95,7 +95,6 @@ class AddressesFragment : Fragment() {
             productViewModel.createOrder(
                 order
             )
-            flagOnceUseCoupon = false
             productViewModel.usedCouponList = emptyList()
             productViewModel.shoppingCardList = emptyList()
             findNavController().navigate(R.id.action_addressesFragment_to_shoppingCartFragment)

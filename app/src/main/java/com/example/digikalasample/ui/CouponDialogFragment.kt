@@ -12,7 +12,6 @@ import com.example.digikalasample.R
 import com.example.digikalasample.viewmodel.ProductViewModel
 import com.google.android.material.textfield.TextInputLayout
 
-var flagOnceUseCoupon = false
 
 class CouponDialogFragment : DialogFragment() {
     val productViewModel: ProductViewModel by activityViewModels()
@@ -35,9 +34,9 @@ class CouponDialogFragment : DialogFragment() {
             if (textViewCoupon.editText?.text.toString().isNotBlank())
                 if (productViewModel.isItExistsInTheCoupons(
                         textViewCoupon.editText?.text.toString().trim().lowercase()
-                    ) && !flagOnceUseCoupon
+                    ) && !productViewModel.flagOnceUseCoupon
                 ) {
-                    flagOnceUseCoupon = true
+                    productViewModel.flagOnceUseCoupon = true
                     Toast.makeText(
                         requireContext(),
                         getString(R.string.valid_coupon_message),
