@@ -40,9 +40,7 @@ class InsertAddressFragment : Fragment() {
     val addressViewModel: AddressViewModel by activityViewModels()
     private lateinit var map: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-    var latitude = ""
     var currentMarker: Marker? = null
-    var longitude = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -177,8 +175,6 @@ class InsertAddressFragment : Fragment() {
             .addOnSuccessListener { location: Location? ->
                 location?.let {
                     showLocationOnMap(LatLng(it.latitude, it.longitude))
-                    latitude = it.latitude.toString()
-                    longitude = it.longitude.toString()
                 }
             }
 

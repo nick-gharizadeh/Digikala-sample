@@ -31,6 +31,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 
 
@@ -39,9 +40,9 @@ class EditAddressFragment : Fragment() {
     val addressViewModel: AddressViewModel by activityViewModels()
     private lateinit var map: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-    var latitude = ""
-    var longitude = ""
+    var currentMarker: Marker? = null
     val args: EditAddressFragmentArgs by navArgs()
+    lateinit var address: Address
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -59,7 +60,7 @@ class EditAddressFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getLocationPermission()
-        val address = args.safeArgAddress
+        address = args.safeArgAddress
         binding.TextInputAddressName2.editText?.setText(address.name)
         binding.TextInputAddressField2.editText?.setText(address.addressField)
         binding.buttonEditAddress.setOnClickListener {
@@ -67,7 +68,8 @@ class EditAddressFragment : Fragment() {
                 address.id,
                 binding.TextInputAddressName2.editText?.text.toString(),
                 binding.TextInputAddressField2.editText?.text.toString(),
-                latitude, longitude
+                currentMarker?.position?.latitude.toString(),
+                currentMarker?.position?.longitude.toString()
             )
             addressViewModel.updateAddress(newAddress)
             findNavController().navigate(R.id.action_editAddressFragment_to_addressesFragment)
@@ -82,6 +84,24 @@ class EditAddressFragment : Fragment() {
             .findFragmentById(R.id.myMapEdit) as SupportMapFragment
         mapFragment.getMapAsync { readyMap ->
             map = readyMap
+            showLocationOnMap(LatLng(address.theLat.toDouble(),address.theLong.toDouble()))
+            map.setOnMarkerDragListener(object : GoogleMap.OnMarkerDragListener {
+                override fun onMarkerDrag(p0: Marker) {
+
+                }
+
+                override fun onMarkerDragEnd(p0: Marker) {
+                    if (currentMarker != null) {
+                        currentMarker?.remove()
+                    }
+                    val newLatLong = LatLng(p0.position.latitude, p0.position.longitude)
+                    showLocationOnMap(newLatLong)
+                }
+
+                override fun onMarkerDragStart(p0: Marker) {
+                }
+
+            })
         }
 
     }
@@ -93,7 +113,6 @@ class EditAddressFragment : Fragment() {
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
                 when {
                     permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
-                        showLocation()
                     }
                     else -> {
                         Toast.makeText(
@@ -120,38 +139,24 @@ class EditAddressFragment : Fragment() {
         )
     }
 
-    @SuppressLint("MissingPermission")
-    private fun showLocation() {
-        if (ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            return
-        }
-        fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null)
-            .addOnSuccessListener { location: Location? ->
-                location?.let {
-                    showLocationOnMap(LatLng(it.latitude, it.longitude))
-                    latitude = it.latitude.toString()
-                    longitude = it.longitude.toString()
-                }
-            }
 
-
-    }
 
 
     private fun showLocationOnMap(latLng: LatLng) {
         map.setMinZoomPreference(2.0f)
         map.setMaxZoomPreference(18.0f)
         map.cameraPosition.zoom
-        map.addMarker(
+        val markerOption =
             MarkerOptions()
                 .position(latLng)
-                .title("Marker in location")
+                .draggable(true)
                 .zIndex(2.0f)
-        )
+                .draggable(true)
+
+        map.moveCamera(CameraUpdateFactory.newLatLng(latLng))
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20.0f))
+        currentMarker = map.addMarker(markerOption)
+        currentMarker?.showInfoWindow()
+
     }
 }
