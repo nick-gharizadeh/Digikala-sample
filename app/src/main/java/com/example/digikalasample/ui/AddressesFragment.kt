@@ -40,7 +40,9 @@ class AddressesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = AddressAdapter({ onAddressesSelected(it) }, { goToEditAddressFragment(it) })
+        val adapter = AddressAdapter({ onAddressesSelected(it) },
+            { goToEditAddressFragment(it) },
+            { goToMapFragment(it) })
 
         binding.recyclerViewAddress.adapter = adapter
         addressViewModel.allAddresses?.observe(viewLifecycleOwner) {
@@ -121,5 +123,11 @@ class AddressesFragment : Fragment() {
                 AddressesFragmentDirections.actionAddressesFragmentToEditAddressFragment(address)
             findNavController().navigate(action)
         }
+    }
+
+    fun goToMapFragment(address: Address) {
+        val action =
+            AddressesFragmentDirections.actionAddressesFragmentToMapFragment(address)
+        findNavController().navigate(action)
     }
 }

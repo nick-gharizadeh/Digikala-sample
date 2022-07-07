@@ -123,6 +123,9 @@
         <action
             android:id="@+id/action_addressesFragment_to_editAddressFragment"
             app:destination="@id/editAddressFragment" />
+        <action
+            android:id="@+id/action_addressesFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
     </fragment>
     <fragment
         android:id="@+id/insertAddressFragment"
@@ -167,5 +170,18 @@
         <action
             android:id="@+id/action_accountFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.digikalasample.ui.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" >
+        <action
+            android:id="@+id/action_mapFragment_to_addressesFragment"
+            app:destination="@id/addressesFragment"
+            app:popUpTo="@id/addressesFragment"
+            app:popUpToInclusive="true" />
+        <argument android:name="addressSafeArgMap"
+            app:argType="com.example.digikalasample.data.model.address.Address" />
     </fragment>
 </navigation>

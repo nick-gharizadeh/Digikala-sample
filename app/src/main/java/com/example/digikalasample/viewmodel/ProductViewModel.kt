@@ -12,7 +12,6 @@ import com.example.digikalasample.data.model.product.Category
 import com.example.digikalasample.data.model.product.Product
 import com.example.digikalasample.data.model.review.Review
 import com.example.digikalasample.data.repository.ProductsRepository
-import com.example.digikalasample.ui.customerEmail
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -43,6 +42,7 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
     private var couponAmount = 0
     var usedCouponList: List<CouponLine> = emptyList()
     var flagOnceUseCoupon = false
+    var customerEmail: String? = null
 
     init {
         callServices()

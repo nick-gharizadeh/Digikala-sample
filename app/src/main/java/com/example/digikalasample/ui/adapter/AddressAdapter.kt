@@ -12,11 +12,14 @@ import com.example.digikalasample.databinding.AddressItemBinding
 
 typealias ClickHandlerAddress = (Address) -> Unit
 typealias ClickHandlerEditAddress = (Address) -> Unit
+typealias ClickHandlerMap = (Address) -> Unit
 
 class AddressAdapter(
     private var clickHandler: ClickHandlerAddress,
-    private var clickHandlerEdit: ClickHandlerEditAddress
-) :
+    private var clickHandlerEdit: ClickHandlerEditAddress,
+    private var clickHandlerMap: ClickHandlerMap,
+
+    ) :
     ListAdapter<Address, AddressAdapter.ItemHolder>(AddressDiffCallback) {
     class ItemHolder(val binding: AddressItemBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -39,6 +42,9 @@ class AddressAdapter(
         }
         holder.binding.imageViewEditAddress.setOnClickListener {
             clickHandlerEdit.invoke(address)
+        }
+        holder.binding.imageViewMap.setOnClickListener {
+            clickHandlerMap.invoke(address)
         }
 
     }
