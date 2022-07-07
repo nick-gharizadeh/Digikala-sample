@@ -30,6 +30,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.textfield.TextInputLayout
 
@@ -40,6 +41,7 @@ class InsertAddressFragment : Fragment() {
     private lateinit var map: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     var latitude = ""
+    var currentMarker: Marker? = null
     var longitude = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,7 +76,25 @@ class InsertAddressFragment : Fragment() {
             .findFragmentById(R.id.myMapEdit) as SupportMapFragment
         mapFragment.getMapAsync { readyMap ->
             map = readyMap
+            map.setOnMarkerDragListener(object : GoogleMap.OnMarkerDragListener {
+                override fun onMarkerDrag(p0: Marker) {
+
+                }
+
+                override fun onMarkerDragEnd(p0: Marker) {
+                    if (currentMarker != null) {
+                        currentMarker?.remove()
+                    }
+                    val newLatLong = LatLng(p0.position.latitude, p0.position.longitude)
+                    showLocationOnMap(newLatLong)
+                }
+
+                override fun onMarkerDragStart(p0: Marker) {
+                }
+
+            })
         }
+
 
         binding.buttonInsertAddress.setOnClickListener {
             setErrorNull(binding.TextInputAddressField)
@@ -84,7 +104,8 @@ class InsertAddressFragment : Fragment() {
                     0,
                     binding.TextInputAddressName.editText?.text.toString(),
                     binding.TextInputAddressField.editText?.text.toString(),
-                    latitude, longitude
+                    currentMarker?.position?.latitude.toString(),
+                    currentMarker?.position?.longitude.toString()
                 )
                 addressViewModel.insertAddress(address)
                 findNavController().navigate(R.id.action_insertAddressFragment_to_addressesFragment)
@@ -169,14 +190,19 @@ class InsertAddressFragment : Fragment() {
         map.setMinZoomPreference(2.0f)
         map.setMaxZoomPreference(18.0f)
         map.cameraPosition.zoom
-        map.addMarker(
+        val markerOption =
             MarkerOptions()
                 .position(latLng)
-                .title("Marker in location")
+                .draggable(true)
+                .title("شما اینجا هستید")
                 .zIndex(2.0f)
-        )
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20.0f))
-    }
+                .draggable(true)
 
+        map.moveCamera(CameraUpdateFactory.newLatLng(latLng))
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20.0f))
+        currentMarker = map.addMarker(markerOption)
+        currentMarker?.showInfoWindow()
+
+    }
 
 }
