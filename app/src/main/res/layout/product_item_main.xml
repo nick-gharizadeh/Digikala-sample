@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="136dp"
-    android:layout_height="230dp"
+    android:layout_height="225dp"
     android:layout_marginRight="8dp"
     android:layout_marginBottom="8dp">
 
@@ -28,12 +28,14 @@
             android:layout_marginRight="8dp"
             android:layout_marginBottom="4dp"
             android:layout_weight="1"
+            android:ellipsize="end"
             android:fontFamily="@font/iran_yekan"
             android:gravity="right"
+            android:maxLines="2"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
             android:text="Product Title"
-            android:textSize="9dp" />
+            android:textSize="9sp" />
 
         <View
             android:id="@+id/divider"
@@ -48,10 +50,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:layout_marginLeft="4dp"
+            android:fontFamily="@font/far_trafc_bd"
             android:gravity="left"
             android:text="Price"
             android:textColor="@color/digikala_green"
-            android:textSize="10dp" />
+            android:textSize="11sp" />
 
     </LinearLayout>
 
