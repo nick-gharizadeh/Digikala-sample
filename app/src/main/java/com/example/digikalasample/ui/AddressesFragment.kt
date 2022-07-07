@@ -26,7 +26,7 @@ import com.example.digikalasample.viewmodel.ProductViewModel
 
 class AddressesFragment : Fragment() {
     private lateinit var binding: FragmentAddressesBinding
-    val addressViewModel: AddressViewModel by activityViewModels()
+    private val addressViewModel: AddressViewModel by activityViewModels()
     val productViewModel: ProductViewModel by activityViewModels()
 
 
@@ -62,11 +62,11 @@ class AddressesFragment : Fragment() {
     }
 
     private fun loadGPSPageSetting() {
-        val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-        startActivity(intent);
+        val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+        startActivity(intent)
     }
 
-    fun onAddressesSelected(address: Address) {
+    private fun onAddressesSelected(address: Address) {
         if (flagIsNavigateFromShoppingCart) {
             var itemsList = emptyList<LineItem>()
             for (product in productViewModel.shoppingCardList) {
@@ -109,7 +109,7 @@ class AddressesFragment : Fragment() {
         return LocationManagerCompat.isLocationEnabled(locationManager)
     }
 
-    fun goToEditAddressFragment(address: Address) {
+    private fun goToEditAddressFragment(address: Address) {
         if (!isLocationEnabled()) {
             Toast.makeText(
                 requireContext(),
@@ -118,7 +118,8 @@ class AddressesFragment : Fragment() {
             ).show()
             loadGPSPageSetting()
         } else {
-            val action = AddressesFragmentDirections.actionAddressesFragmentToEditAddressFragment(address)
+            val action =
+                AddressesFragmentDirections.actionAddressesFragmentToEditAddressFragment(address)
             findNavController().navigate(action)
         }
     }

@@ -10,8 +10,8 @@ import com.example.digikalasample.data.model.product.Category
 import com.example.digikalasample.data.model.product.Product
 import com.example.digikalasample.databinding.FragmentMainBinding
 import com.example.digikalasample.ui.adapter.CategoryAdapter
-import com.example.digikalasample.ui.adapter.ViewPagerAdapter
 import com.example.digikalasample.ui.adapter.ProductAdapter
+import com.example.digikalasample.ui.adapter.ViewPagerAdapter
 import com.example.digikalasample.viewmodel.ProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -20,7 +20,8 @@ import kotlinx.coroutines.launch
 
 var flagAnimationOnceShowed = false
 var flagOnceDataSet = false
-var customerEmail:String? = null
+var customerEmail: String? = null
+
 @AndroidEntryPoint
 class MainFragment : BaseFragment() {
     private lateinit var binding: FragmentMainBinding
@@ -152,11 +153,11 @@ class MainFragment : BaseFragment() {
                 findNavController().navigate(R.id.action_mainFragment_to_addressesFragment)
                 return false
             }
-            R.id.item_menu_settings-> {
+            R.id.item_menu_settings -> {
                 findNavController().navigate(R.id.action_mainFragment_to_changeThemeFragment)
                 return false
             }
-            R.id.item_menu_account-> {
+            R.id.item_menu_account -> {
                 findNavController().navigate(R.id.action_mainFragment_to_accountFragment)
                 return false
             }
@@ -177,8 +178,7 @@ class MainFragment : BaseFragment() {
             editor.putString("shoppingCartString", shoppingCartString)
             editor.putString("shoppingCartCountString", shoppingCartCountString)
             editor.apply()
-        }
-        else{
+        } else {
             sharedPreferences.edit().remove("shoppingCartString").apply()
             sharedPreferences.edit().remove("shoppingCartCountString").apply()
         }

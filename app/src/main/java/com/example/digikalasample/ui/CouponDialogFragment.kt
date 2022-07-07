@@ -16,10 +16,7 @@ var flagOnceUseCoupon = false
 
 class CouponDialogFragment : DialogFragment() {
     val productViewModel: ProductViewModel by activityViewModels()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +33,9 @@ class CouponDialogFragment : DialogFragment() {
         val textViewCoupon = view.findViewById<TextInputLayout>(R.id.editText_coupon)
         buttonSubmit.setOnClickListener {
             if (textViewCoupon.editText?.text.toString().isNotBlank())
-                if (productViewModel.isItExistsInTheCoupons(textViewCoupon.editText?.text.toString().trim().lowercase()) && !flagOnceUseCoupon
+                if (productViewModel.isItExistsInTheCoupons(
+                        textViewCoupon.editText?.text.toString().trim().lowercase()
+                    ) && !flagOnceUseCoupon
                 ) {
                     flagOnceUseCoupon = true
                     Toast.makeText(

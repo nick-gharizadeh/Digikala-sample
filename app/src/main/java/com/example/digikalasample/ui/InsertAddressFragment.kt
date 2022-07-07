@@ -37,14 +37,11 @@ import com.google.android.material.textfield.TextInputLayout
 
 class InsertAddressFragment : Fragment() {
     private lateinit var binding: FragmentInsertAddressBinding
-    val addressViewModel: AddressViewModel by activityViewModels()
+    private val addressViewModel: AddressViewModel by activityViewModels()
     private lateinit var map: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     var currentMarker: Marker? = null
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -111,7 +108,7 @@ class InsertAddressFragment : Fragment() {
         }
     }
 
-    fun validate(): Boolean {
+    private fun validate(): Boolean {
         if (binding.TextInputAddressField.editText?.text.toString().isBlank()) {
             binding.TextInputAddressField.error = " نشانی خود را وارد کنید  "
             return false

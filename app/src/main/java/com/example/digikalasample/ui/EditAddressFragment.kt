@@ -1,10 +1,7 @@
 package com.example.digikalasample.ui
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.location.Location
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -15,7 +12,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -26,7 +22,6 @@ import com.example.digikalasample.databinding.FragmentEditAddressBinding
 import com.example.digikalasample.viewmodel.AddressViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.location.Priority
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
@@ -37,16 +32,13 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 class EditAddressFragment : Fragment() {
     private lateinit var binding: FragmentEditAddressBinding
-    val addressViewModel: AddressViewModel by activityViewModels()
+    private val addressViewModel: AddressViewModel by activityViewModels()
     private lateinit var map: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     var currentMarker: Marker? = null
-    val args: EditAddressFragmentArgs by navArgs()
+    private val args: EditAddressFragmentArgs by navArgs()
     lateinit var address: Address
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -84,7 +76,7 @@ class EditAddressFragment : Fragment() {
             .findFragmentById(R.id.myMapEdit) as SupportMapFragment
         mapFragment.getMapAsync { readyMap ->
             map = readyMap
-            showLocationOnMap(LatLng(address.theLat.toDouble(),address.theLong.toDouble()))
+            showLocationOnMap(LatLng(address.theLat.toDouble(), address.theLong.toDouble()))
             map.setOnMarkerDragListener(object : GoogleMap.OnMarkerDragListener {
                 override fun onMarkerDrag(p0: Marker) {
 
@@ -138,8 +130,6 @@ class EditAddressFragment : Fragment() {
             )
         )
     }
-
-
 
 
     private fun showLocationOnMap(latLng: LatLng) {

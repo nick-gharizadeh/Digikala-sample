@@ -9,14 +9,10 @@ import androidx.fragment.app.Fragment
 import com.example.digikalasample.databinding.FragmentChangeThemeBinding
 
 
-enum class Theme {
-    Dark,
-    Light
-}
+
 
 class ChangeThemeFragment : Fragment() {
     private lateinit var binding: FragmentChangeThemeBinding
-    var themeMode = Theme.Light
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

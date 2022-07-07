@@ -6,7 +6,7 @@ import com.example.digikalasample.data.model.address.Address
 import javax.inject.Inject
 
 
-class AddressLocalDataSource @Inject constructor(val db: AddressesDataBase) {
+class AddressLocalDataSource @Inject constructor(private val db: AddressesDataBase) {
     val allAddresses: LiveData<List<Address?>?>?
 
 

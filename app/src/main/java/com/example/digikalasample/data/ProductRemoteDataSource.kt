@@ -24,6 +24,7 @@ class ProductRemoteDataSource @Inject constructor(private val productApiService:
             listOf()
         }
     }
+
     suspend fun getRelatedProducts(includeList: List<Int>): List<Product> {
         return try {
             errorThatOccur.value = null
@@ -107,8 +108,7 @@ class ProductRemoteDataSource @Inject constructor(private val productApiService:
         } catch (e: Exception) {
             if (errorThatOccur.value == null)
                 errorThatOccur.value = e
-            val product = null
-            return product
+            return null
         }
     }
 
@@ -134,8 +134,7 @@ class ProductRemoteDataSource @Inject constructor(private val productApiService:
         } catch (e: Exception) {
             if (errorThatOccur.value == null)
                 errorThatOccur.value = e
-            val customer: Customer? = null
-            return customer
+            return null
         }
     }
 
@@ -147,8 +146,7 @@ class ProductRemoteDataSource @Inject constructor(private val productApiService:
         } catch (e: Exception) {
             if (errorThatOccur.value == null)
                 errorThatOccur.value = e
-            val customer: Customer? = null
-            return customer
+            return null
         }
     }
 

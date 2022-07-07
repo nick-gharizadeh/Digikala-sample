@@ -73,7 +73,8 @@ class ProductDetailFragment : BaseFragment() {
     private fun goToDetailFragment(product: Product) {
         product.description = RemoveHTMLTags.removeHTMLTagsFromString(product.description)
         productViewModel.mProduct = product
-        val fragmentTransaction: FragmentTransaction? = activity?.supportFragmentManager?.beginTransaction()
+        val fragmentTransaction: FragmentTransaction? =
+            activity?.supportFragmentManager?.beginTransaction()
         fragmentTransaction?.add(R.id.fragmentContainerView, ProductDetailFragment())
         fragmentTransaction?.addToBackStack("detail")
         fragmentTransaction?.commit()

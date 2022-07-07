@@ -46,6 +46,7 @@ class SplashScreen : AppCompatActivity() {
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 
+    @SuppressLint("MissingPermission")
     private fun checkConnectivity(context: Context): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

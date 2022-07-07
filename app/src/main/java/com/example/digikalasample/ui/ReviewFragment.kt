@@ -16,7 +16,7 @@ var flagUserWantToEditReview = false
 
 class ReviewFragment : BaseFragment() {
     private lateinit var binding: FragmentReviewBinding
-    var reviewId: Int? = null
+    private var reviewId: Int? = null
     val productViewModel: ProductViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -64,7 +64,7 @@ class ReviewFragment : BaseFragment() {
                 return@setOnClickListener
             }
             if (binding.TextFieldReview.editText?.text?.isNotBlank() == true) {
-                if ( productViewModel.mCustomerId !=null) {
+                if (productViewModel.mCustomerId != null) {
                     val review = Review(
                         product_id = productViewModel.mProduct!!.id,
                         review = binding.TextFieldReview.editText?.text.toString(),
@@ -94,11 +94,11 @@ class ReviewFragment : BaseFragment() {
 
     }
 
-    fun deleteReview(review: Review) {
+    private fun deleteReview(review: Review) {
         productViewModel.deleteReview(review.id)
     }
 
-    fun editReview(review: Review) {
+    private fun editReview(review: Review) {
         binding.TextFieldReview.editText?.setText(review.review)
         flagUserWantToEditReview = true
         reviewId = review.id

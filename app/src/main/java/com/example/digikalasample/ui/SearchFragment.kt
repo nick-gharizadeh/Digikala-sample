@@ -21,11 +21,11 @@ enum class FilterType {
 class SearchFragment : BaseFragment() {
     private lateinit var binding: FragmentSearchBinding
     val productViewModel: ProductViewModel by activityViewModels()
-    var flagIsFilterSet = false
-    var filterType: FilterType = FilterType.Size
-    var filterItem: FilterItem? = null
+    private var flagIsFilterSet = false
+    private var filterType: FilterType = FilterType.Size
+    private var filterItem: FilterItem? = null
     private var alert: android.app.AlertDialog? = null
-    lateinit var alertDialog: android.app.AlertDialog.Builder
+    private lateinit var alertDialog: android.app.AlertDialog.Builder
     private val filterColorList: List<FilterItem> =
         listOf(
             FilterItem(57, "آبی"),
