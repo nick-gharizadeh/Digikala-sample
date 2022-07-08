@@ -12,14 +12,14 @@ import com.bumptech.glide.Glide
 import com.example.digikalasample.R
 import com.example.digikalasample.data.model.review.Review
 import com.example.digikalasample.databinding.ReviewItemBinding
-import com.example.digikalasample.ui.customerEmail
 
 typealias ClickHandlerDeleteReview = (Review) -> Unit
 typealias ClickHandlerEditReview = (Review) -> Unit
 
 class ReviewAdapter(
     private var clickHandlerDelete: ClickHandlerDeleteReview,
-    private var clickHandlerEdit: ClickHandlerEditReview
+    private var clickHandlerEdit: ClickHandlerEditReview,
+    private var customerEmail: String?
 ) :
     ListAdapter<Review, ReviewAdapter.ItemHolder>(ReviewDiffCallback) {
 
