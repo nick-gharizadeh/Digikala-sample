@@ -39,7 +39,7 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
     var orderSortType: String? = "asc"
     var lastSearch: String = ""
     val finalAmount = MutableLiveData<Int>()
-    private var couponAmount = 0
+    var couponAmount = 0
     var usedCouponList: List<CouponLine> = emptyList()
     var flagOnceUseCoupon = false
     var customerEmail: String? = null
@@ -181,7 +181,7 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
             sum += product?.count?.times(product.price.toInt()) ?: 0
         }
         finalAmount.value = sum
-        if (flagOnceUseCoupon)
+        if (flagOnceUseCoupon && couponAmount > 0)
             minusFromFinalAmount(couponAmount)
 
     }

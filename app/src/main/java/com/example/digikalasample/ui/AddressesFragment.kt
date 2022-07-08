@@ -98,6 +98,7 @@ class AddressesFragment : Fragment() {
                 order
             )
             productViewModel.usedCouponList = emptyList()
+            productViewModel.couponAmount = 0
             productViewModel.shoppingCardList = emptyList()
             findNavController().navigate(R.id.action_addressesFragment_to_shoppingCartFragment)
 
