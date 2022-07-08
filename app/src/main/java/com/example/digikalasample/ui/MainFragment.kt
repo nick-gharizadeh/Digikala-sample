@@ -3,7 +3,9 @@ package com.example.digikalasample.ui
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.digikalasample.R
 import com.example.digikalasample.data.model.product.Category
@@ -73,27 +75,35 @@ class MainFragment : BaseFragment() {
         binding.categoryRecyclerView.adapter = adapterCategories
 
         viewLifecycleOwner.lifecycleScope.launch {
-            productViewModel.popularProductList.collect {
-                adapterPopular.submitList(it)
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                productViewModel.popularProductList.collect {
+                    adapterPopular.submitList(it)
+                }
             }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            productViewModel.newestProductList.collect {
-                adapterNewest.submitList(removeWrongElement(it))
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                productViewModel.newestProductList.collect {
+                    adapterNewest.submitList(removeWrongElement(it))
+                }
             }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            productViewModel.ratingProductList.collect {
-                adapterRating.submitList(it)
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                productViewModel.ratingProductList.collect {
+                    adapterRating.submitList(it)
+                }
             }
         }
 
 
         viewLifecycleOwner.lifecycleScope.launch {
-            productViewModel.categoriesList.collect {
-                adapterCategories.submitList(it)
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                productViewModel.categoriesList.collect {
+                    adapterCategories.submitList(it)
+                }
             }
         }
 
