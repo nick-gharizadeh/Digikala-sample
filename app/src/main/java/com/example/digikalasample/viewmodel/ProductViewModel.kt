@@ -112,8 +112,11 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
         }
     }
 
-    suspend fun getProductById(id: Int?): Product? {
-        return id?.let { productRepository.getProductById(it) }
+    fun getProductById(id: Int?, count: Int) {
+        viewModelScope.launch {
+            val product = id?.let { productRepository.getProductById(it) }
+            addToShoppingCard(product, count)
+        }
     }
 
     // 📌 get slider photos
