@@ -5,7 +5,9 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.digikalasample.databinding.ActivityMainBinding
 import com.example.digikalasample.viewmodel.ProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,13 +50,14 @@ class MainActivity : AppCompatActivity() {
                 val size = shoppingCartList.size.minus(2)
                 for (index in 0..size) {
                     lifecycleScope.launch {
-                        shoppingCartCountList?.get(index)?.let {
-                            productViewModel.addToShoppingCard(
-                                productViewModel.getProductById(shoppingCartList[index].toInt()),
-                                it.toInt()
-                            )
+                        repeatOnLifecycle(Lifecycle.State.STARTED) {
+                            shoppingCartCountList?.get(index)?.let {
+                                productViewModel.addToShoppingCard(
+                                    productViewModel.getProductById(shoppingCartList[index].toInt()),
+                                    it.toInt()
+                                )
+                            }
                         }
-
                     }
 
                 }
