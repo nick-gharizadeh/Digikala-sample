@@ -2,6 +2,7 @@ package com.example.digikalasample.ui
 
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -51,6 +52,15 @@ class MainFragment : BaseFragment() {
             binding.animationView.visibility = View.GONE
             binding.mainLayout.visibility = View.VISIBLE
         }
+
+//        if (sharedPreferences.getBoolean("themeIsDark", false)) {
+//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+//
+//        } else {
+//            AppCompatDelegate.setDefaultNightMode(
+//                AppCompatDelegate.MODE_NIGHT_NO
+//            )
+//        }
 
         productViewModel.mCustomer.observe(viewLifecycleOwner) {
             val editor = sharedPreferences.edit()
