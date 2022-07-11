@@ -10,7 +10,6 @@ import com.example.digikalasample.data.model.customer.Customer
 import com.example.digikalasample.data.model.order.Order
 import com.example.digikalasample.data.model.product.Category
 import com.example.digikalasample.data.model.product.Product
-import com.example.digikalasample.data.model.review.Review
 import com.example.digikalasample.data.repository.ProductsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -33,7 +32,6 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
     val specialOffers = MutableLiveData<Product?>()
     var shoppingCardList: List<Product?> = emptyList()
     private var couponsList: List<Coupon?> = emptyList()
-    var reviewsList = MutableLiveData<List<Review?>>()
     val searchedProductsList = MutableLiveData<List<Product?>>()
     var orderCriterion: String? = "popularity"
     var orderSortType: String? = "asc"
@@ -126,33 +124,7 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
         }
     }
 
-    fun getReviews(id: String) {
-        viewModelScope.launch {
-            val list = productRepository.getReviews(id)
-            reviewsList.value = list
-        }
-    }
 
-    fun postReview(
-        review: Review
-    ) {
-        viewModelScope.launch {
-            productRepository.postReview(review)
-        }
-
-    }
-
-    fun deleteReview(id: Int) {
-        viewModelScope.launch {
-            productRepository.deleteReview(id)
-        }
-    }
-
-    fun updateReview(id: Int, review: String) {
-        viewModelScope.launch {
-            productRepository.updateReview(id, review)
-        }
-    }
 
     fun getCoupons() {
         viewModelScope.launch {

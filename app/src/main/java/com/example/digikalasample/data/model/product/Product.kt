@@ -1,5 +1,7 @@
 package com.example.digikalasample.data.model.product
 
+import java.io.Serializable
+
 data class Product(
     val attributes: List<Any>,
     val average_rating: String,
@@ -66,4 +68,4 @@ data class Product(
     val virtual: Boolean,
     val weight: String,
     var count: Int?,
-)
+):Serializable

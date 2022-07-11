@@ -6,10 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.navArgs
 import com.example.digikalasample.data.model.review.Review
 import com.example.digikalasample.databinding.FragmentReviewBinding
 import com.example.digikalasample.ui.adapter.ReviewAdapter
-import com.example.digikalasample.viewmodel.ProductViewModel
+import com.example.digikalasample.viewmodel.ReviewViewModel
 
 
 var flagUserWantToEditReview = false
@@ -17,7 +18,8 @@ var flagUserWantToEditReview = false
 class ReviewFragment : BaseFragment() {
     private lateinit var binding: FragmentReviewBinding
     private var reviewId: Int? = null
-    val productViewModel: ProductViewModel by activityViewModels()
+    private val args: ReviewFragmentArgs by navArgs()
+    private val reviewViewModel: ReviewViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,11 +39,18 @@ class ReviewFragment : BaseFragment() {
         if (savedInstanceState != null) {
             binding.TextFieldReview.editText?.setText(savedInstanceState.getString("review"))
         }
+        reviewViewModel.mCustomer.value = args.safeArgCustomer
+        reviewViewModel.mProduct = args.safeArgProduct
+        reviewViewModel.getReviews(reviewViewModel.mProduct!!.id.toString())
 
         val reviewAdapter =
-            ReviewAdapter({ deleteReview(it) }, { editReview(it) }, productViewModel.customerEmail)
+            ReviewAdapter(
+                { deleteReview(it) },
+                { editReview(it) },
+                reviewViewModel.mCustomer.value?.email
+            )
         binding.recyclerViewReviews.adapter = reviewAdapter
-        productViewModel.reviewsList.observe(viewLifecycleOwner) {
+        reviewViewModel.reviewsList.observe(viewLifecycleOwner) {
             if (it != null)
                 for (review in it) {
                     review?.review = review?.review?.let { it1 ->
@@ -55,9 +64,9 @@ class ReviewFragment : BaseFragment() {
 
         binding.buttonSendReview.setOnClickListener {
             if (flagUserWantToEditReview) {
-                productViewModel.updateReview(
+                reviewViewModel.updateReview(
                     reviewId!!,
-                    binding.TextFieldReview.editText?.text.toString()
+                    binding.TextFieldReview.editText?.text.toString().trim()
                 )
                 binding.TextFieldReview.editText?.text?.clear()
                 reviewId = null
@@ -65,15 +74,15 @@ class ReviewFragment : BaseFragment() {
                 return@setOnClickListener
             }
             if (binding.TextFieldReview.editText?.text?.isNotBlank() == true) {
-                if (productViewModel.mCustomerId != null) {
+                if (reviewViewModel.mCustomer.value != null) {
                     val review = Review(
-                        product_id = productViewModel.mProduct!!.id,
+                        product_id = reviewViewModel.mProduct!!.id,
                         review = binding.TextFieldReview.editText?.text.toString(),
-                        reviewer = "${productViewModel.mCustomer.value?.first_name} ${productViewModel.mCustomer.value?.last_name}",
-                        reviewer_email = productViewModel.mCustomer.value!!.email
+                        reviewer = "${reviewViewModel.mCustomer.value?.first_name} ${reviewViewModel.mCustomer.value?.last_name}",
+                        reviewer_email = reviewViewModel.mCustomer.value!!.email
 
                     )
-                    productViewModel.postReview(
+                    reviewViewModel.postReview(
                         review
                     )
                     Toast.makeText(requireContext(), "با موفقیت ثبت شد", Toast.LENGTH_SHORT)
@@ -96,13 +105,17 @@ class ReviewFragment : BaseFragment() {
     }
 
     private fun deleteReview(review: Review) {
-        productViewModel.deleteReview(review.id)
+        reviewViewModel.deleteReview(review.id)
     }
 
     private fun editReview(review: Review) {
-        binding.TextFieldReview.editText?.setText(review.review)
+        binding.TextFieldReview.editText?.setText(review.review.trim())
         flagUserWantToEditReview = true
         reviewId = review.id
     }
 
+    override fun onStop() {
+        reviewViewModel.reviewsList.value = null
+        super.onStop()
+    }
 }

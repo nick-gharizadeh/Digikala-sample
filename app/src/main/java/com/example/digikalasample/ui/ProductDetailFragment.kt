@@ -40,7 +40,6 @@ class ProductDetailFragment : BaseFragment() {
             goToDetailFragment(it)
         }
         binding.relatedProductRecyclerView.adapter = adapterRelatedProducts
-        productViewModel.reviewsList.value = null
         productViewModel.relatedProductList.value = null
         productViewModel.getRelatedProducts(productViewModel.mProduct!!.related_ids)
         productViewModel.relatedProductList.observe(viewLifecycleOwner) {
@@ -65,8 +64,12 @@ class ProductDetailFragment : BaseFragment() {
 
 
         binding.reviewsButton.setOnClickListener {
-            productViewModel.getReviews(productViewModel.mProduct?.id.toString())
-            findNavController().navigate(R.id.action_productDetailFragment_to_reviewFragment)
+            val action =
+                ProductDetailFragmentDirections.actionProductDetailFragmentToReviewFragment(
+                    productViewModel.mProduct!!,
+                    productViewModel.mCustomer.value,
+                )
+            findNavController().navigate(action)
         }
     }
 

@@ -102,6 +102,13 @@
         <action
             android:id="@+id/action_reviewFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <argument
+            android:name="safeArgProduct"
+            app:argType="com.example.digikalasample.data.model.product.Product" />
+        <argument
+            android:name="safeArgCustomer"
+            app:argType="com.example.digikalasample.data.model.customer.Customer"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/addressesFragment"

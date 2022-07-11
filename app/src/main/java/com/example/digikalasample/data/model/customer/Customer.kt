@@ -1,5 +1,7 @@
 package com.example.digikalasample.data.model.customer
 
+import java.io.Serializable
+
 data class Customer(
     val _links: Links,
     val avatar_url: String,
@@ -17,4 +19,4 @@ data class Customer(
     val role: String,
     val shipping: Shipping,
     val username: String
-)
+):Serializable
