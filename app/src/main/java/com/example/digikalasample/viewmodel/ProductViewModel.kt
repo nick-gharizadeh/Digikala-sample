@@ -3,7 +3,6 @@ package com.example.digikalasample.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.digikalasample.data.model.FilterItem
 import com.example.digikalasample.data.model.coupon.Coupon
 import com.example.digikalasample.data.model.coupon.CouponLine
 import com.example.digikalasample.data.model.customer.Customer
@@ -32,15 +31,10 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
     val specialOffers = MutableLiveData<Product?>()
     var shoppingCardList: List<Product?> = emptyList()
     private var couponsList: List<Coupon?> = emptyList()
-    val searchedProductsList = MutableLiveData<List<Product?>>()
-    var orderCriterion: String? = "popularity"
-    var orderSortType: String? = "asc"
-    var lastSearch: String = ""
     val finalAmount = MutableLiveData<Int>()
     var couponAmount = 0
     var usedCouponList: List<CouponLine> = emptyList()
     var flagOnceUseCoupon = false
-    var customerEmail: String? = null
 
     init {
         callServices()
@@ -51,7 +45,7 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
         getProducts("popularity", popularProductList)
         getProducts("rating", ratingProductList)
         getProducts("date", newestProductList)
-        getSpecialOffers()
+        getSliderPhotos()
     }
 
     private fun getProducts(orderBy: String, relatedLiveData: MutableStateFlow<List<Product?>>) {
@@ -64,34 +58,6 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
         viewModelScope.launch {
             val list = productRepository.getRelatedProducts(includeList)
             relatedProductList.value = list
-        }
-    }
-
-    fun getProductsBySearch(
-        searchQuery: String,
-        orderBy: String = "popularity",
-        order: String = "asc"
-    ) {
-        viewModelScope.launch {
-            val list = productRepository.getProductsBySearch(searchQuery, orderBy, order)
-            searchedProductsList.value = list
-        }
-    }
-
-    private fun getProductsBySearch(
-        searchQuery: String,
-        orderBy: String = "popularity",
-        order: String = "asc", attribute: String, attributeTerm: String
-    ) {
-        viewModelScope.launch {
-            val list = productRepository.getProductsBySearch(
-                searchQuery,
-                orderBy,
-                order,
-                attribute,
-                attributeTerm
-            )
-            searchedProductsList.value = list
         }
     }
 
@@ -116,14 +82,12 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
         }
     }
 
-    // 📌 get slider photos
-    private fun getSpecialOffers(id: Int = 608) {
+    private fun getSliderPhotos(id: Int = 608) {
         viewModelScope.launch {
             val list = productRepository.getProductById(id)
             specialOffers.value = list
         }
     }
-
 
 
     fun getCoupons() {
@@ -170,7 +134,6 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
                 email = email
             )
             mCustomer.value = customer
-            customerEmail = customer?.email
             mCustomerId = customer?.id
         }
     }
@@ -179,7 +142,6 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
         viewModelScope.launch {
             val customer = productRepository.getCustomer(id)
             mCustomer.value = customer
-            customerEmail = customer?.email
         }
     }
 
@@ -197,29 +159,6 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
                 return true
         }
         return false
-    }
-
-    fun doFilterByColor(filterItem: FilterItem) {
-        orderSortType?.let {
-            orderCriterion?.let { it1 ->
-                getProductsBySearch(
-                    lastSearch, it1,
-                    it, "pa_color", filterItem.id.toString()
-                )
-            }
-        }
-    }
-
-
-    fun doFilterBySize(filterItem: FilterItem) {
-        orderSortType?.let {
-            orderCriterion?.let { it1 ->
-                getProductsBySearch(
-                    lastSearch, it1,
-                    it, "pa_size", filterItem.id.toString()
-                )
-            }
-        }
     }
 
 

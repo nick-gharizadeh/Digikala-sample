@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.digikalasample.R
 import com.example.digikalasample.data.model.FilterItem
@@ -11,6 +12,8 @@ import com.example.digikalasample.data.model.product.Product
 import com.example.digikalasample.databinding.FragmentSearchBinding
 import com.example.digikalasample.ui.adapter.HorizontalProductAdaptor
 import com.example.digikalasample.viewmodel.ProductViewModel
+import com.example.digikalasample.viewmodel.SearchViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 
 enum class FilterType {
@@ -18,8 +21,10 @@ enum class FilterType {
     Color
 }
 
+@AndroidEntryPoint
 class SearchFragment : BaseFragment() {
     private lateinit var binding: FragmentSearchBinding
+    private val searchViewModel: SearchViewModel by viewModels()
     val productViewModel: ProductViewModel by activityViewModels()
     private var flagIsFilterSet = false
     private var filterType: FilterType = FilterType.Size
@@ -57,7 +62,7 @@ class SearchFragment : BaseFragment() {
         alertDialog = android.app.AlertDialog.Builder(requireContext(), R.style.AlertDialogCustom)
         val adapter = HorizontalProductAdaptor { goToDetailFragment(it) }
         binding.recyclerViewSearch.adapter = adapter
-        productViewModel.searchedProductsList.observe(viewLifecycleOwner)
+        searchViewModel.searchedProductsList.observe(viewLifecycleOwner)
         {
             adapter.submitList(it)
         }
@@ -77,8 +82,8 @@ class SearchFragment : BaseFragment() {
         val searchView = searchItem.actionView as SearchView
         searchView.onQueryTextChanged {
             if (it.isNotEmpty()) {
-                productViewModel.lastSearch = it
-                productViewModel.getProductsBySearch(it)
+                searchViewModel.lastSearch = it
+                searchViewModel.getProductsBySearch(it)
                 flagIsFilterSet = false
             }
         }
@@ -187,20 +192,20 @@ class SearchFragment : BaseFragment() {
 
     private fun searchBySort(orderCriterion: String, order: String = "asc") {
         if (!flagIsFilterSet) {
-            productViewModel.orderCriterion = orderCriterion
-            productViewModel.orderSortType = order
-            productViewModel.getProductsBySearch(
-                productViewModel.lastSearch,
-                productViewModel.orderCriterion!!,
+            searchViewModel.orderCriterion = orderCriterion
+            searchViewModel.orderSortType = order
+            searchViewModel.getProductsBySearch(
+                searchViewModel.lastSearch,
+                searchViewModel.orderCriterion!!,
                 order
             )
         } else {
-            productViewModel.orderCriterion = orderCriterion
-            productViewModel.orderSortType = order
+            searchViewModel.orderCriterion = orderCriterion
+            searchViewModel.orderSortType = order
             if (filterType == FilterType.Color) {
-                filterItem?.let { productViewModel.doFilterByColor(it) }
+                filterItem?.let { searchViewModel.doFilterByColor(it) }
             } else if (filterType == FilterType.Size) {
-                filterItem?.let { productViewModel.doFilterBySize(it) }
+                filterItem?.let { searchViewModel.doFilterBySize(it) }
             }
         }
         alert?.dismiss()
@@ -211,15 +216,15 @@ class SearchFragment : BaseFragment() {
         this.filterItem = filterItem
         this.filterType = filterType
         if (filterType == FilterType.Color) {
-            productViewModel.doFilterByColor(filterItem)
+            searchViewModel.doFilterByColor(filterItem)
         } else if (filterType == FilterType.Size) {
-            productViewModel.doFilterBySize(filterItem)
+            searchViewModel.doFilterBySize(filterItem)
         }
         alert?.dismiss()
     }
 
     override fun onDestroyView() {
-        productViewModel.searchedProductsList.value = emptyList()
+        searchViewModel.searchedProductsList.value = emptyList()
         super.onDestroyView()
     }
 }
