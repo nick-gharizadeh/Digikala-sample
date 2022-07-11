@@ -1,6 +1,7 @@
 package com.example.digikalasample.ui
 
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -21,7 +22,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
         supportActionBar?.show()
         sharedPreferences = getSharedPreferences("myShare", Context.MODE_PRIVATE)
-
 
         if (sharedPreferences.getInt("CustomerId", 0) != 0) {
             productViewModel.mCustomerId = sharedPreferences.getInt("CustomerId", 0)

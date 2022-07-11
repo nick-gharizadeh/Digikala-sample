@@ -1,5 +1,6 @@
 package com.example.digikalasample.ui
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatDelegate
@@ -53,14 +54,6 @@ class MainFragment : BaseFragment() {
             binding.mainLayout.visibility = View.VISIBLE
         }
 
-//        if (sharedPreferences.getBoolean("themeIsDark", false)) {
-//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-//
-//        } else {
-//            AppCompatDelegate.setDefaultNightMode(
-//                AppCompatDelegate.MODE_NIGHT_NO
-//            )
-//        }
 
         productViewModel.mCustomer.observe(viewLifecycleOwner) {
             val editor = sharedPreferences.edit()

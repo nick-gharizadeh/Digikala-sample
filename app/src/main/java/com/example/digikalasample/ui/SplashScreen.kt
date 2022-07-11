@@ -8,6 +8,7 @@ import android.net.NetworkInfo
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.digikalasample.databinding.ActivitySplashScreenBinding
 
 
@@ -21,6 +22,17 @@ class SplashScreen : AppCompatActivity() {
         setContentView(view)
         supportActionBar?.hide()
         binding.imageView.alpha = 0f
+
+        // 📌 set application theme
+        val sharedPreferences = getSharedPreferences("myShare", Context.MODE_PRIVATE)
+        if (sharedPreferences.getBoolean("themeIsDark", false)) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
+        } else {
+            AppCompatDelegate.setDefaultNightMode(
+                AppCompatDelegate.MODE_NIGHT_NO
+            )
+        }
         binding.imageView.animate().setDuration(2000).alpha(1f).withEndAction {
             if (checkConnectivity(applicationContext)) {
                 goToMainActivity()
