@@ -30,12 +30,6 @@ class CouponDialogFragment : DialogFragment() {
         productViewModel.getCoupons()
         val buttonSubmit = view.findViewById<Button>(R.id.button_submit_coupon)
         val textViewCoupon = view.findViewById<TextInputLayout>(R.id.editText_coupon)
-        productViewModel.couponMessage.observe(viewLifecycleOwner) {
-            if (it != null) {
-                Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
-                productViewModel.couponMessage.value = null
-            }
-        }
         buttonSubmit.setOnClickListener {
             if (textViewCoupon.editText?.text.toString().isNotBlank())
                 if (productViewModel.isItExistsInTheCoupons(

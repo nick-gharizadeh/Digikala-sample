@@ -39,7 +39,6 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
     var orderSortType: String? = "asc"
     var lastSearch: String = ""
     val finalAmount = MutableLiveData<Int>()
-    val couponMessage = MutableLiveData<String?>()
     var couponAmount = 0
     var usedCouponList: List<CouponLine> = emptyList()
     var flagOnceUseCoupon = false
@@ -255,15 +254,11 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
     fun isItExistsInTheCoupons(code: String): Boolean {
         for (coupon in couponsList) {
             if (code == coupon?.code && !flagOnceUseCoupon) {
-                if (finalAmount.value!! < coupon.minimum_amount.toDouble().toInt()) {
-                    minusFromFinalAmount(coupon.amount.toDouble().toInt())
-                    usedCouponList = usedCouponList.plus(CouponLine(coupon.code))
-                    couponAmount = coupon.amount.toDouble().toInt()
-                    return true
-                } else {
-                    couponMessage.value =
-                        "میزان حداقل قیمت برای استفاده از کد تخفیف رعایت نشده است "
-                }
+                minusFromFinalAmount(coupon.amount.toDouble().toInt())
+                usedCouponList = usedCouponList.plus(CouponLine(coupon.code))
+                couponAmount = coupon.amount.toDouble().toInt()
+                return true
+
             }
         }
         return false
