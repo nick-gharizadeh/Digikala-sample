@@ -36,8 +36,10 @@ class ShoppingCartFragment : BaseFragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
+        if (productViewModel.shoppingCardList.isNotEmpty()) {
+            binding.group2.visibility = View.GONE
+            binding.recyclerviewShoppingcard.visibility = View.VISIBLE
+        }
         productViewModel.mOrder.observe(viewLifecycleOwner) {
             if (it?.id != null) {
                 val message =
