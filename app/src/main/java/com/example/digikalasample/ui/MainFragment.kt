@@ -87,7 +87,7 @@ class MainFragment : BaseFragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 productViewModel.newestProductList.collect {
-                    adapterNewest.submitList(removeWrongElement(it))
+                    adapterNewest.submitList(it.let { it1 -> removeWrongElement(it1) })
                 }
             }
         }
@@ -147,11 +147,11 @@ class MainFragment : BaseFragment() {
         findNavController().navigate(R.id.action_mainFragment_to_productsFragment)
     }
 
-    private fun removeWrongElement(list: List<Product?>): List<Product?> {
-        list.forEach { product ->
-            if (product?.id == 608)
+    private fun removeWrongElement(list: List<Product>?): List<Product> {
+        list?.forEach { product ->
+            if (product.id == 608)
                 return list.minus(product)
-            if (product?.id == 3089)
+            if (product.id == 3089)
                 return list.minus(product)
         }
         return listOf()

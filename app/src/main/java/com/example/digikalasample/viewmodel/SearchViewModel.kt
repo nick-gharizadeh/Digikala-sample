@@ -14,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(private val productRepository: ProductsRepository) :
     ViewModel() {
-    val searchedProductsList = MutableLiveData<List<Product?>>()
+    val searchedProductsList = MutableLiveData<List<Product>>()
     var orderCriterion: String? = "popularity"
     var orderSortType: String? = "asc"
     var lastSearch: String = ""
@@ -26,7 +26,7 @@ class SearchViewModel @Inject constructor(private val productRepository: Product
     ) {
         viewModelScope.launch {
             val list = productRepository.getProductsBySearch(searchQuery, orderBy, order)
-            searchedProductsList.value = list
+            searchedProductsList.value = list.data!!
         }
     }
 
@@ -43,7 +43,7 @@ class SearchViewModel @Inject constructor(private val productRepository: Product
                 attribute,
                 attributeTerm
             )
-            searchedProductsList.value = list
+            searchedProductsList.value = list.data!!
         }
     }
 

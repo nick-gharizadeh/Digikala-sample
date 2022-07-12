@@ -9,6 +9,7 @@ import com.example.digikalasample.data.model.customer.Customer
 import com.example.digikalasample.data.model.order.Order
 import com.example.digikalasample.data.model.product.Category
 import com.example.digikalasample.data.model.product.Product
+import com.example.digikalasample.data.model.statusLiveData
 import com.example.digikalasample.data.repository.ProductsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,16 +23,16 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
     var mCustomer = MutableLiveData<Customer?>()
     var mOrder = MutableLiveData<Order?>()
     var mCustomerId: Int? = null
-    val popularProductList = MutableStateFlow<List<Product?>>(emptyList())
-    val ratingProductList = MutableStateFlow<List<Product?>>(emptyList())
-    val newestProductList = MutableStateFlow<List<Product?>>(emptyList())
-    val productsList = MutableStateFlow<List<Product?>>(emptyList())
-    val categoriesList = MutableStateFlow<List<Category?>>(emptyList())
-    val relatedProductList = MutableLiveData<List<Product?>>()
-    val productByCategoriesList = MutableLiveData<List<Product?>>()
+    var popularProductList = MutableStateFlow<List<Product>?>(emptyList())
+    var ratingProductList = MutableStateFlow<List<Product>?>(emptyList())
+    var newestProductList = MutableStateFlow<List<Product>?>(emptyList())
+    var productsList = MutableStateFlow<List<Product>?>(emptyList())
+    val categoriesList = MutableStateFlow<List<Category>?>(emptyList())
+    val relatedProductList = MutableLiveData<List<Product>?>()
+    val productByCategoriesList = MutableLiveData<List<Product>?>()
     val specialOffers = MutableLiveData<Product?>()
     var shoppingCardList: List<Product?> = emptyList()
-    private var couponsList: List<Coupon?> = emptyList()
+    private var couponsList: List<Coupon>? = emptyList()
     val finalAmount = MutableLiveData<Int>()
     var couponAmount = 0
     var usedCouponList: List<CouponLine> = emptyList()
@@ -51,23 +52,31 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
 
     fun getProducts(
         orderBy: String,
-        relatedLiveData: MutableStateFlow<List<Product?>>,
+        relatedStateFlow: MutableStateFlow<List<Product>?>,
         perPage: Int = 20
     ) {
+
         viewModelScope.launch {
-            relatedLiveData.emit(
-                productRepository.getProducts(
-                    orderBy = orderBy,
-                    perPage = perPage
-                )
+            val list = productRepository.getProducts(
+                orderBy = orderBy,
+                perPage = perPage
             )
+            if (list.message == null)
+                relatedStateFlow.emit(
+                    list.data
+                )
+            else
+                statusLiveData.postValue(list.message)
         }
     }
 
     fun getRelatedProducts(includeList: List<Int>) {
         viewModelScope.launch {
             val list = productRepository.getRelatedProducts(includeList)
-            relatedProductList.value = list
+            if (list.message == null)
+                relatedProductList.postValue(list.data)
+            else
+                statusLiveData.postValue(list.message)
         }
     }
 
@@ -75,34 +84,48 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
     fun getProductsByCategory(category: Int) {
         viewModelScope.launch {
             val list = productRepository.getProductsByCategory(category = category)
-            productByCategoriesList.value = list
+            if (list.message == null)
+                productByCategoriesList.postValue(list.data)
+            else
+                statusLiveData.postValue(list.message)
         }
     }
 
     private fun getAllCategories() {
         viewModelScope.launch {
-            categoriesList.emit(productRepository.getCategories())
+            val list = productRepository.getCategories()
+            if (list.message == null)
+                categoriesList.emit(list.data)
+            else
+                statusLiveData.postValue(list.message)
         }
     }
 
     fun getProductById(id: Int?, count: Int) {
         viewModelScope.launch {
             val product = id?.let { productRepository.getProductById(it) }
-            addToShoppingCard(product, count)
+            addToShoppingCard(product?.data, count)
         }
     }
 
     private fun getSliderPhotos(id: Int = 608) {
         viewModelScope.launch {
             val list = productRepository.getProductById(id)
-            specialOffers.value = list
+            if (list.message == null)
+                specialOffers.postValue(list.data)
+            else
+                statusLiveData.postValue(list.message)
         }
     }
 
 
     fun getCoupons() {
         viewModelScope.launch {
-            couponsList = productRepository.getAllCoupons()
+            val list = productRepository.getAllCoupons()
+            if (list.message == null)
+                couponsList = list.data
+            else
+                statusLiveData.postValue(list.message)
         }
     }
 
@@ -143,15 +166,21 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
                 lastName = lastName,
                 email = email
             )
-            mCustomer.value = customer
-            mCustomerId = customer?.id
+            if (customer.message == null) {
+                mCustomer.postValue(customer.data)
+                mCustomerId = customer.data?.id
+            } else
+                statusLiveData.postValue(customer.message)
         }
     }
 
     fun getCustomer(id: Int) {
         viewModelScope.launch {
             val customer = productRepository.getCustomer(id)
-            mCustomer.value = customer
+            if (customer.message == null)
+                mCustomer.postValue(customer.data)
+            else
+                statusLiveData.postValue(customer.message)
         }
     }
 
@@ -159,7 +188,10 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
     fun createOrder(order: Order) {
         viewModelScope.launch {
             val orderResponse = productRepository.createOrder(order)
-            mOrder.value = orderResponse
+            if (orderResponse.message == null)
+                mOrder.postValue(orderResponse.data)
+            else
+                statusLiveData.postValue(orderResponse.message)
         }
     }
 
@@ -173,13 +205,15 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
 
 
     fun isItExistsInTheCoupons(code: String): Boolean {
-        for (coupon in couponsList) {
-            if (code == coupon?.code && !flagOnceUseCoupon) {
-                minusFromFinalAmount(coupon.amount.toDouble().toInt())
-                usedCouponList = usedCouponList.plus(CouponLine(coupon.code))
-                couponAmount = coupon.amount.toDouble().toInt()
-                return true
+        if (couponsList != null) {
+            for (coupon in couponsList!!) {
+                if (code == coupon.code && !flagOnceUseCoupon) {
+                    minusFromFinalAmount(coupon.amount.toDouble().toInt())
+                    usedCouponList = usedCouponList.plus(CouponLine(coupon.code))
+                    couponAmount = coupon.amount.toDouble().toInt()
+                    return true
 
+                }
             }
         }
         return false

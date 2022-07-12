@@ -24,7 +24,7 @@ class ReviewViewModel @Inject constructor(private val productRepository: Product
     fun getReviews(id: String) {
         viewModelScope.launch {
             val list = productRepository.getReviews(id)
-            reviewsList.value = list
+            reviewsList.value = list.data!!
         }
     }
 

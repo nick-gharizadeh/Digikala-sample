@@ -6,6 +6,7 @@ import com.example.digikalasample.data.model.order.Order
 import com.example.digikalasample.data.model.product.Category
 import com.example.digikalasample.data.model.product.Product
 import com.example.digikalasample.data.model.review.Review
+import retrofit2.Response
 import retrofit2.http.*
 
 
@@ -26,7 +27,7 @@ interface DigiKalaApiService {
         numberOfPage: Int = 1,
         @Query("orderby")
         orderBy: String
-    ): List<Product>
+    ):Response<List<Product>>
 
     @GET("products")
     suspend fun getProduct(
@@ -40,7 +41,7 @@ interface DigiKalaApiService {
         numberOfPage: Int = 1,
         @Query("include")
         include: List<Int> ,
-    ): List<Product>
+    ):Response<List<Product>>
 
     @GET("products")
     suspend fun getProduct(
@@ -54,7 +55,7 @@ interface DigiKalaApiService {
         perPage: Int = 20,
         @Query("page")
         numberOfPage: Int = 1,
-    ): List<Product>
+    ): Response<List<Product>>
 
     @GET("products/{id}?")
     suspend fun getProductById(
@@ -63,7 +64,7 @@ interface DigiKalaApiService {
         consumerKey: String = CONSUMER_KEY,
         @Query("consumer_secret")
         consumerSecret: String = CONSUMER_SECRET
-    ): Product
+    ): Response<Product>
 
     @GET("products/categories")
     suspend fun getCategories(
@@ -73,7 +74,7 @@ interface DigiKalaApiService {
         consumerSecret: String = CONSUMER_SECRET,
         @Query("per_page")
         perPage: Int = 30
-    ): List<Category>
+    ): Response<List<Category>>
 
     //search
 
@@ -92,7 +93,7 @@ interface DigiKalaApiService {
         orderBy: String = "popularity",
         @Query("order")
         order: String = "asc"
-    ): List<Product>
+    ):Response< List<Product>>
 
     @GET("products")
     suspend fun getProduct(
@@ -111,14 +112,14 @@ interface DigiKalaApiService {
         order: String = "asc",
         @Query("attribute") attribute: String,
         @Query("attribute_term") terms: String,
-    ): List<Product>
+    ): Response<List<Product>>
 
     @GET("products/reviews")
     suspend fun getReviews(
         @Query("consumer_key") consumerKey: String = CONSUMER_KEY,
         @Query("consumer_secret") consumerSecret: String = CONSUMER_SECRET,
         @Query("product") productId: String
-    ): List<Review>
+    ): Response<List<Review>>
 
 
     @FormUrlEncoded
@@ -129,14 +130,14 @@ interface DigiKalaApiService {
         @Field("first_name") firstName: String,
         @Field("last_name") lastName: String,
         @Field("email") email: String
-    ): Customer?
+    ): Response<Customer?>
 
     @GET("customers/{id}?")
     suspend fun getCustomer(
         @Path("id") id: Int,
         @Query("consumer_key") consumerKey: String = CONSUMER_KEY,
         @Query("consumer_secret") consumerSecret: String = CONSUMER_SECRET,
-    ): Customer?
+    ): Response<Customer?>
 
 
     @POST("orders")
@@ -144,14 +145,14 @@ interface DigiKalaApiService {
         @Body order: Order,
         @Query("consumer_key") consumerKey: String = CONSUMER_KEY,
         @Query("consumer_secret") consumerSecret: String = CONSUMER_SECRET
-    ): Order
+    ): Response<Order>
 
     @GET("coupons")
     suspend fun getAllCoupons(
         @Query("consumer_key") consumerKey: String = CONSUMER_KEY,
         @Query("consumer_secret") consumerSecret: String = CONSUMER_SECRET,
         @Query("per_page") perPage: Int = 100,
-    ): List<Coupon>
+    ): Response<List<Coupon>>
 
 
     @POST("products/reviews")
@@ -159,7 +160,7 @@ interface DigiKalaApiService {
         @Body review: Review,
         @Query("consumer_key") consumerKey: String = CONSUMER_KEY,
         @Query("consumer_secret") consumerSecret: String = CONSUMER_SECRET
-    ): Review
+    ): Response<Review>
 
 
     @DELETE("products/reviews/{id}?")

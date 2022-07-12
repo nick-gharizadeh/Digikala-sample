@@ -6,12 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.digikalasample.R
-import com.example.digikalasample.data.errorThatOccur
+import com.example.digikalasample.data.model.statusLiveData
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import java.net.ConnectException
-import java.net.SocketException
-import java.net.SocketTimeoutException
-import java.net.UnknownHostException
 
 
 open class BaseFragment : Fragment() {
@@ -26,21 +22,9 @@ open class BaseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        errorThatOccur.observe(viewLifecycleOwner) {
-            if (it != null) {
-                when (it) {
-                    is UnknownHostException -> {
-                        showDialog(resources.getString(R.string.error_not_connected))
-                    }
-//                    is retrofit2.HttpException -> showDialog(resources.getString(R.string.error_404))
-                    is SocketTimeoutException -> showDialog(resources.getString(R.string.error_not_connected))
-                    is ConnectException -> showDialog(resources.getString(R.string.error_server))
-                    is SocketException -> showDialog(resources.getString(R.string.error_server))
-                    else -> it.message?.let { it1 -> showDialog(it1) }
-
-                }
-
-            }
+        statusLiveData.observe(viewLifecycleOwner){
+            if (it!=null)
+            showDialog(it)
         }
     }
 
@@ -52,6 +36,6 @@ open class BaseFragment : Fragment() {
             .setPositiveButton(getString(R.string.okay_dialog_button)) { dialog, which ->
             }
             .show()
-        errorThatOccur.value = null
+        statusLiveData.value = null
     }
 }
