@@ -68,4 +68,4 @@ data class Product(
     val virtual: Boolean,
     val weight: String,
     var count: Int?,
-):Serializable
+) : Serializable

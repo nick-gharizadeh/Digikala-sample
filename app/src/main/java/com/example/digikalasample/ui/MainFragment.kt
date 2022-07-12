@@ -87,7 +87,7 @@ class MainFragment : BaseFragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 productViewModel.newestProductList.collect {
-                    adapterNewest.submitList(it.let { it1 -> removeWrongElement(it1) })
+                    adapterNewest.submitList(removeWrongElement(it))
                 }
             }
         }
@@ -109,11 +109,11 @@ class MainFragment : BaseFragment() {
             }
         }
 
-        productViewModel.specialOffers.observe(viewLifecycleOwner) { it ->
+        productViewModel.specialOffers.observe(viewLifecycleOwner) {
             if (it != null) {
                 val images = it.images
-                val mViewPagerAdapter: ViewPagerAdapter =
-                    images.let { ViewPagerAdapter(requireContext(), it) }
+                val mViewPagerAdapter =
+                    ViewPagerAdapter(requireContext(), images)
                 binding.mainViewPager.adapter = mViewPagerAdapter
                 binding.indicator.setViewPager(binding.mainViewPager)
                 val timerTask: TimerTask = object : TimerTask() {
@@ -142,7 +142,7 @@ class MainFragment : BaseFragment() {
 
     }
 
-    fun goToProductsFragment(orderBy: String) {
+    private fun goToProductsFragment(orderBy: String) {
         productViewModel.getProducts(orderBy = orderBy, productViewModel.productsList, 100)
         findNavController().navigate(R.id.action_mainFragment_to_productsFragment)
     }

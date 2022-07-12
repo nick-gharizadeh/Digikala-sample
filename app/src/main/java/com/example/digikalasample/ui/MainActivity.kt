@@ -1,11 +1,9 @@
 package com.example.digikalasample.ui
 
 import android.content.Context
-import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import com.example.digikalasample.databinding.ActivityMainBinding
 import com.example.digikalasample.viewmodel.ProductViewModel
 import dagger.hilt.android.AndroidEntryPoint

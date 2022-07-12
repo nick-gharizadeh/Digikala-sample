@@ -27,7 +27,7 @@ interface DigiKalaApiService {
         numberOfPage: Int = 1,
         @Query("orderby")
         orderBy: String
-    ):Response<List<Product>>
+    ): Response<List<Product>>
 
     @GET("products")
     suspend fun getProduct(
@@ -40,8 +40,8 @@ interface DigiKalaApiService {
         @Query("page")
         numberOfPage: Int = 1,
         @Query("include")
-        include: List<Int> ,
-    ):Response<List<Product>>
+        include: List<Int>,
+    ): Response<List<Product>>
 
     @GET("products")
     suspend fun getProduct(
@@ -93,7 +93,7 @@ interface DigiKalaApiService {
         orderBy: String = "popularity",
         @Query("order")
         order: String = "asc"
-    ):Response< List<Product>>
+    ): Response<List<Product>>
 
     @GET("products")
     suspend fun getProduct(

@@ -126,7 +126,7 @@ class AddressesFragment : Fragment() {
         }
     }
 
-    fun goToMapFragment(address: Address) {
+    private fun goToMapFragment(address: Address) {
         val action =
             AddressesFragmentDirections.actionAddressesFragmentToMapFragment(address)
         findNavController().navigate(action)

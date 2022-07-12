@@ -1,34 +1,31 @@
 package com.example.digikalasample.data.repository
 
 import androidx.lifecycle.LiveData
-import com.example.digikalasample.data.AddressLocalDataSource
+import com.example.digikalasample.data.db.AddressesDataBase
 import com.example.digikalasample.data.model.address.Address
 import javax.inject.Inject
 
-class AddressRepository @Inject constructor(
-    private val AddressLocalDataSource: AddressLocalDataSource
-) {
-    val allAddresses: LiveData<List<Address?>?>?
-
-    init {
-        allAddresses = AddressLocalDataSource.allAddresses
-
-    }
+class AddressRepository @Inject constructor(private val db: AddressesDataBase) {
+    private val allAddresses: LiveData<List<Address?>?>?
 
     fun getLocalAddresses(): LiveData<List<Address?>?>? {
         return allAddresses
     }
 
+    init {
+        allAddresses = db.addressDao()?.getAllAddress()
+    }
+
     suspend fun insertAddress(address: Address) {
-        AddressLocalDataSource.insertAddress(address)
+        db.addressDao()?.insert(address)
     }
 
     suspend fun updateAddress(address: Address) {
-        AddressLocalDataSource.updateAddress(address)
+        db.addressDao()?.updateAddress(address)
     }
 
     suspend fun deleteAddress(address: Address) {
-        AddressLocalDataSource.deleteAddress(address)
+        db.addressDao()?.deleteAddress(address)
     }
 
 }

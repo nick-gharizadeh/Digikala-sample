@@ -19,4 +19,4 @@ data class Customer(
     val role: String,
     val shipping: Shipping,
     val username: String
-):Serializable
+) : Serializable

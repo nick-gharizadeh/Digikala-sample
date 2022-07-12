@@ -20,7 +20,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 class MapFragment : Fragment() {
     private lateinit var binding: FragmentMapBinding
     private lateinit var map: GoogleMap
-    var currentMarker: Marker? = null
+    private var currentMarker: Marker? = null
     private val args: MapFragmentArgs by navArgs()
     lateinit var address: Address
 
