@@ -223,10 +223,6 @@ class SearchFragment : BaseFragment() {
         alert?.dismiss()
     }
 
-    override fun onDestroyView() {
-        searchViewModel.searchedProductsList.value = emptyList()
-        super.onDestroyView()
-    }
 }
 
 inline fun SearchView.onQueryTextChanged(crossinline listener: (String) -> Unit) {

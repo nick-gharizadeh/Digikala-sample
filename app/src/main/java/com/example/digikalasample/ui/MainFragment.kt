@@ -110,21 +110,23 @@ class MainFragment : BaseFragment() {
         }
 
         productViewModel.specialOffers.observe(viewLifecycleOwner) { it ->
-            val images = it?.images
-            val mViewPagerAdapter: ViewPagerAdapter? =
-                images?.let { ViewPagerAdapter(requireContext(), it) }
-            binding.mainViewPager.adapter = mViewPagerAdapter
-            binding.indicator.setViewPager(binding.mainViewPager)
-            val timerTask: TimerTask = object : TimerTask() {
-                override fun run() {
-                    binding.mainViewPager.post {
-                        binding.mainViewPager.currentItem =
-                            (binding.mainViewPager.currentItem + 1) % images!!.size
+            if (it != null) {
+                val images = it?.images
+                val mViewPagerAdapter: ViewPagerAdapter? =
+                    images?.let { ViewPagerAdapter(requireContext(), it) }
+                binding.mainViewPager.adapter = mViewPagerAdapter
+                binding.indicator.setViewPager(binding.mainViewPager)
+                val timerTask: TimerTask = object : TimerTask() {
+                    override fun run() {
+                        binding.mainViewPager.post {
+                            binding.mainViewPager.currentItem =
+                                (binding.mainViewPager.currentItem + 1) % images!!.size
+                        }
                     }
                 }
+                timer = Timer()
+                timer!!.schedule(timerTask, 5000, 6000)
             }
-            timer = Timer()
-            timer!!.schedule(timerTask, 3000, 3000)
         }
 
     }

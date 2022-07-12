@@ -70,4 +70,9 @@ class SearchViewModel @Inject constructor(private val productRepository: Product
             }
         }
     }
+
+    override fun onCleared() {
+        searchedProductsList.value = emptyList()
+        super.onCleared()
+    }
 }
