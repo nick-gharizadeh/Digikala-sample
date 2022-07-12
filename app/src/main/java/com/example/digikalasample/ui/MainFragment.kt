@@ -1,9 +1,7 @@
 package com.example.digikalasample.ui
 
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.*
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -20,6 +18,7 @@ import com.example.digikalasample.viewmodel.ProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.util.*
 
 
 var flagAnimationOnceShowed = false
@@ -29,7 +28,7 @@ var flagOnceDataSet = false
 class MainFragment : BaseFragment() {
     private lateinit var binding: FragmentMainBinding
     val productViewModel: ProductViewModel by activityViewModels()
-
+    private var timer: Timer? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -116,7 +115,16 @@ class MainFragment : BaseFragment() {
                 images?.let { ViewPagerAdapter(requireContext(), it) }
             binding.mainViewPager.adapter = mViewPagerAdapter
             binding.indicator.setViewPager(binding.mainViewPager)
-
+            val timerTask: TimerTask = object : TimerTask() {
+                override fun run() {
+                    binding.mainViewPager.post {
+                        binding.mainViewPager.currentItem =
+                            (binding.mainViewPager.currentItem + 1) % images!!.size
+                    }
+                }
+            }
+            timer = Timer()
+            timer!!.schedule(timerTask, 3000, 3000)
         }
 
     }
