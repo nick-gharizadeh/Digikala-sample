@@ -21,7 +21,7 @@ interface DigiKalaApiService {
         @Query("consumer_secret")
         consumerSecret: String = CONSUMER_SECRET,
         @Query("per_page")
-        perPage: Int = 15,
+        perPage: Int = 20,
         @Query("page")
         numberOfPage: Int = 1,
         @Query("orderby")

@@ -111,16 +111,16 @@ class MainFragment : BaseFragment() {
 
         productViewModel.specialOffers.observe(viewLifecycleOwner) { it ->
             if (it != null) {
-                val images = it?.images
-                val mViewPagerAdapter: ViewPagerAdapter? =
-                    images?.let { ViewPagerAdapter(requireContext(), it) }
+                val images = it.images
+                val mViewPagerAdapter: ViewPagerAdapter =
+                    images.let { ViewPagerAdapter(requireContext(), it) }
                 binding.mainViewPager.adapter = mViewPagerAdapter
                 binding.indicator.setViewPager(binding.mainViewPager)
                 val timerTask: TimerTask = object : TimerTask() {
                     override fun run() {
                         binding.mainViewPager.post {
                             binding.mainViewPager.currentItem =
-                                (binding.mainViewPager.currentItem + 1) % images!!.size
+                                (binding.mainViewPager.currentItem + 1) % images.size
                         }
                     }
                 }
@@ -129,6 +129,22 @@ class MainFragment : BaseFragment() {
             }
         }
 
+        binding.textViewWholeratings.setOnClickListener {
+            goToProductsFragment("rating")
+        }
+
+        binding.textViewWholeNewest.setOnClickListener {
+            goToProductsFragment("date")
+        }
+        binding.textViewWholePopular.setOnClickListener {
+            goToProductsFragment("popularity")
+        }
+
+    }
+
+    fun goToProductsFragment(orderBy: String) {
+        productViewModel.getProducts(orderBy = orderBy, productViewModel.productsList, 100)
+        findNavController().navigate(R.id.action_mainFragment_to_productsFragment)
     }
 
     private fun removeWrongElement(list: List<Product?>): List<Product?> {

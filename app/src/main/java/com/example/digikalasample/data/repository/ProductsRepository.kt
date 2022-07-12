@@ -12,9 +12,10 @@ import javax.inject.Inject
 class ProductsRepository @Inject constructor(
     private val productRemoteDataSource: ProductRemoteDataSource,
 ) {
-    suspend fun getProducts(orderBy: String): List<Product> {
-        return productRemoteDataSource.getProducts(orderBy = orderBy)
+    suspend fun getProducts(orderBy: String, perPage: Int = 20): List<Product> {
+        return productRemoteDataSource.getProducts(orderBy = orderBy, perPage = perPage)
     }
+
     suspend fun getRelatedProducts(includeList: List<Int>): List<Product> {
         return productRemoteDataSource.getRelatedProducts(includeList)
     }

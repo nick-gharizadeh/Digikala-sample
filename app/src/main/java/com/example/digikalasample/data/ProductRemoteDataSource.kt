@@ -14,10 +14,10 @@ val errorThatOccur = MutableLiveData<Exception?>(null)
 
 class ProductRemoteDataSource @Inject constructor(private val productApiService: DigiKalaApiService) {
 
-    suspend fun getProducts(orderBy: String): List<Product> {
+    suspend fun getProducts(orderBy: String, perPage: Int = 20): List<Product> {
         return try {
             errorThatOccur.value = null
-            productApiService.getProduct(orderBy = orderBy)
+            productApiService.getProduct(orderBy = orderBy, perPage = perPage)
         } catch (e: Exception) {
             if (errorThatOccur.value == null)
                 errorThatOccur.value = e

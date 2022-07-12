@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_mainFragment_to_accountFragment"
             app:destination="@id/accountFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_productsFragment"
+            app:destination="@id/productsFragment" />
     </fragment>
     <fragment
         android:id="@+id/productDetailFragment"
@@ -192,5 +195,14 @@
             app:popUpToInclusive="true" />
         <argument android:name="addressSafeArgMap"
             app:argType="com.example.digikalasample.data.model.address.Address" />
+    </fragment>
+    <fragment
+        android:id="@+id/productsFragment"
+        android:name="com.example.digikalasample.ui.ProductsFragment"
+        android:label="fragment_products"
+        tools:layout="@layout/fragment_products" >
+        <action
+            android:id="@+id/action_productsFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
     </fragment>
 </navigation>
