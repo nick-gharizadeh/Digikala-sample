@@ -16,6 +16,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 
@@ -45,7 +46,10 @@ object Module {
 
     @Singleton
     @Provides
-    fun getRetrofit(moshi: Moshi, client: OkHttpClient): Retrofit {
+    fun getRetrofit(
+        moshi: Moshi,
+        client: OkHttpClient,
+    ): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .baseUrl("https://woocommerce.maktabsharif.ir/wp-json/wc/v3/")
@@ -55,10 +59,17 @@ object Module {
 
     @Singleton
     @Provides
-    fun getRetrofitClient(): OkHttpClient {
+    fun getOkHttpClient(): OkHttpClient {
         val logger = HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BASIC }
-        return OkHttpClient.Builder().addInterceptor(logger).build()
+        return OkHttpClient.Builder()
+            .readTimeout(25, TimeUnit.SECONDS)
+            .writeTimeout(25, TimeUnit.SECONDS)
+            .connectTimeout(25, TimeUnit.SECONDS)
+            .addInterceptor(logger)
+            .build()
+
     }
+
 
     @Singleton
     @Provides

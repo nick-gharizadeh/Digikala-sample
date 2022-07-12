@@ -125,6 +125,8 @@ class MainFragment : BaseFragment() {
         list.forEach { product ->
             if (product?.id == 608)
                 return list.minus(product)
+            if (product?.id == 3089)
+                return list.minus(product)
         }
         return listOf()
     }
