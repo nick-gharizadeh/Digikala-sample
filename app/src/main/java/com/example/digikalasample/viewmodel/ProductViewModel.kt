@@ -57,47 +57,47 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
     ) {
 
         viewModelScope.launch {
-            val list = productRepository.getProducts(
+            val response = productRepository.getProducts(
                 orderBy = orderBy,
                 perPage = perPage
             )
-            if (list.message == null)
+            if (response.message == null)
                 relatedStateFlow.emit(
-                    list.data
+                    response.data
                 )
             else
-                statusLiveData.postValue(list.message)
+                statusLiveData.postValue(response.message)
         }
     }
 
     fun getRelatedProducts(includeList: List<Int>) {
         viewModelScope.launch {
-            val list = productRepository.getRelatedProducts(includeList)
-            if (list.message == null)
-                relatedProductList.postValue(list.data)
+            val response = productRepository.getRelatedProducts(includeList)
+            if (response.message == null)
+                relatedProductList.postValue(response.data)
             else
-                statusLiveData.postValue(list.message)
+                statusLiveData.postValue(response.message)
         }
     }
 
 
     fun getProductsByCategory(category: Int) {
         viewModelScope.launch {
-            val list = productRepository.getProductsByCategory(category = category)
-            if (list.message == null)
-                productByCategoriesList.postValue(list.data)
+            val response = productRepository.getProductsByCategory(category = category)
+            if (response.message == null)
+                productByCategoriesList.postValue(response.data)
             else
-                statusLiveData.postValue(list.message)
+                statusLiveData.postValue(response.message)
         }
     }
 
     private fun getAllCategories() {
         viewModelScope.launch {
-            val list = productRepository.getCategories()
-            if (list.message == null)
-                categoriesList.emit(list.data)
+            val response = productRepository.getCategories()
+            if (response.message == null)
+                categoriesList.emit(response.data)
             else
-                statusLiveData.postValue(list.message)
+                statusLiveData.postValue(response.message)
         }
     }
 
@@ -110,22 +110,22 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
 
     private fun getSliderPhotos(id: Int = 608) {
         viewModelScope.launch {
-            val list = productRepository.getProductById(id)
-            if (list.message == null)
-                specialOffers.postValue(list.data)
+            val response = productRepository.getProductById(id)
+            if (response.message == null)
+                specialOffers.postValue(response.data)
             else
-                statusLiveData.postValue(list.message)
+                statusLiveData.postValue(response.message)
         }
     }
 
 
     fun getCoupons() {
         viewModelScope.launch {
-            val list = productRepository.getAllCoupons()
-            if (list.message == null)
-                couponsList = list.data
+            val response = productRepository.getAllCoupons()
+            if (response.message == null)
+                couponsList = response.data
             else
-                statusLiveData.postValue(list.message)
+                statusLiveData.postValue(response.message)
         }
     }
 

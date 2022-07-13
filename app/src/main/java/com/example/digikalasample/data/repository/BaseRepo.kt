@@ -27,7 +27,7 @@ abstract class BaseRepo {
                 }
 
             } catch (e: IOException) {
-                Resource.Error("به نظر میرسد دستگاه به اینترنت متصل نیست!")
+                Resource.Error("به نظر میرسد به اینترنت متصل نیستید!")
             } catch (e: Exception) {
                 Resource.Error(errorMessage = e.message.toString())
             }

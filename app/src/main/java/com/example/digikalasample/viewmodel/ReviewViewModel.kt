@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.digikalasample.data.model.customer.Customer
 import com.example.digikalasample.data.model.product.Product
 import com.example.digikalasample.data.model.review.Review
+import com.example.digikalasample.data.model.statusLiveData
 import com.example.digikalasample.data.repository.ProductsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -23,8 +24,11 @@ class ReviewViewModel @Inject constructor(private val productRepository: Product
 
     fun getReviews(id: String) {
         viewModelScope.launch {
-            val list = productRepository.getReviews(id)
-            reviewsList.value = list.data!!
+            val response = productRepository.getReviews(id)
+            if (response.message == null)
+                reviewsList.value = response.data!!
+            else
+                statusLiveData.postValue(response.message)
         }
     }
 
@@ -32,20 +36,26 @@ class ReviewViewModel @Inject constructor(private val productRepository: Product
         review: Review
     ) {
         viewModelScope.launch {
-            productRepository.postReview(review)
+            val response = productRepository.postReview(review)
+            if (response.message != null)
+                statusLiveData.postValue(response.message)
         }
 
     }
 
     fun deleteReview(id: Int) {
         viewModelScope.launch {
-            productRepository.deleteReview(id)
+            val response = productRepository.deleteReview(id)
+            if (response.message != null)
+                statusLiveData.postValue(response.message)
         }
     }
 
     fun updateReview(id: Int, review: String) {
         viewModelScope.launch {
-            productRepository.updateReview(id, review)
+            val response = productRepository.updateReview(id, review)
+            if (response.message != null)
+                statusLiveData.postValue(response.message)
         }
     }
 }

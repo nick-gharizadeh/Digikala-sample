@@ -168,7 +168,7 @@ interface DigiKalaApiService {
         @Path("id") id: Int,
         @Query("consumer_key") consumerKey: String = CONSUMER_KEY,
         @Query("consumer_secret") consumerSecret: String = CONSUMER_SECRET
-    )
+    ): Response<Review>
 
     @PUT("products/reviews/{id}?")
     suspend fun updateReview(
@@ -176,5 +176,5 @@ interface DigiKalaApiService {
         @Query("consumer_key") consumerKey: String = CONSUMER_KEY,
         @Query("consumer_secret") consumerSecret: String = CONSUMER_SECRET,
         @Query("review") review: String?,
-    )
+    ): Response<Review>
 }

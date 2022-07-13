@@ -118,12 +118,12 @@ class ProductsRepository @Inject constructor(private val productApiService: Digi
         }
     }
 
-    suspend fun deleteReview(id: Int) {
-        productApiService.deleteReview(id = id)
+    suspend fun deleteReview(id: Int): Resource<Review> {
+        return safeApiCall { productApiService.deleteReview(id = id) }
     }
 
-    suspend fun updateReview(id: Int, review: String) {
-        productApiService.updateReview(id = id, review = review)
+    suspend fun updateReview(id: Int, review: String): Resource<Review> {
+        return safeApiCall { productApiService.updateReview(id = id, review = review) }
     }
 
 }
