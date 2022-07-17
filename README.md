@@ -20,22 +20,19 @@
     <tr>
       <td><img src="https://s6.uupload.ir/files/7_wdqa.jpg" width="290" height="550" alt=""/></td>
       <td><img src="https://s6.uupload.ir/files/8_lbmq.jpg" width="290" height="550" alt=""/></td>
-           <td><img src="ui/9.jpg" width="290" height="550" alt=""/></td>
+           <td><img src="https://s6.uupload.ir/files/9_8upu.jpg" width="290" height="550" alt=""/></td>
     </tr>
     <tr>
- 
       <td><img src="https://s6.uupload.ir/files/9_8upu.jpg" width="290" height="550" alt=""/></td>
-            <td><img src="https://s6.uupload.ir/files/11_1xh1.jpg" width="290" height="550" alt=""/></td>
+            <td><img src="https://s6.uupload.ir/files/10_yrs9.jpg" width="290" height="550" alt=""/></td>
       <td><img src="https://s6.uupload.ir/files/12_wyca.jpg" width="290" height="550" alt=""/></td>
     </tr>
     <tr>
       <td><img src="https://s6.uupload.ir/files/13_2k6x.jpg" width="290" height="550" alt=""/></td>
-      <td>&nbsp;</td>
+      <td></td>
     </tr>
   </tbody>
 </table>
-
-</br>
 	<h1>Using:</h1>
 <ul>
   <li> UI Design: Material Design, Theme, Lottie
@@ -53,8 +50,6 @@
     <li>Maps and locations</li>
     <li>Shared Preferences</li>
     <li>Glide</li>
-
-
 </ul>  
 </body>
 </html>
