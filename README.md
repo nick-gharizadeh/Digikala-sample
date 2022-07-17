@@ -1,4 +1,3 @@
-<!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -14,7 +13,6 @@
             <td><img src="https://s6.uupload.ir/files/3_czcd.jpg" width="290" height="550" alt=""/></td>
     </tr>
     <tr>
-
       <td><img src="https://s6.uupload.ir/files/4_pwoa.jpg" width="290" height="550" alt=""/></td>
             <td><img src="https://s6.uupload.ir/files/5_p5h3.jpg" width="290" height="550" alt=""/></td>
       <td><img src="https://s6.uupload.ir/files/6_9g3g.jpg" width="290" height="550" alt=""/></td>
