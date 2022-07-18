@@ -29,11 +29,10 @@
     </tr>
     <tr>
       <td><img src="https://s6.uupload.ir/files/13_2k6x.jpg" width="250" height="480" alt=""/></td>
-      <td></td>
     </tr>
   </tbody>
 </table>
-	<h1>Using</h1>
+	<h1>Features & External Libraries</h1>
 <ul>
   <li> UI Design: Material Design, Theme, Lottie
 </li>
