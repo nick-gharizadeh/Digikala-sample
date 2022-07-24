@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.digikalasample.R
 import com.example.digikalasample.databinding.FragmentRegisterBinding
+import com.example.digikalasample.viewmodel.CustomerViewModel
 import com.example.digikalasample.viewmodel.ProductViewModel
 import com.google.android.material.textfield.TextInputLayout
 
@@ -17,6 +18,8 @@ import com.google.android.material.textfield.TextInputLayout
 class RegisterFragment : BaseFragment() {
     private lateinit var binding: FragmentRegisterBinding
     val productViewModel: ProductViewModel by activityViewModels()
+    val customerViewModel: CustomerViewModel by activityViewModels()
+
 
 
     override fun onCreateView(
@@ -34,7 +37,7 @@ class RegisterFragment : BaseFragment() {
             setErrorNull(binding.editTextLastname)
             setErrorNull(binding.editTextEmail)
             if (validate()) {
-                productViewModel.createCustomer(
+                customerViewModel.createCustomer(
                     binding.editTextFirstname.editText?.text.toString(),
                     binding.editTextLastname.editText?.text.toString(),
                     binding.editTextEmail.editText?.text.toString()

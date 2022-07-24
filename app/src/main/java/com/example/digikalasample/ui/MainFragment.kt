@@ -14,6 +14,7 @@ import com.example.digikalasample.databinding.FragmentMainBinding
 import com.example.digikalasample.ui.adapter.CategoryAdapter
 import com.example.digikalasample.ui.adapter.ProductAdapter
 import com.example.digikalasample.ui.adapter.ViewPagerAdapter
+import com.example.digikalasample.viewmodel.CustomerViewModel
 import com.example.digikalasample.viewmodel.ProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -28,7 +29,9 @@ var flagOnceDataSet = false
 class MainFragment : BaseFragment() {
     private lateinit var binding: FragmentMainBinding
     val productViewModel: ProductViewModel by activityViewModels()
+    val customerViewModel: CustomerViewModel by activityViewModels()
     private var timer: Timer? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -54,11 +57,11 @@ class MainFragment : BaseFragment() {
         }
 
 
-        productViewModel.mCustomer.observe(viewLifecycleOwner) {
+        customerViewModel.mCustomer.observe(viewLifecycleOwner) {
             val editor = sharedPreferences.edit()
             it?.id?.let { it1 -> editor.putInt("CustomerId", it1) }
             editor.apply()
-            productViewModel.mCustomerId = it?.id
+            customerViewModel.mCustomerId = it?.id
         }
 
         val adapterPopular = ProductAdapter {

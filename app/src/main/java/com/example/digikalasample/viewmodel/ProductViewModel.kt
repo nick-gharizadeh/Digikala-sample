@@ -20,9 +20,7 @@ import javax.inject.Inject
 class ProductViewModel @Inject constructor(private val productRepository: ProductsRepository) :
     ViewModel() {
     var mProduct: Product? = null
-    var mCustomer = MutableLiveData<Customer?>()
     var mOrder = MutableLiveData<Order?>()
-    var mCustomerId: Int? = null
     var popularProductList = MutableStateFlow<List<Product>?>(emptyList())
     var ratingProductList = MutableStateFlow<List<Product>?>(emptyList())
     var newestProductList = MutableStateFlow<List<Product>?>(emptyList())
@@ -156,32 +154,6 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
         if (flagOnceUseCoupon && couponAmount > 0)
             minusFromFinalAmount(couponAmount)
 
-    }
-
-
-    fun createCustomer(firstName: String, lastName: String, email: String) {
-        viewModelScope.launch {
-            val customer = productRepository.createCustomer(
-                firstName = firstName,
-                lastName = lastName,
-                email = email
-            )
-            if (customer.message == null) {
-                mCustomer.postValue(customer.data)
-                mCustomerId = customer.data?.id
-            } else
-                statusLiveData.postValue(customer.message)
-        }
-    }
-
-    fun getCustomer(id: Int) {
-        viewModelScope.launch {
-            val customer = productRepository.getCustomer(id)
-            if (customer.message == null)
-                mCustomer.postValue(customer.data)
-            else
-                statusLiveData.postValue(customer.message)
-        }
     }
 
 

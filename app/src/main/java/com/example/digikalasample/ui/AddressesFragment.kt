@@ -21,6 +21,7 @@ import com.example.digikalasample.data.model.order.Order
 import com.example.digikalasample.databinding.FragmentAddressesBinding
 import com.example.digikalasample.ui.adapter.AddressAdapter
 import com.example.digikalasample.viewmodel.AddressViewModel
+import com.example.digikalasample.viewmodel.CustomerViewModel
 import com.example.digikalasample.viewmodel.ProductViewModel
 
 
@@ -28,6 +29,7 @@ class AddressesFragment : Fragment() {
     private lateinit var binding: FragmentAddressesBinding
     private val addressViewModel: AddressViewModel by activityViewModels()
     val productViewModel: ProductViewModel by activityViewModels()
+    val customerViewModel: CustomerViewModel by activityViewModels()
 
 
     override fun onCreateView(
@@ -86,12 +88,12 @@ class AddressesFragment : Fragment() {
             }
             productViewModel.calculatePrice()
             val order = Order(
-                customer_id = productViewModel.mCustomerId!!,
+                customer_id = customerViewModel.mCustomerId!!,
                 line_items = itemsList,
                 billing = Billing(
                     address_1 = address.addressField!!,
-                    first_name = productViewModel.mCustomer.value!!.first_name,
-                    last_name = productViewModel.mCustomer.value!!.last_name
+                    first_name = customerViewModel.mCustomer.value!!.first_name,
+                    last_name = customerViewModel.mCustomer.value!!.last_name
                 ), coupon_lines = productViewModel.usedCouponList
             )
             productViewModel.createOrder(

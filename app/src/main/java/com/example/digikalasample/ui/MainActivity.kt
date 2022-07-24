@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.digikalasample.databinding.ActivityMainBinding
+import com.example.digikalasample.viewmodel.CustomerViewModel
 import com.example.digikalasample.viewmodel.ProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -13,6 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     val productViewModel: ProductViewModel by viewModels()
+    val customerViewModel: CustomerViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -22,8 +24,8 @@ class MainActivity : AppCompatActivity() {
         sharedPreferences = getSharedPreferences("myShare", Context.MODE_PRIVATE)
 
         if (sharedPreferences.getInt("CustomerId", 0) != 0) {
-            productViewModel.mCustomerId = sharedPreferences.getInt("CustomerId", 0)
-            productViewModel.mCustomerId?.let { it1 -> productViewModel.getCustomer(it1) }
+            customerViewModel.mCustomerId = sharedPreferences.getInt("CustomerId", 0)
+            customerViewModel.mCustomerId?.let { it1 -> customerViewModel.getCustomer(it1) }
         }
         if (!sharedPreferences.getString("shoppingCartString", "")
                 .isNullOrEmpty() && !flagOnceDataSet

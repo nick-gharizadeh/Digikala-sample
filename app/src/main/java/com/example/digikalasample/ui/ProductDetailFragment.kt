@@ -14,12 +14,14 @@ import com.example.digikalasample.data.model.product.Product
 import com.example.digikalasample.databinding.FragmentProductDetailBinding
 import com.example.digikalasample.ui.adapter.ProductAdapter
 import com.example.digikalasample.ui.adapter.ViewPagerAdapter
+import com.example.digikalasample.viewmodel.CustomerViewModel
 import com.example.digikalasample.viewmodel.ProductViewModel
 
 
 class ProductDetailFragment : BaseFragment() {
     private lateinit var binding: FragmentProductDetailBinding
     val productViewModel: ProductViewModel by activityViewModels()
+    val customerViewModel: CustomerViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,7 +69,7 @@ class ProductDetailFragment : BaseFragment() {
             val action =
                 ProductDetailFragmentDirections.actionProductDetailFragmentToReviewFragment(
                     productViewModel.mProduct!!,
-                    productViewModel.mCustomer.value,
+                    customerViewModel.mCustomer.value,
                 )
             findNavController().navigate(action)
         }

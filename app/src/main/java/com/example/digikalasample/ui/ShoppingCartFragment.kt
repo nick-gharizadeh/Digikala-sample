@@ -11,6 +11,7 @@ import com.example.digikalasample.R
 import com.example.digikalasample.data.model.product.Product
 import com.example.digikalasample.databinding.FragmentShoppingCartBinding
 import com.example.digikalasample.ui.adapter.ShoppingCartAdapter
+import com.example.digikalasample.viewmodel.CustomerViewModel
 import com.example.digikalasample.viewmodel.ProductViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -21,6 +22,8 @@ var flagIsNavigateFromShoppingCart = false
 class ShoppingCartFragment : BaseFragment() {
     private lateinit var binding: FragmentShoppingCartBinding
     val productViewModel: ProductViewModel by activityViewModels()
+    val customerViewModel: CustomerViewModel by activityViewModels()
+
     var adapter: ShoppingCartAdapter? = null
 
 
@@ -55,9 +58,9 @@ class ShoppingCartFragment : BaseFragment() {
 
         binding.buttonPostOrder.setOnClickListener {
             if (productViewModel.shoppingCardList.isNotEmpty())
-                if (productViewModel.mCustomerId != null) {
+                if (customerViewModel.mCustomerId != null) {
                     flagIsNavigateFromShoppingCart = true
-                    productViewModel.getCustomer(productViewModel.mCustomerId!!.toInt())
+                    customerViewModel.getCustomer(customerViewModel.mCustomerId!!.toInt())
                     findNavController().navigate(R.id.action_shoppingCartFragment_to_addressesFragment)
                 } else {
                     MaterialAlertDialogBuilder(requireContext())
