@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.digikalasample.R
+import com.example.digikalasample.data.RemoveHTMLTags
 import com.example.digikalasample.data.model.product.Product
 import com.example.digikalasample.databinding.FragmentProductDetailBinding
 import com.example.digikalasample.ui.adapter.ProductAdapter

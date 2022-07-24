@@ -1,5 +1,7 @@
 package com.example.digikalasample.data.repository
 
+import com.example.digikalasample.data.OrderByEnum
+import com.example.digikalasample.data.OrderSortEnum
 import com.example.digikalasample.data.model.Resource
 import com.example.digikalasample.data.model.product.Product
 import com.example.digikalasample.network.DigiKalaApiService
@@ -10,8 +12,8 @@ class SearchRepository @Inject constructor(private val productApiService: DigiKa
 
     suspend fun getProductsBySearch(
         searchQuery: String,
-        orderBy: String = "popularity",
-        order: String = "asc"
+        orderBy: String = OrderByEnum.POPULARITY.orderTypeString,
+        order: String = OrderSortEnum.ASC.orderSortString
     ): Resource<List<Product>> {
         return safeApiCall {
             productApiService.getProduct(
@@ -24,8 +26,8 @@ class SearchRepository @Inject constructor(private val productApiService: DigiKa
 
     suspend fun getProductsBySearch(
         searchQuery: String,
-        orderBy: String = "popularity",
-        order: String = "asc", attribute: String, attributeTerm: String
+        orderBy: String = OrderByEnum.POPULARITY.orderTypeString,
+        order: String = OrderSortEnum.ASC.orderSortString, attribute: String, attributeTerm: String
     ): Resource<List<Product>> {
         return safeApiCall {
             productApiService.getProduct(

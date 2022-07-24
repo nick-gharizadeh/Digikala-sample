@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.digikalasample.R
+import com.example.digikalasample.data.RemoveHTMLTags
 import com.example.digikalasample.data.model.product.Product
 import com.example.digikalasample.databinding.FragmentProductsBinding
 import com.example.digikalasample.ui.adapter.HorizontalProductAdaptor

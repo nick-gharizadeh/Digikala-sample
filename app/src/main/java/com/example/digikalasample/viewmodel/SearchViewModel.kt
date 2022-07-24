@@ -3,6 +3,9 @@ package com.example.digikalasample.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.digikalasample.data.FilterTypeEnum
+import com.example.digikalasample.data.OrderByEnum
+import com.example.digikalasample.data.OrderSortEnum
 import com.example.digikalasample.data.model.FilterItem
 import com.example.digikalasample.data.model.product.Product
 import com.example.digikalasample.data.model.statusLiveData
@@ -16,14 +19,14 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(private val searchRepository: SearchRepository) :
     ViewModel() {
     val searchedProductsList = MutableLiveData<List<Product>>()
-    var orderCriterion: String? = "popularity"
-    var orderSortType: String? = "asc"
+    var orderCriterion: String? = OrderByEnum.POPULARITY.orderTypeString
+    var orderSortType: String? = OrderSortEnum.ASC.orderSortString
     var lastSearch: String = ""
 
     fun getProductsBySearch(
         searchQuery: String,
-        orderBy: String = "popularity",
-        order: String = "asc"
+        orderBy: String = OrderByEnum.POPULARITY.orderTypeString,
+        order: String = OrderSortEnum.ASC.orderSortString
     ) {
         viewModelScope.launch {
             val searchResponse = searchRepository.getProductsBySearch(searchQuery, orderBy, order)
@@ -36,8 +39,8 @@ class SearchViewModel @Inject constructor(private val searchRepository: SearchRe
 
     private fun getProductsBySearch(
         searchQuery: String,
-        orderBy: String = "popularity",
-        order: String = "asc", attribute: String, attributeTerm: String
+        orderBy: String = OrderByEnum.POPULARITY.orderTypeString,
+        order: String = OrderSortEnum.ASC.orderSortString, attribute: String, attributeTerm: String
     ) {
         viewModelScope.launch {
             val searchResponse = searchRepository.getProductsBySearch(
@@ -61,7 +64,7 @@ class SearchViewModel @Inject constructor(private val searchRepository: SearchRe
             orderCriterion?.let { it1 ->
                 getProductsBySearch(
                     lastSearch, it1,
-                    it, "pa_color", filterItem.id.toString()
+                    it, FilterTypeEnum.Color.filterTypeString, filterItem.id.toString()
                 )
             }
         }
@@ -73,7 +76,7 @@ class SearchViewModel @Inject constructor(private val searchRepository: SearchRe
             orderCriterion?.let { it1 ->
                 getProductsBySearch(
                     lastSearch, it1,
-                    it, "pa_size", filterItem.id.toString()
+                    it, FilterTypeEnum.Size.filterTypeString, filterItem.id.toString()
                 )
             }
         }

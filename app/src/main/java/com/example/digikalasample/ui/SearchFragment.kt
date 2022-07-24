@@ -7,6 +7,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.digikalasample.R
+import com.example.digikalasample.data.FilterTypeEnum
+import com.example.digikalasample.data.OrderByEnum
+import com.example.digikalasample.data.OrderSortEnum
+import com.example.digikalasample.data.RemoveHTMLTags
 import com.example.digikalasample.data.model.FilterItem
 import com.example.digikalasample.data.model.product.Product
 import com.example.digikalasample.databinding.FragmentSearchBinding
@@ -16,18 +20,13 @@ import com.example.digikalasample.viewmodel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
-enum class FilterType {
-    Size,
-    Color
-}
-
 @AndroidEntryPoint
 class SearchFragment : BaseFragment() {
     private lateinit var binding: FragmentSearchBinding
     private val searchViewModel: SearchViewModel by viewModels()
     val productViewModel: ProductViewModel by activityViewModels()
     private var flagIsFilterSet = false
-    private var filterType: FilterType = FilterType.Size
+    private var filterType: FilterTypeEnum = FilterTypeEnum.Size
     private var filterItem: FilterItem? = null
     private var alert: android.app.AlertDialog? = null
     private lateinit var alertDialog: android.app.AlertDialog.Builder
@@ -104,11 +103,14 @@ class SearchFragment : BaseFragment() {
             items, -1
         ) { dialog, which ->
             when (which) {
-                0 -> searchBySort("rating")
-                1 -> searchBySort("popularity")
-                2 -> searchBySort("price")
-                3 -> searchBySort("price", "desc")
-                4 -> searchBySort("date")
+                0 -> searchBySort(OrderByEnum.RATING.orderTypeString)
+                1 -> searchBySort(OrderByEnum.POPULARITY.orderTypeString)
+                2 -> searchBySort(OrderByEnum.PRICE.orderTypeString)
+                3 -> searchBySort(
+                    OrderByEnum.PRICE.orderTypeString,
+                    OrderSortEnum.DESC.orderSortString
+                )
+                4 -> searchBySort(OrderByEnum.DATE.orderTypeString)
             }
         }
         alert = alertDialog.create()
@@ -155,11 +157,11 @@ class SearchFragment : BaseFragment() {
             items, -1
         ) { dialog, which ->
             when (which) {
-                0 -> searchByFilter(FilterType.Color, filterColorList[0])
-                1 -> searchByFilter(FilterType.Color, filterColorList[1])
-                2 -> searchByFilter(FilterType.Color, filterColorList[2])
-                3 -> searchByFilter(FilterType.Color, filterColorList[3])
-                4 -> searchByFilter(FilterType.Color, filterColorList[4])
+                0 -> searchByFilter(FilterTypeEnum.Color, filterColorList[0])
+                1 -> searchByFilter(FilterTypeEnum.Color, filterColorList[1])
+                2 -> searchByFilter(FilterTypeEnum.Color, filterColorList[2])
+                3 -> searchByFilter(FilterTypeEnum.Color, filterColorList[3])
+                4 -> searchByFilter(FilterTypeEnum.Color, filterColorList[4])
             }
         }
         alert = alertDialog.create()
@@ -179,10 +181,10 @@ class SearchFragment : BaseFragment() {
             items, -1
         ) { dialog, which ->
             when (which) {
-                0 -> searchByFilter(FilterType.Size, filterSizeList[0])
-                1 -> searchByFilter(FilterType.Size, filterSizeList[1])
-                2 -> searchByFilter(FilterType.Size, filterSizeList[2])
-                3 -> searchByFilter(FilterType.Size, filterSizeList[3])
+                0 -> searchByFilter(FilterTypeEnum.Size, filterSizeList[0])
+                1 -> searchByFilter(FilterTypeEnum.Size, filterSizeList[1])
+                2 -> searchByFilter(FilterTypeEnum.Size, filterSizeList[2])
+                3 -> searchByFilter(FilterTypeEnum.Size, filterSizeList[3])
             }
         }
         alert = alertDialog.create()
@@ -202,22 +204,22 @@ class SearchFragment : BaseFragment() {
         } else {
             searchViewModel.orderCriterion = orderCriterion
             searchViewModel.orderSortType = order
-            if (filterType == FilterType.Color) {
+            if (filterType == FilterTypeEnum.Color) {
                 filterItem?.let { searchViewModel.doFilterByColor(it) }
-            } else if (filterType == FilterType.Size) {
+            } else if (filterType == FilterTypeEnum.Size) {
                 filterItem?.let { searchViewModel.doFilterBySize(it) }
             }
         }
         alert?.dismiss()
     }
 
-    private fun searchByFilter(filterType: FilterType, filterItem: FilterItem) {
+    private fun searchByFilter(filterType: FilterTypeEnum, filterItem: FilterItem) {
         flagIsFilterSet = true
         this.filterItem = filterItem
         this.filterType = filterType
-        if (filterType == FilterType.Color) {
+        if (filterType == FilterTypeEnum.Color) {
             searchViewModel.doFilterByColor(filterItem)
-        } else if (filterType == FilterType.Size) {
+        } else if (filterType == FilterTypeEnum.Size) {
             searchViewModel.doFilterBySize(filterItem)
         }
         alert?.dismiss()

@@ -1,5 +1,7 @@
 package com.example.digikalasample.network
 
+import com.example.digikalasample.data.OrderByEnum
+import com.example.digikalasample.data.OrderSortEnum
 import com.example.digikalasample.data.model.coupon.Coupon
 import com.example.digikalasample.data.model.customer.Customer
 import com.example.digikalasample.data.model.order.Order
@@ -90,9 +92,9 @@ interface DigiKalaApiService {
         @Query("page")
         numberOfPage: Int = 1,
         @Query("orderby")
-        orderBy: String = "popularity",
+        orderBy: String = OrderByEnum.POPULARITY.orderTypeString,
         @Query("order")
-        order: String = "asc"
+        order: String = OrderSortEnum.ASC.orderSortString
     ): Response<List<Product>>
 
     @GET("products")
@@ -107,9 +109,9 @@ interface DigiKalaApiService {
         @Query("page")
         numberOfPage: Int = 1,
         @Query("orderby")
-        orderBy: String = "popularity",
+        orderBy: String = OrderByEnum.POPULARITY.orderTypeString,
         @Query("order")
-        order: String = "asc",
+        order: String = OrderSortEnum.ASC.orderSortString,
         @Query("attribute") attribute: String,
         @Query("attribute_term") terms: String,
     ): Response<List<Product>>

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
+import com.example.digikalasample.data.RemoveHTMLTags
 import com.example.digikalasample.data.model.review.Review
 import com.example.digikalasample.databinding.FragmentReviewBinding
 import com.example.digikalasample.ui.adapter.ReviewAdapter

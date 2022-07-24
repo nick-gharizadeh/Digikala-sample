@@ -3,9 +3,9 @@ package com.example.digikalasample.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.digikalasample.data.OrderByEnum
 import com.example.digikalasample.data.model.coupon.Coupon
 import com.example.digikalasample.data.model.coupon.CouponLine
-import com.example.digikalasample.data.model.customer.Customer
 import com.example.digikalasample.data.model.order.Order
 import com.example.digikalasample.data.model.product.Category
 import com.example.digikalasample.data.model.product.Product
@@ -42,9 +42,9 @@ class ProductViewModel @Inject constructor(private val productRepository: Produc
 
     private fun callServices() {
         getAllCategories()
-        getProducts("popularity", popularProductList)
-        getProducts("rating", ratingProductList)
-        getProducts("date", newestProductList)
+        getProducts(OrderByEnum.POPULARITY.orderTypeString, popularProductList)
+        getProducts(OrderByEnum.RATING.orderTypeString, ratingProductList)
+        getProducts(OrderByEnum.DATE.orderTypeString, newestProductList)
         getSliderPhotos()
     }
 
