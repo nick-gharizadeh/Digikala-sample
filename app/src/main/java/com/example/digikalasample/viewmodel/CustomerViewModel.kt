@@ -5,14 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.digikalasample.data.model.customer.Customer
 import com.example.digikalasample.data.model.statusLiveData
-import com.example.digikalasample.data.repository.ProductsRepository
+import com.example.digikalasample.data.repository.CustomerRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 @HiltViewModel
-class CustomerViewModel @Inject constructor(private val productRepository: ProductsRepository) :
+class CustomerViewModel @Inject constructor(private val customerRepository: CustomerRepository) :
     ViewModel() {
 
     var mCustomer = MutableLiveData<Customer?>()
@@ -21,7 +21,7 @@ class CustomerViewModel @Inject constructor(private val productRepository: Produ
 
     fun getCustomer(id: Int) {
         viewModelScope.launch {
-            val customer = productRepository.getCustomer(id)
+            val customer = customerRepository.getCustomer(id)
             if (customer.message == null)
                 mCustomer.postValue(customer.data)
             else
@@ -32,7 +32,7 @@ class CustomerViewModel @Inject constructor(private val productRepository: Produ
 
     fun createCustomer(firstName: String, lastName: String, email: String) {
         viewModelScope.launch {
-            val customer = productRepository.createCustomer(
+            val customer = customerRepository.createCustomer(
                 firstName = firstName,
                 lastName = lastName,
                 email = email

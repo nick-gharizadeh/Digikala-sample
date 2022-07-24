@@ -2,11 +2,9 @@ package com.example.digikalasample.data.repository
 
 import com.example.digikalasample.data.model.Resource
 import com.example.digikalasample.data.model.coupon.Coupon
-import com.example.digikalasample.data.model.customer.Customer
 import com.example.digikalasample.data.model.order.Order
 import com.example.digikalasample.data.model.product.Category
 import com.example.digikalasample.data.model.product.Product
-import com.example.digikalasample.data.model.review.Review
 import com.example.digikalasample.network.DigiKalaApiService
 import javax.inject.Inject
 
@@ -20,43 +18,11 @@ class ProductsRepository @Inject constructor(private val productApiService: Digi
         return safeApiCall { productApiService.getProduct(include = includeList) }
     }
 
-
-    suspend fun getProductsBySearch(
-        searchQuery: String,
-        orderBy: String = "popularity",
-        order: String = "asc"
-    ): Resource<List<Product>> {
-        return safeApiCall {
-            productApiService.getProduct(
-                searchQuery = searchQuery,
-                orderBy = orderBy,
-                order = order
-            )
-        }
-    }
-
-    suspend fun getProductsBySearch(
-        searchQuery: String,
-        orderBy: String = "popularity",
-        order: String = "asc", attribute: String, attributeTerm: String
-    ): Resource<List<Product>> {
-        return safeApiCall {
-            productApiService.getProduct(
-                searchQuery = searchQuery,
-                orderBy = orderBy,
-                order = order,
-                attribute = attribute,
-                terms = attributeTerm
-            )
-        }
-    }
-
     suspend fun getProductsByCategory(category: Int): Resource<List<Product>> {
         return safeApiCall {
             productApiService.getProduct(category = category)
         }
     }
-
 
     suspend fun getCategories(): Resource<List<Category>> {
         return safeApiCall {
@@ -70,34 +36,6 @@ class ProductsRepository @Inject constructor(private val productApiService: Digi
         }
     }
 
-    suspend fun getReviews(productId: String): Resource<List<Review>> {
-        return safeApiCall {
-            productApiService.getReviews(productId = productId)
-
-        }
-    }
-
-    suspend fun createCustomer(
-        firstName: String,
-        lastName: String,
-        email: String
-    ): Resource<Customer?> {
-        return safeApiCall {
-            productApiService.createCustomer(
-                firstName = firstName,
-                lastName = lastName,
-                email = email
-            )
-        }
-
-    }
-
-
-    suspend fun getCustomer(id: Int): Resource<Customer?> {
-        return safeApiCall {
-            productApiService.getCustomer(id = id)
-        }
-    }
 
     suspend fun createOrder(order: Order): Resource<Order> {
         return safeApiCall {
@@ -112,18 +50,5 @@ class ProductsRepository @Inject constructor(private val productApiService: Digi
         }
     }
 
-    suspend fun postReview(review: Review): Resource<Review> {
-        return safeApiCall {
-            productApiService.postReview(review = review)
-        }
-    }
-
-    suspend fun deleteReview(id: Int): Resource<Review> {
-        return safeApiCall { productApiService.deleteReview(id = id) }
-    }
-
-    suspend fun updateReview(id: Int, review: String): Resource<Review> {
-        return safeApiCall { productApiService.updateReview(id = id, review = review) }
-    }
 
 }

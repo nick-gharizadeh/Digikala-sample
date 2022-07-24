@@ -6,14 +6,14 @@ import androidx.lifecycle.viewModelScope
 import com.example.digikalasample.data.model.FilterItem
 import com.example.digikalasample.data.model.product.Product
 import com.example.digikalasample.data.model.statusLiveData
-import com.example.digikalasample.data.repository.ProductsRepository
+import com.example.digikalasample.data.repository.SearchRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 @HiltViewModel
-class SearchViewModel @Inject constructor(private val productRepository: ProductsRepository) :
+class SearchViewModel @Inject constructor(private val searchRepository: SearchRepository) :
     ViewModel() {
     val searchedProductsList = MutableLiveData<List<Product>>()
     var orderCriterion: String? = "popularity"
@@ -26,7 +26,7 @@ class SearchViewModel @Inject constructor(private val productRepository: Product
         order: String = "asc"
     ) {
         viewModelScope.launch {
-            val searchResponse = productRepository.getProductsBySearch(searchQuery, orderBy, order)
+            val searchResponse = searchRepository.getProductsBySearch(searchQuery, orderBy, order)
             if (searchResponse.message == null)
                 searchedProductsList.value = searchResponse.data!!
             else
@@ -40,7 +40,7 @@ class SearchViewModel @Inject constructor(private val productRepository: Product
         order: String = "asc", attribute: String, attributeTerm: String
     ) {
         viewModelScope.launch {
-            val searchResponse = productRepository.getProductsBySearch(
+            val searchResponse = searchRepository.getProductsBySearch(
                 searchQuery,
                 orderBy,
                 order,
